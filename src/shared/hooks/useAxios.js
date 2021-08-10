@@ -14,9 +14,10 @@ export default function useAxios(method) {
       url,
     };
     if (body) {
-      opts = { ...opts, body: JSON.stringify(body) };
+      opts = { ...opts, data: JSON.stringify(body) };
     }
-    axios(opts)
+    console.log(opts)
+    await axios(opts)
       .then((res) => {
         setResponse(res.data);
       })
@@ -27,6 +28,7 @@ export default function useAxios(method) {
         setLoading(false);
       });
     return { response, error, loading };
+
   }
   return { callAPI };
 }
