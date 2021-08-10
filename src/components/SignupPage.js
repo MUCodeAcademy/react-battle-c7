@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+// import UserContext from "../shared/context/UserContext";
 import { Card, Form, Button, Container } from "react-bootstrap";
 // import { useContext } from "../shared/context/UserContext";
 // import { Link } from "react-router-dom";
@@ -78,7 +79,11 @@ function SignupPage() {
                     onClick={(e) => {
                       e.preventDefault();
 
-                      if (
+                      if (password !== password2) {
+                        setError("Passwords do not match");
+                      } else if (
+                        username &&
+                        password &&
                         username.length > 5 &&
                         password.length > 5 &&
                         username.length <= 20 &&
@@ -86,13 +91,11 @@ function SignupPage() {
                       ) {
                         setError(null);
                         setError2(null);
+                        // setError(signup(username, password));
                       } else {
                         setError2(
                           "Username and password must have between 5 and 20 characters."
                         );
-                      }
-                      if (password !== password2) {
-                        setError("Passwords do not match");
                       }
                     }}
                   >
