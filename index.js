@@ -13,4 +13,6 @@ app.get("*", (req, res) => {
   return res.sendFile("/build/index.html", { root: __dirname + "/" });
 });
 
-app.listen(PORT, () => `Hi there! Get ready to battle on port: ${PORT}`);
+app.listen(PORT, () =>
+  console.log(`Hi there! Get ready to battle on port: ${PORT}`)
+);
