@@ -16,6 +16,7 @@ router.post("/signup", (req, res) => {
 
 router.post("/login", (req, res) => {
   const { username, password } = req.body;
+  console.log(username, password)
   if (validate(username, password)) {
     return login(res, username, password);
   }
