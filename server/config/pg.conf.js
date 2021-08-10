@@ -6,6 +6,7 @@ const pool = new Pool({
   user: process.env.PGUSER,
   database: process.env.PGDATABASE,
   port: process.env.PGPORT,
+  ssl: { rejectUnauthorized: false },
 });
 
 pool.on("error", (err, client) => {
