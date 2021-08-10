@@ -25,3 +25,25 @@ async function signup(res, username, password) {
     return res.send(json);
   }
 }
+
+async function login(res, username, password) {
+  let json = { data: null, success: false, error: null };
+  try {
+    const users = await pool.query("SELECT * FROM users WHERE username = ?", [
+      username,
+    ]);
+    const user = users[0] || { password: "1234" };
+    const match = await bcrypt.compare(password, user.password);
+    if (match) {
+      json = { ...json, data: { username, uuid: user.uuid } };
+    } else {
+      json = { ...json, error: "Invalid username and/or password" };
+    }
+  } catch (err) {
+    json = { ...json, error: "something went wrong" };
+  } finally {
+    return res.send(json);
+  }
+}
+
+module.exports = { signup, login };
