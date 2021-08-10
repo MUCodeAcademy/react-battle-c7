@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const { pool } = require("../config/pg.conf");
+const pool = require("../config/pg.conf");
 const { v4: uuidv4 } = require("uuid");
 
 async function signup(res, username, password) {
