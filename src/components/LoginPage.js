@@ -56,7 +56,7 @@ function LoginPage() {
                   />
                 </Form.Group>
 
-                {error && <div>{error}</div>}
+                {error && <div><strong/> style={{ color: "red" }}{error}</div>}
 
                 <div className="w-100 text-center mt-3">
                   <Button
