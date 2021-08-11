@@ -69,8 +69,8 @@ function SignupPage() {
                   />
                 </Form.Group>
 
-                {error && <div>{error}</div>}
-                {error2 && <div>{error2}</div>}
+                {error && <div><strong/> style={{ color: "red" }}{error}</div>}
+                {error2 && <div><strong/> style={{ color: "red" }}{error2}</div>}
 
                 <div className="w-100 text-center mt-3">
                   <Button

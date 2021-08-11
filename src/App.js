@@ -1,12 +1,17 @@
-import React from "react";
-import useAxios from "./shared/hooks/useAxios";
+import React from 'react';
+import LoginPage from "./components/LoginPage";
+import SignupPage from "./components/SignupPage";
 
 function App() {
-  const { callAPI: postCall} = useAxios("POST")
-  return <div><button onClick={ async ()=>{
-    let res = await postCall("/api/users/signup", {username: "test123", password: "password"})
-    console.log(res);
-  }}>Post</button></div>;
+  return (
+
+    <div><LoginPage /><SignupPage />
+    </div>
+
+   
+
+
+  )
 }
 
 export default App;
