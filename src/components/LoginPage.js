@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Card, Form, Button, Container } from "react-bootstrap";
 import { UserContext } from "../shared/context/UserContext";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function LoginPage() {
   const { login } = useContext(UserContext);
@@ -81,9 +81,9 @@ function LoginPage() {
           </Card>
 
           <div id="remove">Future link to sign in page</div>
-          {/* <div className="tagMess w-100">
-            Need to Create an account? <Link to="/signup">Sign Up</Link>
-          </div> */}
+          <div className="tagMess w-100">
+            Need to Create an account? <Link to="/signuppage">Sign Up</Link>
+          </div>
         </div>
       </Container>
     </>

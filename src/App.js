@@ -6,25 +6,25 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
-import { UserContext } from "./shared/context";
+import { UserContext } from "./shared/context/UserContext";
 import "./App.css";
 import ProtectedRoute from "./shared/components/ProtectedRoute";
 import LoginPage from "./components/LoginPage"
 import SignupPage from "./components/SignupPage"
 import WaitingRoom from "./components/WaitingRoom"
 import GamePage from "./components/GamePage/GamePage"
-import Navibar from "./components/Navibar";
+// import Navibar from "./components/Navibar";
 
 function App() {
   const { username, logout } = useContext(UserContext);
 
   return (
     <Router>
-      <div classname="container">
+      <div className="container">
         <>
           <h3 className="m-3 d-flex justify-content-center">Lucky 7</h3><br />
           <h5 className="m-3 d-flex justify-content-center">Battleship</h5>
-<Navibar/>
+{/* <Navibar/> */}
 
           <NavLink
             activeClassName="active"
@@ -77,7 +77,7 @@ function App() {
               </ProtectedRoute>
 
               <Route path="*">
-                <Redirect to="/login" />
+                <Redirect to="/loginpage" />
               </Route>
 
             </Switch>
