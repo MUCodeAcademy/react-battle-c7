@@ -22,10 +22,10 @@ function App() {
   return (
     <Router>
 
-      <Container classname="container justify-content-center">
+      <Container classname="justify-content-center">
         <>
-          <h2 className="m-3 d-flex justify-content-center">Lucky 7</h2>
-          <h1 className="m-3 d-flex justify-content-center">Battleship</h1>
+          <h2>Lucky 7</h2>
+          <h1>Battleship</h1>
 <Navibar/>
 
           <NavLink
