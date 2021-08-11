@@ -17,7 +17,7 @@ import Navibar from "./components/Navibar";
 import { Container } from "react-bootstrap";
 
 function App() {
-  const { username, logout } = useContext(UserContext);
+  const { logout } = useContext(UserContext);
 
   return (
     <Router>
