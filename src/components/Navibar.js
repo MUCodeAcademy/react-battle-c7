@@ -1,12 +1,10 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import { Navbar, Nav } from "react-bootstrap";
 export default function Navibar() {
 	return (
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="#">
-					Login
+				<a class="navbar-brand">
+					Lucky 7   Battleship
 				</a>
 				<button
 					class="navbar-toggler"
@@ -22,30 +20,18 @@ export default function Navibar() {
 				<div class="collapse navbar-collapse" id="navbarNavDropdown">
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<a class="nav-link active" aria-current="page" href="#">
-								Home
+							<a class="nav-link active" aria-current="page" href="/loginpage">
+								Login
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">
-								Features
+							<a class="nav-link" href="/waitingroom">
+								Waiting Room
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">
-								Pricing
-							</a>
-						</li>
-						<li class="nav-item dropdown">
-							<a
-								class="nav-link dropdown-toggle"
-								href="#"
-								id="navbarDropdownMenuLink"
-								role="button"
-								data-bs-toggle="dropdown"
-								aria-expanded="false"
-							>
-								Dropdown link
+							<a class="nav-link" href="/about">
+								About
 							</a>
 						</li>
 					</ul>
