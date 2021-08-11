@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useCallback } from "react";
 import useAxios from "../hooks/useAxios";
 
 export const UserContext = createContext(null);
@@ -6,7 +6,7 @@ export const UserContext = createContext(null);
 export function UserProvider(props) {
   const [username, setUsername] = useState("");
 
-  const { callAPI: loginCall } = useAxios("GET");
+  const { callAPI: loginCall } = useAxios("POST");
   const { callAPI: signupCall } = useAxios("POST");
 
   const login = useCallback((username, password) => {
@@ -14,6 +14,7 @@ export function UserProvider(props) {
       const res = await loginCall("/api/users/login", { username, password });
       if (res.response.success) {
         setUsername(username);
+        return "Success"
       } else if (res.error) {
         return res.error;
       }
@@ -24,8 +25,10 @@ export function UserProvider(props) {
   const signup = useCallback((username, password) => {
     async function fetchData() {
       const res = await signupCall("/api/users/signup", { username, password });
+      console.log(res);
       if (res.response.success) {
         setUsername(username);
+        return "Success"
       } else if (res.error) {
         return res.error;
       }
@@ -34,7 +37,7 @@ export function UserProvider(props) {
   }, []);
 
   return (
-    <UserContext.Provider value={{ login, signup }}>
+    <UserContext.Provider value={{ login, signup, username }}>
       {props.children}
     </UserContext.Provider>
   );
