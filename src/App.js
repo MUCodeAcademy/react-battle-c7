@@ -15,6 +15,7 @@ import WaitingRoom from "./components/WaitingRoom"
 import GamePage from "./components/GamePage/GamePage"
 import Navibar from "./components/Navibar";
 import { Container } from "react-bootstrap";
+import ReactBootStrap from "react-bootstrap"
 
 function App() {
   // const { username, logout } = useContext(UserContext);
