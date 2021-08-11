@@ -86,8 +86,8 @@ function SignupPage() {
                       } else if (
                         username &&
                         password &&
-                        username.length > 5 &&
-                        password.length > 5 &&
+                        username.length >= 5 &&
+                        password.length >= 5 &&
                         username.length <= 20 &&
                         password.length <= 20
                       ) {
