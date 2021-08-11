@@ -45,7 +45,6 @@ function SignupPage() {
                 <Form.Group id="username">
                   <Form.Label>Username</Form.Label>
                   <Form.Control
-                    input
                     id="username"
                     onChange={(e) => setUsername(e.target.value)}
                     value={username}
@@ -55,7 +54,6 @@ function SignupPage() {
                 <Form.Group id="password">
                   <Form.Label>Password</Form.Label>
                   <Form.Control
-                    input
                     type="password"
                     onChange={(e) => setPassword(e.target.value)}
                     value={password}
@@ -65,7 +63,6 @@ function SignupPage() {
                 <Form.Group id="password2">
                   <Form.Label>Confirm Password</Form.Label>
                   <Form.Control
-                    input
                     type="password"
                     onChange={(e) => setPassword2(e.target.value)}
                     value={password2}

@@ -43,7 +43,6 @@ function LoginPage() {
                 <Form.Group id="username">
                   <Form.Label>Username</Form.Label>
                   <Form.Control
-                    input
                     id="username"
                     onChange={(e) => setUsername(e.target.value)}
                     value={username}
@@ -53,7 +52,6 @@ function LoginPage() {
                 <Form.Group id="password">
                   <Form.Label>Password</Form.Label>
                   <Form.Control
-                    input
                     type="password"
                     onChange={(e) => setPassword(e.target.value)}
                     value={password}
