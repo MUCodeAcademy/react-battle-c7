@@ -1,7 +1,7 @@
 import React from "react";
 
 function Board() {
-  return <div></div>;
+  return <div>This is the Board!</div>;
 }
 
 export default Board;
