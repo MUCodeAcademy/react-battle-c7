@@ -9,10 +9,10 @@ import {
 import { UserContext } from "./shared/context/UserContext";
 import "./App.css";
 import ProtectedRoute from "./shared/components/ProtectedRoute";
-import LoginPage from "./components/LoginPage"
-import SignupPage from "./components/SignupPage"
-import WaitingRoom from "./components/WaitingRoom"
-import GamePage from "./components/GamePage/GamePage"
+import LoginPage from "./components/LoginPage";
+import SignupPage from "./components/SignupPage";
+import WaitingRoom from "./components/WaitingRoom";
+import GamePage from "./components/GamePage/GamePage";
 import Navibar from "./components/Navibar";
 import About from "./components/About";
 import { Container } from "react-bootstrap";
@@ -22,41 +22,30 @@ function App() {
 
   return (
     <Router>
-
       <Container className="container">
         <>
-          <h3 className="m-3 d-flex justify-content-center">Lucky 7</h3><br />
+          <h3 className="m-3 d-flex justify-content-center">Lucky 7</h3>
+          <br />
           <h5 className="m-3 d-flex justify-content-center">Battleship</h5>
 
-<Navibar/>
+          {/* <Navibar/> */}
 
-
-          <NavLink
-            activeClassName="active"
-            to="/loginpage">
+          <NavLink activeClassName="active" to="/loginpage">
             Login
           </NavLink>
 
-          <NavLink
-            activeClassName="active"
-            to="/signuppage">
+          <NavLink activeClassName="active" to="/signuppage">
             Signup
           </NavLink>
 
-          <NavLink
-            activeClassName="active"
-            to="/gamepage">
+          <NavLink activeClassName="active" to="/gamepage">
             GameBoard
           </NavLink>
 
-          <NavLink
-            activeClassName="active"
-            to="/waitingroom">
+          <NavLink activeClassName="active" to="/waitingroom">
             WaitingRoom
           </NavLink>
-          <NavLink
-            activeClassName="active"
-            to="/about">
+          <NavLink activeClassName="active" to="/about">
             About
           </NavLink>
 
@@ -64,7 +53,8 @@ function App() {
             to="/login"
             onClick={() => {
               logout();
-            }}>
+            }}
+          >
             Logout
           </NavLink>
 
@@ -92,13 +82,11 @@ function App() {
               <Route path="*">
                 <Redirect to="/loginpage" />
               </Route>
-
             </Switch>
           </main>
         </>
       </Container>
     </Router>
-
   );
 }
 
