@@ -14,16 +14,18 @@ import SignupPage from "./components/SignupPage"
 import WaitingRoom from "./components/WaitingRoom"
 import GamePage from "./components/GamePage/GamePage"
 import Navibar from "./components/Navibar";
+import { Container } from "react-bootstrap";
 
 function App() {
-  const { username, logout } = useContext(UserContext);
+  // const { username, logout } = useContext(UserContext);
 
   return (
     <Router>
-      <div classname="container">
+
+      <Container classname="container justify-content-center">
         <>
-          <h3 className="m-3 d-flex justify-content-center">Lucky 7</h3><br />
-          <h5 className="m-3 d-flex justify-content-center">Battleship</h5>
+          <h2 className="m-3 d-flex justify-content-center">Lucky 7</h2>
+          <h1 className="m-3 d-flex justify-content-center">Battleship</h1>
 <Navibar/>
 
           <NavLink
@@ -50,13 +52,13 @@ function App() {
             WaitingRoom
           </NavLink>
 
-          <NavLink
+          {/* <NavLink
             to="/login"
             onClick={() => {
               logout();
             }}>
             Logout
-          </NavLink>
+          </NavLink> */}
 
           <main>
             <Switch>
@@ -83,7 +85,7 @@ function App() {
             </Switch>
           </main>
         </>
-      </div>
+      </Container>
     </Router>
 
   );
