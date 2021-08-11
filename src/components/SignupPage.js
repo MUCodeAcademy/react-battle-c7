@@ -1,15 +1,19 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Card, Form, Button, Container } from "react-bootstrap";
 import { UserContext } from "../shared/context/UserContext"
 import { Link } from "react-router-dom";
 
 function SignupPage() {
-  const { signup } = useContext(UserContext);
+  const { signup, message, setMessage } = useContext(UserContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const [error, setError] = useState(null);
   const [error2, setError2] = useState(null);
+
+  useEffect(()=>{
+    return setMessage("");
+  },[])
 
   return (
     <>
@@ -70,6 +74,7 @@ function SignupPage() {
 
                 {error && <div>{error}</div>}
                 {error2 && <div>{error2}</div>}
+                {message && <div>{message}</div>}
 
                 <div className="w-100 text-center mt-3">
                   <Button
@@ -104,7 +109,6 @@ function SignupPage() {
             </Card.Body>
           </Card>
 
-          <div id="remove">Future link to log in page</div>
            <div className="tagMess w-100">
             Need to Create an account? <Link to="/Loginpage">Login</Link>
           </div> 
