@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-// import UserContext from "../shared/context/UserContext";
+import React, { useState, useContext } from "react";
 import { Card, Form, Button, Container } from "react-bootstrap";
+import { UserContext } from "../shared/context/UserContext"
 // import { useContext } from "../shared/context/UserContext";
 // import { Link } from "react-router-dom";
 
 function SignupPage() {
-  // const { signup } = useContext(UserContext);
+  const { signup } = useContext(UserContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
@@ -69,8 +69,8 @@ function SignupPage() {
                   />
                 </Form.Group>
 
-                {error && <div><strong/> style={{ color: "red" }}{error}</div>}
-                {error2 && <div><strong/> style={{ color: "red" }}{error2}</div>}
+                {error && <div>{error}</div>}
+                {error2 && <div>{error2}</div>}
 
                 <div className="w-100 text-center mt-3">
                   <Button
@@ -78,7 +78,8 @@ function SignupPage() {
                     type="submit"
                     onClick={(e) => {
                       e.preventDefault();
-
+                      setError(null);
+                      setError2(null);
                       if (password !== password2) {
                         setError("Passwords do not match");
                       } else if (
@@ -89,12 +90,10 @@ function SignupPage() {
                         username.length <= 20 &&
                         password.length <= 20
                       ) {
-                        setError(null);
-                        setError2(null);
-                        // setError(signup(username, password));
+                        signup(username, password);
                       } else {
                         setError2(
-                          "Username and password must have between 5 and 20 characters."
+                          "Username and password must be between 5 and 20 characters."
                         );
                       }
                     }}

@@ -14,9 +14,9 @@ export function UserProvider(props) {
       const res = await loginCall("/api/users/login", { username, password });
       if (res.data.success === true) {
         setUsername(username);
-        return "Success"
+        console.log("Success");
       } else if (res.data.error) {
-        return res.data.error;
+        console.log(res.data.error);
       }
     }
     return fetchData();
@@ -28,9 +28,9 @@ export function UserProvider(props) {
       console.log(res.data);
       if (res.data.success === true) {
         setUsername(username);
-        return "Success"
+        console.log("success");
       } else if (res.data.error) {
-        return res.data.error;
+        console.log(res.data.error);
       }
     }
     return fetchData();
