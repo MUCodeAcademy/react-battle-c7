@@ -14,6 +14,7 @@ import SignupPage from "./components/SignupPage"
 import WaitingRoom from "./components/WaitingRoom"
 import GamePage from "./components/GamePage/GamePage"
 import Navibar from "./components/Navibar";
+import About from "./components/About";
 import { Container } from "react-bootstrap";
 
 function App() {
@@ -53,6 +54,11 @@ function App() {
             to="/waitingroom">
             WaitingRoom
           </NavLink>
+          <NavLink
+            activeClassName="active"
+            to="/about">
+            About
+          </NavLink>
 
           <NavLink
             to="/login"
@@ -78,6 +84,9 @@ function App() {
 
               <ProtectedRoute path="/waitingroom" reqUser={true}>
                 <WaitingRoom />
+              </ProtectedRoute>
+              <ProtectedRoute path="/about" reqUser={true}>
+                <About />
               </ProtectedRoute>
 
               <Route path="*">
