@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Card, Form, Button, Container } from "react-bootstrap";
 import { UserContext } from "../shared/context/UserContext"
-// import { useContext } from "../shared/context/UserContext";
 // import { Link } from "react-router-dom";
 
 function SignupPage() {

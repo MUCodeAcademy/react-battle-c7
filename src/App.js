@@ -4,8 +4,13 @@ import SignupPage from "./components/SignupPage";
 
 function App() {
   return (
+
     <div><LoginPage /><SignupPage />
     </div>
+
+   
+
+
   )
 }
 

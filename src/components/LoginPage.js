@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import { Card, Form, Button, Container } from "react-bootstrap";
-// import UserContext from "../shared/context/UserContext";
+import { UserContext } from "../shared/context/UserContext";
 // import { Link } from "react-router-dom";
 
 function LoginPage() {
-  // const { login } = useContext(UserContext);
+  const { login } = useContext(UserContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -67,7 +67,7 @@ function LoginPage() {
 
                       if (username && password) {
                         setError(null);
-                        // setError(login(username, password));
+                        login(username, password);
                       } else {
                         setError("Must enter a username and password");
                       }
