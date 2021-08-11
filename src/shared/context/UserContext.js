@@ -12,7 +12,7 @@ export function UserProvider(props) {
   const login = useCallback((username, password) => {
     async function fetchData() {
       const res = await loginCall("/api/users/login", { username, password });
-      if (res.response.success) {
+      if (res.response) {
         setUsername(username);
         return "Success"
       } else if (res.error) {
@@ -25,12 +25,12 @@ export function UserProvider(props) {
   const signup = useCallback((username, password) => {
     async function fetchData() {
       const res = await signupCall("/api/users/signup", { username, password });
-      console.log(res);
-      if (res.response.success) {
+      console.log(res.response);
+      if (res.response) {
         setUsername(username);
         return "Success"
-      } else if (res.error) {
-        return res.error;
+      } else if (res) {
+        return res;
       }
     }
     fetchData();

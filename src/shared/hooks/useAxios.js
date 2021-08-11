@@ -18,16 +18,19 @@ export default function useAxios(method) {
     }
     console.log(opts)
     await axios(opts)
-      .then((res) => {
-        setResponse(res.data);
+      .then(async (res) => {
+        await setResponse(res.data);
+        console.log(response)
       })
       .catch((err) => {
         setError(err);
       })
       .finally(() => {
         setLoading(false);
+        return {response, error, loading};
       });
-    return { response, error, loading };
+
+
 
   }
   return { callAPI };
