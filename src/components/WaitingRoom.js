@@ -14,6 +14,17 @@ const WaitingRoom = () => {
   const [roomNum, setRoomNum] = useState("");
   const history = useHistory();
   const [error, setError] = useState(null);
+  function genRoomNum() {
+    let randNum = "";
+    var chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var charsLength = chars.length;
+    for (var i = 0; i < 8; i++) {
+      randNum += chars.charAt(Math.floor(Math.random() * charsLength));
+    }
+    return randNum;
+  }
+
   return (
     <>
       <Container style={{ minHeight: "100vh", textAlign: "center" }}>
@@ -55,7 +66,19 @@ const WaitingRoom = () => {
                         >
                           <Button
                             onClick={(e) => {
-                              console.log(roomNum);
+                              // set limits of roomNum
+                              if (roomNum.length !== 8) {
+                                setError("Room Number must be 8 characters!");
+                              } else {
+                                setError(null);
+                                // TODO figure out how to tell if a room already exists
+
+                                // TODO Only let user join if room exists and if room only has one other user
+                                // history.push(`/game/${roomNum}`);
+                                console.log(
+                                  `Directing user to Game Room ${roomNum} NYI`
+                                );
+                              }
                             }}
                           >
                             Join room
@@ -88,7 +111,17 @@ const WaitingRoom = () => {
                       <Row>
                         <Col className="d-flex justify-content-center">
                           <Button
-                          // This will need to have on onclick function of generating a random room number and then joining that room.
+                            onClick={(e) => {
+                              //generate a random number
+                              let room = genRoomNum();
+                              //use history to redirect them
+                              console.log(
+                                `Directing user to Game Room ${room} NYI`
+                              );
+                              // TODO Only let user
+                              // history.push(`/game/${room}`);
+                            }}
+                            // This will need to have on onclick function of generating a random room number and then joining that room.
                           >
                             Host Room
                           </Button>
@@ -100,11 +133,15 @@ const WaitingRoom = () => {
                 </Card>
               </Col>
             </Row>
-            <Row>
-              <Col className="d-flex justify-content-center">
-                {error && <Alert variant="danger">{error}</Alert>}
-              </Col>
-            </Row>
+            {/* <Row>
+              <Col className="d-flex justify-content-center"> */}
+            {error && (
+              <Alert style={{ margin: "10px" }} variant="danger">
+                {error}
+              </Alert>
+            )}
+            {/* </Col>
+            </Row> */}
           </Col>
         </Row>
       </Container>
