@@ -1,13 +1,17 @@
-import React, { useState, useContext } from "react";
+import React, {useEffect, useState, useContext } from "react";
 import { Card, Form, Button, Container } from "react-bootstrap";
 import { UserContext } from "../shared/context/UserContext";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function LoginPage() {
-  const { login } = useContext(UserContext);
+  const { login, message, setMessage } = useContext(UserContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+
+  useEffect(()=>{
+    return setMessage("");
+  },[])
 
   return (
     <>
@@ -39,7 +43,6 @@ function LoginPage() {
                 <Form.Group id="username">
                   <Form.Label>Username</Form.Label>
                   <Form.Control
-                    input
                     id="username"
                     onChange={(e) => setUsername(e.target.value)}
                     value={username}
@@ -49,7 +52,6 @@ function LoginPage() {
                 <Form.Group id="password">
                   <Form.Label>Password</Form.Label>
                   <Form.Control
-                    input
                     type="password"
                     onChange={(e) => setPassword(e.target.value)}
                     value={password}
@@ -57,7 +59,7 @@ function LoginPage() {
                 </Form.Group>
 
                 {error && <div><strong/> style={{ color: "red" }}{error}</div>}
-
+                {message && <div>{message}</div>}
                 <div className="w-100 text-center mt-3">
                   <Button
                     className="w-100 mt-5"
@@ -80,10 +82,9 @@ function LoginPage() {
             </Card.Body>
           </Card>
 
-          <div id="remove">Future link to sign in page</div>
-          {/* <div className="tagMess w-100">
-            Need to Create an account? <Link to="/signup">Sign Up</Link>
-          </div> */}
+          <div className="tagMess w-100">
+            Need to Create an account? <Link to="/signuppage">Sign Up</Link>
+          </div>
         </div>
       </Container>
     </>

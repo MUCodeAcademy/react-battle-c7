@@ -5,6 +5,7 @@ export const UserContext = createContext(null);
 
 export function UserProvider(props) {
   const [username, setUsername] = useState("");
+  const [message, setMessage] = useState("");
 
   const { callAPI: loginCall } = useAxios("POST");
   const { callAPI: signupCall } = useAxios("POST");
@@ -15,8 +16,10 @@ export function UserProvider(props) {
       if (res.data.success === true) {
         setUsername(username);
         console.log("Success");
+        setMessage("Success");
       } else if (res.data.error) {
         console.log(res.data.error);
+        setMessage(res.data.error);
       }
     }
     return fetchData();
@@ -28,16 +31,20 @@ export function UserProvider(props) {
       console.log(res.data);
       if (res.data.success === true) {
         setUsername(username);
-        console.log("success");
+        setMessage("success");
       } else if (res.data.error) {
-        console.log(res.data.error);
+        setMessage(res.data.error);
       }
     }
     return fetchData();
   }, []);
 
+  const logout = useCallback(() => {
+    setUsername("");
+  },[])
+
   return (
-    <UserContext.Provider value={{ login, signup, username }}>
+    <UserContext.Provider value={{ login, signup, username, logout, message, setMessage }}>
       {props.children}
     </UserContext.Provider>
   );
