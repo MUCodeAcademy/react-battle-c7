@@ -6,7 +6,7 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
-import { UserContext } from "./shared/context";
+import { UserContext } from "./shared/context/UserContext";
 import "./App.css";
 import ProtectedRoute from "./shared/components/ProtectedRoute";
 import LoginPage from "./components/LoginPage"
@@ -18,16 +18,18 @@ import { Container } from "react-bootstrap";
 import ReactBootStrap from "react-bootstrap"
 
 function App() {
-  // const { username, logout } = useContext(UserContext);
+  const { logout } = useContext(UserContext);
 
   return (
     <Router>
 
-      <Container classname="justify-content-center">
+      <Container className="container">
         <>
-          <h2>Lucky 7</h2>
-          <h1>Battleship</h1>
+          <h3 className="m-3 d-flex justify-content-center">Lucky 7</h3><br />
+          <h5 className="m-3 d-flex justify-content-center">Battleship</h5>
+
 <Navibar/>
+
 
           <NavLink
             activeClassName="active"
@@ -53,13 +55,13 @@ function App() {
             WaitingRoom
           </NavLink>
 
-          {/* <NavLink
+          <NavLink
             to="/login"
             onClick={() => {
               logout();
             }}>
             Logout
-          </NavLink> */}
+          </NavLink>
 
           <main>
             <Switch>
@@ -80,7 +82,7 @@ function App() {
               </ProtectedRoute>
 
               <Route path="*">
-                <Redirect to="/login" />
+                <Redirect to="/loginpage" />
               </Route>
 
             </Switch>
