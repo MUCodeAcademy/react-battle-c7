@@ -46,9 +46,23 @@
 
 .flex {
   display: flex;
+  width: 100%;
 }
 .flexWrap {
   flex-flow: row wrap;
   justify-content: center;
 }
 
+.flexGrow {
+  flex-grow: 1;
+}
+.flex25{
+  flex-basis: calc(100% / 4 - 10px) ;
+}
+.flex75{
+  flex-basis: calc(100% / 4 * 3 - 10px);
+}
+
+.flexSpaceBetween {
+  justify-content: space-between;
+}

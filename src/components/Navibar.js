@@ -24,10 +24,10 @@ const {logout} = useContext(UserContext);
             Lucky 7 Battleship
           </Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="/login">Log In</Nav.Link>
-            <Nav.Link href="/signup">Sign Up</Nav.Link>
-            <Nav.Link href="/waitingroom">Waiting Room</Nav.Link>
-            <Nav.Link href="/about">About</Nav.Link>
+            <Nav.Link as={Link} to="/login">Log In</Nav.Link>
+            <Nav.Link as={Link} to="/signup">Sign Up</Nav.Link>
+            <Nav.Link as={Link} to="/waitingroom">Waiting Room</Nav.Link>
+            <Nav.Link as={Link} to="/about">About</Nav.Link>
             <Nav.Link onClick={()=>{logout()}}>Log Out</Nav.Link>
           </Nav>
         </Container>
