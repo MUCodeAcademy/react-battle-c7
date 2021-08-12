@@ -35,11 +35,15 @@ function App() {
               <SignupPage />
             </ProtectedRoute>
 
-            <ProtectedRoute path="/game" reqUser={true}>
-              <GamePage />
+            <ProtectedRoute path="/waiting" reqUser={true}>
+              <WaitingRoom />
             </ProtectedRoute>
 
-            <ProtectedRoute path="/waiting" reqUser={true}>
+            <ProtectedRoute path="/about" reqUser={true}>
+              <WaitingRoom />
+            </ProtectedRoute>
+
+            <ProtectedRoute path="/gameroom" reqUser={true}>
               <WaitingRoom />
             </ProtectedRoute>
 
@@ -50,7 +54,7 @@ function App() {
           </Switch>
         </main>
       </>
-     
+
     </Router >
 
   );
