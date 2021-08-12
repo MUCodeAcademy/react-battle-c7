@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import Cell from "./Cell";
 
-function Board() {
-  return <div>This is the Board!
-    <Cell coordinate={{hit: true, ship: false, coordinate: "A1", player: false}}/>
-  </div>;
+function Board({ board }) {
+  return (
+    <div className="flex flexWrap board">
+      {board.map((cell) => {
+        return <Cell coordinate={cell} />;
+      })}
+    </div>
+  );
 }
 
 export default Board;
