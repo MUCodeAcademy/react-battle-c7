@@ -65,4 +65,9 @@
 
 .flexSpaceBetween {
   justify-content: space-between;
+
+}
+
+.grid {width: 100px; height: 100px;
+
 }
