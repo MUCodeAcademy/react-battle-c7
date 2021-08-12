@@ -3,12 +3,15 @@ import socketIOClient from "socket.io-client";
 
 const CHAT_MESSAGE = "chatMessage";
 const SEND_GUESS = "sendGuess";
+const BOATS_READY = "boatsReady";
+// const GAME_END = "gameEnd";
 const SERVER_URL = "http://localhost:8080";
 
-const useSocket = (roomNum, username) => {
+const useSocket = (roomNum, isHost) => {
   const [color, setColor] = useState(null);
   const [messages, setMessages] = useState([]);
   const [currGuess, setCurrGuess] = useState(null);
+  const [isHostSoc] = useState(isHost);
   const socketRef = useRef();
   useEffect(() => {
     socketRef.current = socketIOClient(SERVER_URL, {
@@ -28,22 +31,35 @@ const useSocket = (roomNum, username) => {
       setCurrGuess(newGuess);
     });
 
+    socketRef.current.on(BOATS_READY, () => {
+      // Do something...
+      // set state to ready?
+    });
+
     return () => socketRef.current.disconnect();
   }, [roomNum]);
-
-  const sendChat = (msg) => {
+  // function passed to chat/gamePage that sends a message
+  const sendChat = useCallback((msg) => {
     socketRef.current.emit(CHAT_MESSAGE, {
       msg,
       username,
       color,
     });
-  };
+  }, []);
+  // function passed to game that sends a guess
+  const sendGuess = useCallback((newGuess) => {
+    socketRef.current.emit(SEND_GUESS, { ...newGuess });
+  }, []);
+  // function that determines boats are ready
+  const sendBoatsReady = useCallback((ready) => {
+    socketRef.current.emit(BOATS_READY, { ...ready });
+  }, []);
 
-  const sendGuess = (newGuess) => {
-    socketRef.current.emit("sendGuess", { ...newGuess, username });
-  };
+  const joinRoom = useCallback((username) => {
+    socketRef.current.emit("joinRoom", { ...username });
+  }, []);
 
-  return { messages, sendChat, sendGuess };
+  return { messages, sendChat, sendGuess, sendBoatsReady, joinRoom };
 };
 
 export default useSocket;
