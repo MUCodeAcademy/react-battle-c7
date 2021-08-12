@@ -20,7 +20,6 @@ async function signup(res, username, password) {
       json = { ...json, success: true };
     }
   } catch (err) {
-    console.log(err)
     json = { ...json, error: "something went wrong" };
   } finally {
     return res.send(json);
@@ -33,9 +32,7 @@ async function login(res, username, password) {
     const users = await pool.query("SELECT * FROM users WHERE username = $1", [
       username,
     ]);
-
-    console.log(users[0])
-    const user = users.rows[0] || { password: "1234" };
+    const user = users.rows[0] || { password: 1234 };
     const match = await bcrypt.compare(password, user.password);
     if (match) {
       json = { ...json, success: true, data: { username, uuid: user.uuid } };
@@ -43,7 +40,6 @@ async function login(res, username, password) {
       json = { ...json, error: "Invalid username and/or password" };
     }
   } catch (err) {
-    console.log(err);
     json = { ...json, error: "something went wrong" };
   } finally {
     return res.send(json);

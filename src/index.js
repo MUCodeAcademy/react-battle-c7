@@ -3,13 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import "bootstrap/dist/css/bootstrap.min.css";
-import {UserProvider} from "./shared/context/UserContext";
 
 ReactDOM.render(
-  <UserProvider>
+  <React.StrictMode>
     <App />
-  </UserProvider>,
+  </React.StrictMode>,
   document.getElementById('root')
 );
 
