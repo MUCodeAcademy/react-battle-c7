@@ -1,4 +1,5 @@
 import React from "react";
+import Chat from "./GamePage/components/Chat"
 
 
 export default function About() {
@@ -7,7 +8,7 @@ export default function About() {
 
 
 		<>
-		<p>About Text Here</p>
+		<Chat />
 		</>
 	);
 }

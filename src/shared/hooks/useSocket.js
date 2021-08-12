@@ -6,7 +6,7 @@ const SERVER_URL = "http://localhost:8080";
 
 const useSocket = (roomNum, username) => {
   const [color, setColor] = useState(null);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([{msg: "Hi", username: "Bob", color: "red"}]);
   const socketRef = useRef();
   useEffect(() => {
     socketRef.current = socketIOClient(SERVER_URL, {

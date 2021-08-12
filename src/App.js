@@ -39,7 +39,7 @@ function App() {
               <WaitingRoom />
             </ProtectedRoute>
 
-            <ProtectedRoute path="/about" reqUser={false}>
+            <ProtectedRoute path="/about" reqUser={true}>
               <About />
             </ProtectedRoute>
 
