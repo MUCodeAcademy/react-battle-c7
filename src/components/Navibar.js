@@ -14,7 +14,7 @@ export default function Navibar() {
     <Container>
       <Navbar.Brand>
         <img
-          src=".../public/assets/7battle.png"
+          src="./assets/7battle.png"
           alt=""
         color="white"
           width="30"
@@ -25,12 +25,10 @@ export default function Navibar() {
       </Navbar.Brand>
 <Nav className="me-auto">
       <Nav.Link href="/login">Log In</Nav.Link>
-      <Nav.Link href="/waitingroom">Sign Up</Nav.Link>
+      <Nav.Link href="/signuppage">Sign Up</Nav.Link>
       <Nav.Link href="#waitingroom">Waiting Room</Nav.Link>
-      <Nav.Link href="#home">Home</Nav.Link>
-      <Nav.Link href="#features">Features</Nav.Link>
-      <Nav.Link href="#pricing">Pricing</Nav.Link>
-    </Nav>
+      <Nav.Link href="#logout">Log Out</Nav.Link>
+      </Nav>
        </Container>
   </Navbar>
 </>
