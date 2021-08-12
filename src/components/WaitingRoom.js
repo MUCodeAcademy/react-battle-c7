@@ -27,28 +27,37 @@ const WaitingRoom = () => {
 
   return (
     <>
-      <Container style={{ minHeight: "100vh", textAlign: "center" }}>
-        <h1>Waiting Room</h1>
+      <Container
+        style={{
+          // minHeight: "50vh",
+          // textAlign: "center",
+          backgroundColor: "lightgray",
+          boxShadow: "4px 4px 5px darkgray",
+          marginTop: "10px",
+          maxWidth: "700px",
+        }}
+      >
+        <div style={{ textAlign: "center" }}>
+          <h2>Waiting Room</h2>
+        </div>
         <Row>
           <Col>
             <Row>
-              <Col md="6">
-                <Card style={{ margin: "10px" }}>
+              <Col sm="6">
+                <div style={{ margin: "10px" }}>
                   {/* Join a Group */}
                   <Card.Body
                     className="d-flex align-items-center justify-content-center"
-                    style={{
-                      backgroundColor: "lightgray",
-                      boxShadow: "4px 4px 5px darkgray",
-                      // minWidth: "350px",
-                      height: "200px",
-                    }}
+                    style={{ height: "200px", backgroundColor: "lightgray" }}
                   >
                     <Form>
                       <Form.Group>
                         <Row>
                           <Col>
-                            <h4>Enter Room Number:</h4>
+                            <div style={{ margin: "10px" }}>
+                              <h2>Join a Room!</h2>
+                            </div>
+                            <Form.Label>Room Number</Form.Label>
                           </Col>
                         </Row>
                         <Form.Control
@@ -89,23 +98,21 @@ const WaitingRoom = () => {
 
                     {/* Join random room */}
                   </Card.Body>
-                </Card>
+                </div>
               </Col>
-              <Col md="6">
-                <Card style={{ margin: "10px" }}>
+              <Col sm="6">
+                <div style={{ margin: "10px" }}>
                   <Card.Body
                     className="d-flex align-items-center justify-content-center"
                     style={{
-                      backgroundColor: "lightgray",
-                      boxShadow: "4px 4px 5px darkgray",
-                      // minWidth: "350px",
                       height: "200px",
+                      backgroundColor: "lightgray",
                     }}
                   >
                     <Form>
                       <Row>
                         <Col>
-                          <h4>Host a Room!</h4>
+                          <h2>Host a Room!</h2>
                         </Col>
                       </Row>
                       <Row>
@@ -130,7 +137,7 @@ const WaitingRoom = () => {
                     </Form>
                   </Card.Body>
                   {/* Host a group */}
-                </Card>
+                </div>
               </Col>
             </Row>
             {/* <Row>
