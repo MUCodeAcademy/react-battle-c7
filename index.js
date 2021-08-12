@@ -23,6 +23,9 @@ io.on("connection", (socket) => {
     const time = new Date().toString().split(" ")[4];
     io.in(roomNum).emit("chatMessage", { ...newMsg, time });
   });
+  socket.on("sendGuess", (newGuess) => {
+    io.in(roomNum).emit("sendGuess", { ...newGuess });
+  });
   // Leave the room on disconnect
   socket.on("disconnect", () => {
     socket.leave(roomNum);
