@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Card, Form, Button, Container } from "react-bootstrap";
-import { UserContext } from "../shared/context/UserContext"
+import { UserContext } from "../shared/context/UserContext";
 import { Link } from "react-router-dom";
 
 function SignupPage() {
@@ -11,9 +11,9 @@ function SignupPage() {
   const [error, setError] = useState(null);
   const [error2, setError2] = useState(null);
 
-  useEffect(()=>{
+  useEffect(() => {
     return setMessage("");
-  },[])
+  }, []);
 
   return (
     <>
@@ -106,9 +106,9 @@ function SignupPage() {
             </Card.Body>
           </Card>
 
-           <div className="tagMess w-100">
-            Need to Create an account? <Link to="/Loginpage">Login</Link>
-          </div> 
+          <div className="tagMess w-100">
+            Need to Create an account? <Link to="/Login">Login</Link>
+          </div>
         </div>
       </Container>
     </>
