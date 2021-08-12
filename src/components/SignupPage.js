@@ -107,7 +107,7 @@ function SignupPage() {
           </Card>
 
           <div className="tagMess w-100">
-            Need to Create an account? <Link to="/Login">Login</Link>
+            Need to Create an account? <Link to="/login">Login</Link>
           </div>
         </div>
       </Container>

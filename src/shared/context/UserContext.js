@@ -14,8 +14,8 @@ export function UserProvider(props) {
     async function fetchData() {
       const res = await loginCall("/api/users/login", { username, password });
       if (res.data.success === true) {
-        setUsername(username);
         console.log("Success");
+        setUsername(username);
         setMessage("Success");
       } else if (res.data.error) {
         console.log(res.data.error);

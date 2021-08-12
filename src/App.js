@@ -40,11 +40,11 @@ function App() {
             </ProtectedRoute>
 
             <ProtectedRoute path="/about" reqUser={true}>
-              <WaitingRoom />
+              <About />
             </ProtectedRoute>
 
             <ProtectedRoute path="/gameroom" reqUser={true}>
-              <WaitingRoom />
+              <GamePage />
             </ProtectedRoute>
 
             <Route path="*">
