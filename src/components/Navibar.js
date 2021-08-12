@@ -25,9 +25,10 @@ export default function Navibar() {
       </Navbar.Brand>
 <Nav className="me-auto">
       <Nav.Link href="/login">Log In</Nav.Link>
-      <Nav.Link href="/signuppage">Sign Up</Nav.Link>
-      <Nav.Link href="#waitingroom">Waiting Room</Nav.Link>
-      <Nav.Link href="#logout">Log Out</Nav.Link>
+      <Nav.Link href="/signup">Sign Up</Nav.Link>
+      <Nav.Link href="/waitingroom">Waiting Room</Nav.Link>
+       <Nav.Link href="/about">About</Nav.Link>
+<Nav.Link href="#logout">Log Out</Nav.Link>
       </Nav>
        </Container>
   </Navbar>
