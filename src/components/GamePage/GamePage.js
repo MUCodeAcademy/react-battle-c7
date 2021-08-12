@@ -4,7 +4,8 @@ import ScoreBoard from "./components/ScoreBoard";
 import Chat from "./components/Chat";
 
 function GamePage() {
-  return (<> <Board/>
+  return (<> 
+  <Board board={[]}/>
   <ScoreBoard/>
   <Chat />
   </>)
