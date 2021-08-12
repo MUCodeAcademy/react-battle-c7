@@ -14,6 +14,7 @@ import SignupPage from "./components/SignupPage"
 import WaitingRoom from "./components/WaitingRoom"
 import GamePage from "./components/GamePage/GamePage"
 import Navibar from "./components/Navibar";
+import About from "./components/About";
 
 
 function App() {
@@ -21,68 +22,36 @@ function App() {
 
   return (
     <Router>
-        <>
-<Navibar/>
+      <>
+        <Navibar />
 
-          <NavLink
-            activeClassName="active"
-            to="/loginpage">
-            Login
-          </NavLink>
+        <main>
+          <Switch>
+            <ProtectedRoute path="/login" reqUser={false}>
+              <LoginPage />
+            </ProtectedRoute>
 
-          <NavLink
-            activeClassName="active"
-            to="/signuppage">
-            Signup
-          </NavLink>
+            <ProtectedRoute path="/signup" reqUser={false}>
+              <SignupPage />
+            </ProtectedRoute>
 
-          <NavLink
-            activeClassName="active"
-            to="/gamepage">
-            GameBoard
-          </NavLink>
+            <ProtectedRoute path="/game" reqUser={true}>
+              <GamePage />
+            </ProtectedRoute>
 
-          <NavLink
-            activeClassName="active"
-            to="/waitingroom">
-            WaitingRoom
-          </NavLink>
+            <ProtectedRoute path="/waiting" reqUser={true}>
+              <WaitingRoom />
+            </ProtectedRoute>
 
-          <NavLink
-            to="/login"
-            onClick={() => {
-              logout();
-            }}>
-            Logout
-          </NavLink>
+            <Route path="*">
+              <Redirect to="/login" />
+            </Route>
 
-          <main>
-            <Switch>
-              <ProtectedRoute path="/loginpage" reqUser={false}>
-                <LoginPage />
-              </ProtectedRoute>
-
-              <ProtectedRoute path="/signuppage" reqUser={false}>
-                <SignupPage />
-              </ProtectedRoute>
-
-              <ProtectedRoute path="/gamepage" reqUser={true}>
-                <GamePage />
-              </ProtectedRoute>
-
-              <ProtectedRoute path="/waitingroom" reqUser={true}>
-                <WaitingRoom />
-              </ProtectedRoute>
-
-              <Route path="*">
-                <Redirect to="/loginpage" />
-              </Route>
-
-            </Switch>
-          </main>
-        </>
+          </Switch>
+        </main>
+      </>
      
-    </Router>
+    </Router >
 
   );
 }
