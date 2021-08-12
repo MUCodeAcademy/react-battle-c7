@@ -14,7 +14,8 @@ import SignupPage from "./components/SignupPage"
 import WaitingRoom from "./components/WaitingRoom"
 import GamePage from "./components/GamePage/GamePage"
 import Navibar from "./components/Navibar";
-import { Container } from "react-bootstrap";
+import About from "./components/About";
+
 
 function App() {
   const { logout } = useContext(UserContext);
