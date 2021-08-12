@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Card, Form, Button, Container } from "react-bootstrap";
 import { UserContext } from "../shared/context/UserContext";
 import { Link } from "react-router-dom";
@@ -9,9 +9,9 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-  useEffect(()=>{
+  useEffect(() => {
     return setMessage("");
-  },[])
+  }, []);
 
   return (
     <>
@@ -58,7 +58,12 @@ function LoginPage() {
                   />
                 </Form.Group>
 
-                {error && <div><strong/> style={{ color: "red" }}{error}</div>}
+                {error && (
+                  <div>
+                    <strong /> style={{ color: "red" }}
+                    {error}
+                  </div>
+                )}
                 {message && <div>{message}</div>}
                 <div className="w-100 text-center mt-3">
                   <Button
@@ -83,7 +88,7 @@ function LoginPage() {
           </Card>
 
           <div className="tagMess w-100">
-            Need to Create an account? <Link to="/signuppage">Sign Up</Link>
+            Need to Create an account? <Link to="/signup">Sign Up</Link>
           </div>
         </div>
       </Container>

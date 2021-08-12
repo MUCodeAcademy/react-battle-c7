@@ -39,12 +39,12 @@ function App() {
               <WaitingRoom />
             </ProtectedRoute>
 
-            <ProtectedRoute path="/about" reqUser={true}>
-              <WaitingRoom />
+            <ProtectedRoute path="/about" reqUser={false}>
+              <About />
             </ProtectedRoute>
 
             <ProtectedRoute path="/gameroom" reqUser={true}>
-              <WaitingRoom />
+              <GamePage />
             </ProtectedRoute>
 
             <Route path="*">
