@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Card, Form, Button, Container } from "react-bootstrap";
-import { UserContext } from "../shared/context/UserContext"
+import { UserContext } from "../shared/context/UserContext";
 import { Link } from "react-router-dom";
 
 function SignupPage() {
@@ -11,9 +11,9 @@ function SignupPage() {
   const [error, setError] = useState(null);
   const [error2, setError2] = useState(null);
 
-  useEffect(()=>{
+  useEffect(() => {
     return setMessage("");
-  },[])
+  }, []);
 
   return (
     <>
@@ -47,6 +47,22 @@ function SignupPage() {
                   <Form.Control
                     id="username"
                     onChange={(e) => setUsername(e.target.value)}
+                    onBlur={() => {
+                      if (
+                        username &&
+                        password &&
+                        username.length >= 5 &&
+                        password.length >= 5 &&
+                        username.length <= 20 &&
+                        password.length <= 20
+                      ) {
+                        setError2("");
+                      }
+                      else 
+                      {
+                        setError2("Username and password must be between 5 and 20 characters.")
+                      }
+                    }}
                     value={username}
                   />
                 </Form.Group>
@@ -56,6 +72,28 @@ function SignupPage() {
                   <Form.Control
                     type="password"
                     onChange={(e) => setPassword(e.target.value)}
+                    onBlur={() => {
+                      if (
+                        username &&
+                        password &&
+                        username.length >= 5 &&
+                        password.length >= 5 &&
+                        username.length <= 20 &&
+                        password.length <= 20
+                      ) {
+                        setError2("");
+                      }
+                      else 
+                      {
+                        setError2("Username and password must be between 5 and 20 characters.")
+                      }
+                      if (password === password2) {
+                        setError("");
+                      }
+                      else{
+                        setError("Passwords do not match")
+                      }
+                    }}
                     value={password}
                   />
                 </Form.Group>
@@ -65,13 +103,21 @@ function SignupPage() {
                   <Form.Control
                     type="password"
                     onChange={(e) => setPassword2(e.target.value)}
+                    onBlur={() => {
+                      if (password === password2) {
+                        setError("");
+                      }
+                      else {
+                        setError("Passwords do not match.")
+                      }
+                    }}
                     value={password2}
                   />
                 </Form.Group>
 
-                {error && <div>{error}</div>}
-                {error2 && <div>{error2}</div>}
-                {message && <div>{message}</div>}
+                {error && <div style={{ color: "red" }}>{error}</div>}
+                {error2 && <div style={{ color: "red" }}>{error2}</div>}
+                {message && <div style={{ color: "red" }}>{message}</div>}
 
                 <div className="w-100 text-center mt-3">
                   <Button
@@ -79,23 +125,17 @@ function SignupPage() {
                     type="submit"
                     onClick={(e) => {
                       e.preventDefault();
-                      setError(null);
-                      setError2(null);
-                      if (password !== password2) {
-                        setError("Passwords do not match");
-                      } else if (
+                      setMessage("");
+                      if (
                         username &&
                         password &&
                         username.length >= 5 &&
                         password.length >= 5 &&
                         username.length <= 20 &&
-                        password.length <= 20
+                        password.length <= 20 &&
+                        password === password2
                       ) {
                         signup(username, password);
-                      } else {
-                        setError2(
-                          "Username and password must be between 5 and 20 characters."
-                        );
                       }
                     }}
                   >
@@ -106,9 +146,9 @@ function SignupPage() {
             </Card.Body>
           </Card>
 
-           <div className="tagMess w-100">
-            Need to Create an account? <Link to="/Loginpage">Login</Link>
-          </div> 
+          <div className="tagMess w-100">
+            Need to Create an account? <Link to="/login">Login</Link>
+          </div>
         </div>
       </Container>
     </>

@@ -1,22 +1,37 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import { Navbar, Nav } from "react-bootstrap";
+import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
+import { Navbar, Container, Nav } from "react-bootstrap";
+import { UserContext } from "../shared/context/UserContext";
 
 export default function Navibar() {
+const {logout} = useContext(UserContext);
 
-	return (
-
-
-		<>
-			<Navbar bg="dark" expands="lg">
-				<Navbar.Collapse id="basic-navbar-nav">
-					<Nav>
-						< NavLink className="d-inline p-2 bg-dark text-white justify-content-center" to="/">Log In</NavLink>
-						< NavLink className="d-inline p-2 bg-dark text-white" to="/waitingroom">Waiting Room</NavLink>
-					</Nav>
-				</Navbar.Collapse>
-			</Navbar>
-		</>
-	);
+  return (
+    <>
+      <br />
+      <Navbar fixed="top" />
+      <Navbar bg="dark" variant="dark">
+        <Container>
+          <Navbar.Brand>
+            <img
+              src="./assets/7battle.png"
+              alt=""
+              color="white"
+              width="30"
+              height="30"
+              className="d-inline-block align-top"
+            />{" "}
+            Lucky 7 Battleship
+          </Navbar.Brand>
+          <Nav className="me-auto">
+            <Nav.Link as={Link} to="/login">Log In</Nav.Link>
+            <Nav.Link as={Link} to="/signup">Sign Up</Nav.Link>
+            <Nav.Link as={Link} to="/waitingroom">Waiting Room</Nav.Link>
+            <Nav.Link as={Link} to="/about">About</Nav.Link>
+            <Nav.Link onClick={()=>{logout()}}>Log Out</Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>
+    </>
+  );
 }
-

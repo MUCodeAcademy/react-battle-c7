@@ -7,7 +7,7 @@ function ProtectedRoute({ path, reqUser, children }) {
   if ((username && reqUser) || (!username && !reqUser)) {
     return <Route path={path}>{children}</Route>;
   } else {
-    return <Redirect to={reqUser ? "/loginpage" : "/waitingroom"} />;
+    return <Redirect to={reqUser ? "/login" : "/waiting"} />;
   }
 }
 

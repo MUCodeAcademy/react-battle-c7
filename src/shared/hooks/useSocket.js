@@ -21,7 +21,7 @@ const useSocket = (roomNum, isHost) => {
     });
 
     socketRef.current.on(CHAT_MESSAGE, (chatMsg) => {
-      setMessages((curr) => [...curr, chatMsg]);
+      setMessages((curr) => [chatMsg, ...curr]);
     });
 
     socketRef.current.on("userColor", ({ color }) => {

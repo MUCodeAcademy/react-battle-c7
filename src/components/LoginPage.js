@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Card, Form, Button, Container } from "react-bootstrap";
 import { UserContext } from "../shared/context/UserContext";
 import { Link } from "react-router-dom";
@@ -9,9 +9,9 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-  useEffect(()=>{
+  useEffect(() => {
     return setMessage("");
-  },[])
+  }, []);
 
   return (
     <>
@@ -45,6 +45,9 @@ function LoginPage() {
                   <Form.Control
                     id="username"
                     onChange={(e) => setUsername(e.target.value)}
+                    onBlur={() => {if(username && password && username.length > 0 && password.length > 0) {
+                      setError("");
+                    }}}
                     value={username}
                   />
                 </Form.Group>
@@ -54,11 +57,18 @@ function LoginPage() {
                   <Form.Control
                     type="password"
                     onChange={(e) => setPassword(e.target.value)}
+                    onBlur={() => {if (username && password && username.length > 0 && password.length > 0) {
+                      setError("");
+                    }}}
                     value={password}
                   />
                 </Form.Group>
 
-                {error && <div><strong/> style={{ color: "red" }}{error}</div>}
+                {error && (
+                  <div style={{ color: "red" }}>
+                    {error}
+                  </div>
+                )}
                 {message && <div>{message}</div>}
                 <div className="w-100 text-center mt-3">
                   <Button
@@ -66,8 +76,7 @@ function LoginPage() {
                     type="submit"
                     onClick={(e) => {
                       e.preventDefault();
-
-                      if (username && password) {
+                      if (username && password && username.length > 0 && password.length > 0) {
                         setError(null);
                         login(username, password);
                       } else {
@@ -83,7 +92,7 @@ function LoginPage() {
           </Card>
 
           <div className="tagMess w-100">
-            Need to Create an account? <Link to="/signuppage">Sign Up</Link>
+            Need to Create an account? <Link to="/signup">Sign Up</Link>
           </div>
         </div>
       </Container>
