@@ -19,7 +19,7 @@ io.on("connection", (socket) => {
   // Join the specific room
   socket.on("joinRoom", ({ username }) => {
     socket.join(roomNum);
-    io.in(roomNum).emit("message", {
+    io.in(roomNum).emit("chatMessage", {
       username: "Game Master",
       body: `${username} has joined the room`,
     });
