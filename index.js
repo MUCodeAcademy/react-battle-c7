@@ -32,13 +32,16 @@ io.on("connection", (socket) => {
   });
   // When guess received, send to room
   socket.on("sendGuess", (newGuess) => {
-    io.in(roomNum).emit("sendGuess", { ...newGuess });
+    console.log("Received sendGuess from Front End successfuly", newGuess);
+    io.to(roomNum).emit("sendGuess", { ...newGuess });
   });
   // When both players confirm, set boats ready?
-  socket.on("boatsReady", (player) => {
+  socket.on("boatsReady", (ready) => {
     //
     // have button emit boatsReady event
-    io.in(roomNum).emit("boatsReady", { ...player });
+    console.log("Received boatsReady from Front End", ready);
+
+    io.in(roomNum).emit("boatsReady", { ...ready });
   });
   // When game is ended, send to room
   // socket.on("gameEnd", (something) => {

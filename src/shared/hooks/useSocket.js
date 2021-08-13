@@ -29,12 +29,14 @@ const useSocket = (roomNum, isHost) => {
     });
 
     socketRef.current.on(SEND_GUESS, (newGuess) => {
-      // set current move? Do something...
+      console.log(`Received sendGuess from backend successfuly`);
+      // console.log(newGuess);
     });
 
     socketRef.current.on(BOATS_READY, () => {
       // Do something...
       // set state to ready?
+      console.log(`Received boatsReady from backend successfuly`);
     });
 
     return () => socketRef.current.disconnect();
