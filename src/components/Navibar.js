@@ -4,7 +4,7 @@ import { Navbar, Container, Nav } from "react-bootstrap";
 import { UserContext } from "../shared/context/UserContext";
 
 export default function Navibar() {
-const {logout} = useContext(UserContext);
+  const { username, logout } = useContext(UserContext);
 
   return (
     <>
@@ -24,11 +24,33 @@ const {logout} = useContext(UserContext);
             Lucky 7 Battleship
           </Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/login">Log In</Nav.Link>
-            <Nav.Link as={Link} to="/signup">Sign Up</Nav.Link>
-            <Nav.Link as={Link} to="/waitingroom">Waiting Room</Nav.Link>
-            <Nav.Link as={Link} to="/about">About</Nav.Link>
-            <Nav.Link onClick={()=>{logout()}}>Log Out</Nav.Link>
+            {!username && (
+              <>
+                <Nav.Link as={Link} to="/login">
+                  Log In
+                </Nav.Link>
+                <Nav.Link as={Link} to="/signup">
+                  Sign Up
+                </Nav.Link>
+              </>
+            )}
+            {username && (
+              <>
+                <Nav.Link as={Link} to="/waitingroom">
+                  Waiting Room
+                </Nav.Link>
+                <Nav.Link as={Link} to="/about">
+                  About
+                </Nav.Link>
+                <Nav.Link
+                  onClick={() => {
+                    logout();
+                  }}
+                >
+                  Log Out
+                </Nav.Link>
+              </>
+            )}
           </Nav>
         </Container>
       </Navbar>
