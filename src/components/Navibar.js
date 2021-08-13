@@ -8,7 +8,6 @@ export default function Navibar() {
 
   return (
     <>
-      {/* <Navbar expand="lg" collapseOnSelect fixed="top" /> */}
       <Navbar bg="dark" variant="dark" expand="sm" collapseOnSelect>
         <Container>
           <Navbar.Brand>
