@@ -19,11 +19,11 @@ function SignupPage() {
     <>
       <Container
         className="d-flex align-items-center justify-content-center"
-        style={{ minHeight: "100vh" }}
+        // style={{ minHeight: "100vh" }}
       >
         <div
           className=" justify-content-center"
-          style={{ maxWidth: "400px" }}
+          style={{ maxWidth: "300px" }}
         ></div>
         <div>
           <Card>
@@ -31,7 +31,7 @@ function SignupPage() {
               style={{
                 backgroundColor: "lightgray",
                 boxShadow: "4px 4px 5px darkgray",
-                width: "350px",
+                width: "300px",
               }}
             >
               <h2 className="mt-2 text-center">
