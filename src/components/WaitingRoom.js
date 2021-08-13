@@ -83,7 +83,7 @@ const WaitingRoom = () => {
                                 // TODO figure out how to tell if a room already exists
 
                                 // TODO Only let user join if room exists and if room only has one other user
-                                history.push(`/game/${roomNum}`);
+                                history.push(`/gamepage/${roomNum}`);
                                 console.log(
                                   `Directing user to Game Room ${roomNum} NYI`
                                 );
@@ -126,7 +126,7 @@ const WaitingRoom = () => {
                                 `Directing user to Game Room ${room} NYI`
                               );
                               // TODO Only let user
-                              history.push(`/game/${room}`);
+                              history.push(`/gamepage/${room}`);
                             }}
                             // This will need to have on onclick function of generating a random room number and then joining that room.
                           >
