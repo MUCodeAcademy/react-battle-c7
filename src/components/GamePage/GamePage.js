@@ -5,6 +5,7 @@ import Board from "./components/Board";
 import ScoreBoard from "./components/ScoreBoard";
 import useSocket from "../../shared/hooks/useSocket";
 import { useParams } from "react-router-dom";
+import { UserContext } from "../../shared/context/UserContext";
 
 const arr = [
   { player: false, hit: false, ship: true, coordinate: "" },
@@ -213,10 +214,11 @@ const arr1 = [
 ];
 
 export default function GamePage() {
+  const { username } = useContext(UserContext);
   const { roomNum } = useParams();
   const { joinRoom } = useSocket(roomNum, true);
   useEffect(() => {
-    joinRoom();
+    joinRoom(username);
   }, []);
   return (
     <>
