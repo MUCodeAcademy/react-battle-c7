@@ -31,7 +31,7 @@ function SignupPage() {
               style={{
                 backgroundColor: "lightgray",
                 boxShadow: "4px 4px 5px darkgray",
-                minWidth: "350px",
+                width: "350px",
               }}
             >
               <h2 className="mt-2 text-center">
@@ -57,10 +57,10 @@ function SignupPage() {
                         password.length <= 20
                       ) {
                         setError2("");
-                      }
-                      else 
-                      {
-                        setError2("Username and password must be between 5 and 20 characters.")
+                      } else {
+                        setError2(
+                          "Username and password must be between 5 and 20 characters."
+                        );
                       }
                     }}
                     value={username}
@@ -82,16 +82,15 @@ function SignupPage() {
                         password.length <= 20
                       ) {
                         setError2("");
-                      }
-                      else 
-                      {
-                        setError2("Username and password must be between 5 and 20 characters.")
+                      } else {
+                        setError2(
+                          "Username and password must be between 5 and 20 characters."
+                        );
                       }
                       if (password === password2) {
                         setError("");
-                      }
-                      else{
-                        setError("Passwords do not match")
+                      } else {
+                        setError("Passwords do not match");
                       }
                     }}
                     value={password}
@@ -106,9 +105,8 @@ function SignupPage() {
                     onBlur={() => {
                       if (password === password2) {
                         setError("");
-                      }
-                      else {
-                        setError("Passwords do not match.")
+                      } else {
+                        setError("Passwords do not match.");
                       }
                     }}
                     value={password2}
