@@ -17,15 +17,40 @@ io.on("connection", (socket) => {
   socket.emit("userColor", { color: randColor });
 
   // Join the specific room
-  socket.join(roomNum);
+  socket.on("joinRoom", ({ username }) => {
+    socket.join(roomNum);
+    io.in(roomNum).emit("message", {
+      username: "Game Master",
+      body: `${username} has joined the room`,
+    });
+  });
+
   // When message received, send to room
   socket.on("chatMessage", (newMsg) => {
     const time = new Date().toString().split(" ")[4];
     io.in(roomNum).emit("chatMessage", { ...newMsg, time });
   });
+  // When guess received, send to room
+  socket.on("sendGuess", (newGuess) => {
+    console.log("Received sendGuess from Front End successfuly", newGuess);
+    io.to(roomNum).emit("sendGuess", { ...newGuess });
+  });
+  // When both players confirm, set boats ready?
+  socket.on("boatsReady", (ready) => {
+    //
+    // have button emit boatsReady event
+    console.log("Received boatsReady from Front End", ready);
+
+    io.in(roomNum).emit("boatsReady", { ...ready });
+  });
+  // When game is ended, send to room
+  // socket.on("gameEnd", (something) => {
+  //   io.in(roomNum).emit("gameEnd", { something });
+  // });
   // Leave the room on disconnect
-  socket.on("disconnect", () => {
+  socket.on("disconnect", (data) => {
     socket.leave(roomNum);
+    io.in(roomNum).emit("leftMessage", { ...data });
   });
 });
 

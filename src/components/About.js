@@ -1,82 +1,23 @@
 import React from "react";
-import { Container, Col, Row, Card, ListGroupItem, ListGroup } from "react-bootstrap"
-import Chat from "./GamePage/components/Chat"
-import Cell from "./GamePage/components/Cell"
+import Chat from "./GamePage/components/Chat";
 
 export default function About() {
-
-	return (
-		<>
-			<Container fluid ="lg" style={{ backgroundColor: "blue", color: "darkblue" }}>
-
-
-				<Row lg={1}>
-					<Col style={{ backgroundColor: "gray" }} ><Card style={{ width: '' }}>
-						<Card.Body>
-							<Card.Title>Scoreboard:</Card.Title>
-							<Card.Text>
-								<div>HITS:</div>
-								<div>MISS:</div>
-							</Card.Text>
-						</Card.Body>
-						<ListGroup className="list-group-flush">
-
-						</ListGroup>
-						<Card.Body>
-							Ships: 2 3 4 5
-						</Card.Body>
-					</Card></Col>
-
-				</Row>
-				<Row className="justify-content-md-center" lx={2}>
-					<Col md={10} style={{ backgroundColor: "gray" }} ><Card style={{ maxWidth: '260px', minWidth: '260px' }} >
-						<Card.Body>
-							<Card.Header as="h5">My Board:</Card.Header>
-							<Card.Text>
-    <div style={{ height: "260px", width: "260px" }}></div>
-								
-							</Card.Text>
-						</Card.Body>
-
-						<Card.Body>
-
-						</Card.Body>
-					</Card></Col>
-
-
-
-					<Col md={10} style={{ backgroundColor: "gray" }} ><Card style={{ maxWidth: '260px', minWidth: '260px' }}>
-						<Card.Body>
-							<Card.Header as="h5">Your Board:</Card.Header>
-
-							<Card.Text>
-								<div style={{ height: "260px", width: "260px" }}></div>
-							</Card.Text>
-						</Card.Body>
-
-						<Card.Body>
-
-						</Card.Body>
-					</Card></Col>
-				</Row>
-
-
-
-
-				<Row lg={1}>
-					<Col style={{ backgroundColor: "gray" }} >
-						<Card style={{ width: '' }}>
-							<Card.Body>
-								<Card.Title>CHAT:</Card.Title>
-								<Card.Text>
-									
-								</Card.Text>
-							</Card.Body>
-<div><Chat/></div>
-						</Card></Col>
-				</Row>
-			</Container>
-
-		</>
-	);
+  return (
+    <div className="bgAbout">
+      <p>
+        <strong>
+          Welcome to Lucky 7 Battleship! Created by the 7th cohort of Midland
+          Code Academy. Sign up and Login or if you’re already signed up, log
+          in. Select start game to retrieve a play code or join game to enter a
+          code from the host. Select the ship you want to place on your grid and
+          do this for all four ships varying in length from 2 to 5.
+          Confirm/Ready (button) to start game. Play moves back and forth
+          between players, as they click on the opponent’s grid to select a hit
+          or miss. White peg is a miss. Red peg is a hit. A total of 14 hits
+          wins the game. Keep watch on the Scoreboard for your stats. Do you
+          feel lucky?
+        </strong>
+      </p>
+    </div>
+  );
 }

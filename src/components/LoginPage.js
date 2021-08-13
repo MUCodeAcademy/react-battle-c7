@@ -45,6 +45,9 @@ function LoginPage() {
                   <Form.Control
                     id="username"
                     onChange={(e) => setUsername(e.target.value)}
+                    onBlur={() => {if(username && password && username.length > 0 && password.length > 0) {
+                      setError("");
+                    }}}
                     value={username}
                   />
                 </Form.Group>
@@ -54,13 +57,15 @@ function LoginPage() {
                   <Form.Control
                     type="password"
                     onChange={(e) => setPassword(e.target.value)}
+                    onBlur={() => {if (username && password && username.length > 0 && password.length > 0) {
+                      setError("");
+                    }}}
                     value={password}
                   />
                 </Form.Group>
 
                 {error && (
-                  <div>
-                    <strong /> style={{ color: "red" }}
+                  <div style={{ color: "red" }}>
                     {error}
                   </div>
                 )}
@@ -71,8 +76,7 @@ function LoginPage() {
                     type="submit"
                     onClick={(e) => {
                       e.preventDefault();
-
-                      if (username && password) {
+                      if (username && password && username.length > 0 && password.length > 0) {
                         setError(null);
                         login(username, password);
                       } else {

@@ -17,6 +17,10 @@
   margin:auto;
 }
 
+.bg-black{
+  background-color: black;
+}
+
 .bg-blue{
   background-color: slateblue;
 }

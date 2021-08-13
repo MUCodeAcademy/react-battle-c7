@@ -16,7 +16,6 @@ import GamePage from "./components/GamePage/GamePage";
 import Navibar from "./components/Navibar";
 import About from "./components/About";
 
-
 function App() {
   const { logout } = useContext(UserContext);
 
@@ -39,13 +38,15 @@ function App() {
               <WaitingRoom />
             </ProtectedRoute>
 
-            <ProtectedRoute path="/about" reqUser={false}>
+            <Route path="/about">
               <About />
-            </ProtectedRoute>
+            </Route>
 
-            <ProtectedRoute path="/gameroom" reqUser={true}>
+            <ProtectedRoute path="/gamepage/:room" reqUser={true}>
               <GamePage />
             </ProtectedRoute>
+
+
 
             <Route path="*">
               <Redirect to="/login" />
@@ -53,10 +54,7 @@ function App() {
           </Switch>
         </main>
       </>
-
-    </Router >
-
-
+    </Router>
   );
 }
 
