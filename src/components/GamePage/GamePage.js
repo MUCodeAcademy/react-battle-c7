@@ -1,40 +1,139 @@
 import React from "react";
-import { Container, Col, Row, Card, ListGroupItem, ListGroup } from "react-bootstrap"
-import Chat from "./GamePage/components/Chat"
-import Cell from "./GamePage/components/Cell"
+import { Col, Row, Card  } from "react-bootstrap";
+import Chat from "./GamePage/components/Chat";
+import Cell from "./GamePage/components/Cell";
+import ScoreBoard from "./GamePage/components/ScoreBoard";
+import Board from "./GamePage/components/Board";
 
-export default function GamePage() {
+
+const arr = [
+  { player: false, hit: false, ship: true, coordinate: "" },
+  { player: false, hit: true, ship: true, coordinate: "" },
+  { player: false, hit: false, ship: true, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: true, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: true, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: false, ship: false, coordinate: "" },
+  { player: false, hit: true, ship: true, coordinate: "" },
+  { player: false, hit: true, ship: true, coordinate: "" },
+  { player: false, hit: true, ship: true, coordinate: "" },
+  { player: false, hit: true, ship: true, coordinate: "" },
+  { player: false, hit: true, ship: true, coordinate: "" },
+];
+
+
+
+export default function About() {
 
 	return (
 		<>
-			<Container fluid ="lg" style={{ backgroundColor: "blue", color: "darkblue" }}>
+<div className="bigShell">
+			<Card fluid="lg" style={{ backgroundColor: "blue", color: "darkblue" }}>
 
 
 				<Row lg={1}>
-					<Col style={{ backgroundColor: "gray" }} ><Card style={{ width: '' }}>
+					<Col style={{ backgroundColor: "gray" }} ><Card>
 						<Card.Body>
-							<Card.Title>Scoreboard:</Card.Title>
-							<Card.Text>
-								<div>HITS:</div>
-								<div>MISS:</div>
-							</Card.Text>
-						</Card.Body>
-						<ListGroup className="list-group-flush">
-
-						</ListGroup>
-						<Card.Body>
-							Ships: 2 3 4 5
+							<ScoreBoard />
 						</Card.Body>
 					</Card></Col>
 
 				</Row>
-				<Row className="justify-content-md-center" lx={2}>
-					<Col md={10} style={{ backgroundColor: "gray" }} ><Card style={{ maxWidth: '260px', minWidth: '260px' }} >
+				<Row  >
+					<Col style={{ backgroundColor: "gray" }} ><Card style={{ maxWidth: '260px', minWidth: '260px' }} >
 						<Card.Body>
 							<Card.Header as="h5">My Board:</Card.Header>
 							<Card.Text>
-    <div style={{ height: "260px", width: "260px" }}></div>
-								
+								<div style={{ height: "260px", width: "260px" }}><app/></div>
+
 							</Card.Text>
 						</Card.Body>
 
@@ -45,9 +144,9 @@ export default function GamePage() {
 
 
 
-					<Col md={10} style={{ backgroundColor: "gray" }} ><Card style={{ maxWidth: '260px', minWidth: '260px' }}>
+					<Col style={{ backgroundColor: "gray" }} ><Card style={{ maxWidth: '260px', minWidth: '260px' }}>
 						<Card.Body>
-							<Card.Header as="h5">Your Board:</Card.Header>
+							<Card.Header as="h5">Opponent Board:</Card.Header>
 
 							<Card.Text>
 								<div style={{ height: "260px", width: "260px" }}></div>
@@ -65,17 +164,18 @@ export default function GamePage() {
 
 				<Row lg={1}>
 					<Col style={{ backgroundColor: "gray" }} >
-						<Card style={{ width: '' }}>
+						<Card >
 							<Card.Body>
 								<Card.Title>CHAT:</Card.Title>
 								<Card.Text>
-									
+
 								</Card.Text>
 							</Card.Body>
-<div><Chat/></div>
+							<div><Chat /></div>
 						</Card></Col>
 				</Row>
-			</Container>
+			</Card>
+</div>
 
 		</>
 	);
