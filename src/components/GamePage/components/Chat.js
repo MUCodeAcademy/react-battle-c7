@@ -1,26 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import useSocket from "../../../shared/hooks/useSocket";
 import { Card, Form, Button, Container, Row, Col } from "react-bootstrap";
+import { UserContext } from "../../../shared/context/UserContext";
 
 function Chat() {
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState(["hi"]);
-  // const { sendChat, messages } = useSocket;
-  function sendChat(message) {
-    setMessages((curr) => [message, ...curr]);
-  }
+  const { username } = useContext(UserContext);
+  const { messages, sendChat } = useSocket(12345678, username);
   return (
     <Container fluid>
-      <Card className="chat">
+      <Card className="chat bg-black">
         {messages.map((msg) => {
-          return <Card.Text>{msg}</Card.Text>;
+          return <Card.Text style={{color: msg.color}}>{`${msg.username}: ${msg.msg}`}</Card.Text>;
         })}
       </Card>
       <Row className="flex flexSpaceBetween">
         <Form.Group className="flex75 flexGrow" id="">
           <Form.Control
             onKeyPress={(e) => {
-              if (e.key === "Enter" && message.length > 1) {
+              if (e.key === "Enter" && message.length > 0) {
                 sendChat(message);
                 setMessage("");
               } 

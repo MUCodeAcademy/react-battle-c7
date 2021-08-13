@@ -42,9 +42,11 @@ function App() {
               <About />
             </Route>
 
-            <ProtectedRoute path="/gameroom" reqUser={true}>
+            <ProtectedRoute path="/gamepage/:room" reqUser={true}>
               <GamePage />
             </ProtectedRoute>
+
+
 
             <Route path="*">
               <Redirect to="/login" />
