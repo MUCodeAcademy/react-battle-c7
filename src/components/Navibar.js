@@ -8,9 +8,8 @@ export default function Navibar() {
 
   return (
     <>
-      <br />
-      <Navbar fixed="top" />
-      <Navbar bg="dark" variant="dark">
+      {/* <Navbar expand="lg" collapseOnSelect fixed="top" /> */}
+      <Navbar bg="dark" variant="dark" expand="sm" collapseOnSelect>
         <Container>
           <Navbar.Brand>
             <img
@@ -20,38 +19,41 @@ export default function Navibar() {
               width="30"
               height="30"
               className="d-inline-block align-top"
-            />{" "}
+            />
             Lucky 7 Battleship
           </Navbar.Brand>
-          <Nav className="me-auto">
-            {!username && (
-              <>
-                <Nav.Link as={Link} to="/login">
-                  Log In
-                </Nav.Link>
-                <Nav.Link as={Link} to="/signup">
-                  Sign Up
-                </Nav.Link>
-              </>
-            )}
-            {username && (
-              <>
-                <Nav.Link as={Link} to="/waitingroom">
-                  Waiting Room
-                </Nav.Link>
-                <Nav.Link as={Link} to="/about">
-                  About
-                </Nav.Link>
-                <Nav.Link
-                  onClick={() => {
-                    logout();
-                  }}
-                >
-                  Log Out
-                </Nav.Link>
-              </>
-            )}
-          </Nav>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="me-auto">
+              {!username && (
+                <>
+                  <Nav.Link as={Link} to="/login">
+                    Log In
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/signup">
+                    Sign Up
+                  </Nav.Link>
+                </>
+              )}
+              {username && (
+                <>
+                  <Nav.Link as={Link} to="/waitingroom">
+                    Waiting Room
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/about">
+                    About
+                  </Nav.Link>
+                  <Nav.Link
+                    onClick={() => {
+                      logout();
+                    }}
+                  >
+                    Log Out
+                  </Nav.Link>
+                </>
+              )}
+            </Nav>
+          </Navbar.Collapse>
         </Container>
       </Navbar>
     </>
