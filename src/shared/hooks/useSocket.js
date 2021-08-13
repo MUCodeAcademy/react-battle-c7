@@ -1,5 +1,6 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback, useContext } from "react";
 import socketIOClient from "socket.io-client";
+import { UserContext } from "../context/UserContext";
 
 const CHAT_MESSAGE = "chatMessage";
 const SEND_GUESS = "sendGuess";
@@ -8,6 +9,7 @@ const BOATS_READY = "boatsReady";
 const SERVER_URL = "http://localhost:8080";
 
 const useSocket = (roomNum, isHost) => {
+  const { username } = useContext(UserContext);
   const [color, setColor] = useState(null);
   const [messages, setMessages] = useState([]);
   const [currGuess, setCurrGuess] = useState(null);
@@ -28,7 +30,6 @@ const useSocket = (roomNum, isHost) => {
 
     socketRef.current.on(SEND_GUESS, (newGuess) => {
       // set current move? Do something...
-      setCurrGuess(newGuess);
     });
 
     socketRef.current.on(BOATS_READY, () => {
@@ -48,10 +49,12 @@ const useSocket = (roomNum, isHost) => {
   }, []);
   // function passed to game that sends a guess
   const sendGuess = useCallback((newGuess) => {
+    console.log(newGuess);
     socketRef.current.emit(SEND_GUESS, { ...newGuess });
   }, []);
   // function that determines boats are ready
   const sendBoatsReady = useCallback((ready) => {
+    console.log(ready);
     socketRef.current.emit(BOATS_READY, { ...ready });
   }, []);
 
@@ -59,7 +62,7 @@ const useSocket = (roomNum, isHost) => {
     socketRef.current.emit("joinRoom", { ...username });
   }, []);
 
-  return { messages, sendChat, sendGuess, sendBoatsReady, joinRoom };
+  return { messages, sendChat, sendGuess, sendBoatsReady, joinRoom, isHost };
 };
 
 export default useSocket;

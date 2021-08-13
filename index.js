@@ -35,8 +35,10 @@ io.on("connection", (socket) => {
     io.in(roomNum).emit("sendGuess", { ...newGuess });
   });
   // When both players confirm, set boats ready?
-  socket.on("boatsReady", (data) => {
-    io.in(roomNum).emit("boatsReady", { ...data });
+  socket.on("boatsReady", (player) => {
+    //
+    // have button emit boatsReady event
+    io.in(roomNum).emit("boatsReady", { ...player });
   });
   // When game is ended, send to room
   // socket.on("gameEnd", (something) => {
