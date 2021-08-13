@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import socketIOClient from "socket.io-client";
 
 const CHAT_MESSAGE = "chatMessage";
@@ -24,13 +24,13 @@ const useSocket = (roomNum, username) => {
     return () => socketRef.current.disconnect();
   }, [roomNum]);
 
-  const sendChat = (msg) => {
+  const sendChat = useCallback((msg) => {
     socketRef.current.emit(CHAT_MESSAGE, {
       msg,
       username,
       color,
     });
-  };
+  });
   return { messages, sendChat };
 };
 
