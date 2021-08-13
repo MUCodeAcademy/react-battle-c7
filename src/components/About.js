@@ -1,10 +1,12 @@
 import React from "react";
+import { Container } from "react-bootstrap";
 import Chat from "./GamePage/components/Chat";
 
 export default function About() {
   return (
-    <div className="bgAbout">
-      <p>
+    <div className="bgAbout" style={{ backgroundImage: "url(./assets/7battle.png)" }}>
+<Container>    
+<p>
         <strong>
           Welcome to Lucky 7 Battleship! Created by the 7th cohort of Midland
           Code Academy. Sign up and Login or if you’re already signed up, log
@@ -17,7 +19,7 @@ export default function About() {
           wins the game. Keep watch on the Scoreboard for your stats. Do you
           feel lucky?
         </strong>
-      </p>
-    </div>
+      </p></Container>  </div>
   );
 }
+    
