@@ -215,8 +215,9 @@ const arr1 = [
 
 export default function GamePage() {
   const { username } = useContext(UserContext);
-  const { roomNum } = useParams();
-  const { joinRoom } = useSocket(roomNum, true);
+  const { room } = useParams();
+  const { joinRoom, sendChat, messages } = useSocket(room, true);
+
   useEffect(() => {
     joinRoom(username);
   }, []);
@@ -276,7 +277,7 @@ export default function GamePage() {
                   <Card.Text></Card.Text>
                 </Card.Body>
                 <div>
-                  <Chat />
+                  <Chat sendChat={sendChat} messages={messages}/>
                 </div>
               </Card>
             </Col>
