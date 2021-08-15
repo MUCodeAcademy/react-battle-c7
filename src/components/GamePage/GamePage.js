@@ -241,11 +241,11 @@ export default function GamePage() {
                 <Card.Body>
                   <Card.Header as="h5">Player Board:</Card.Header>
 
-                  <Card.Text>
+                  <Card.Body>
                     <div>
                       <Board board={arr1} />
                     </div>
-                  </Card.Text>
+                  </Card.Body>
                 </Card.Body>
 
                 <Card.Body></Card.Body>
@@ -257,11 +257,11 @@ export default function GamePage() {
                 <Card.Body>
                   <Card.Header as="h5">Opponent Board:</Card.Header>
 
-                  <Card.Text>
+                  <Card.Body>
                     <div>
                       <Board board={arr} />
                     </div>
-                  </Card.Text>
+                  </Card.Body>
                 </Card.Body>
 
                 <Card.Body></Card.Body>
