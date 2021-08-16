@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import Cell from "./Cell";
-import {
-  CreateBoards,
-  PlaceBoats,
-  UserData,
-  OppData,
-} from "../../../shared/context/GameContext";
+import { CreateBoards } from "../../../shared/context/GameContext";
 
 function Board({ board, boatToPlace }) {
   return (

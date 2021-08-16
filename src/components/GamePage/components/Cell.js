@@ -1,12 +1,16 @@
 import React from "react";
-import { Select, CheckHit } from "../../../shared/context/GameContext";
+import { Select, CheckHit, gameActive,PlaceBoats } from "../../../shared/context/GameContext";
 
-function Cell({ coordinate }) {
+function Cell({ coordinate, boatsToPlace }) {
   return (
     <div
       onClick={() => {
-        Select(coordinate.coordinate);
-        CheckHit(coordinate.coordinate);
+        if (coordinate.player) {
+          Select(coordinate.coordinate);
+          CheckHit(coordinate.coordinate);
+        } else if (!gameActive) {
+          PlaceBoats(boatsToPlace);
+        }
         // cellSelected(coordinate.coordinate);
       }}
       className={`cell flex ${
