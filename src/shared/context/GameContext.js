@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useState, createContext } from "react";
+import React, { useCallback, useEffect, useState, createContext, useContext } from "react";
+import { UserContext } from "./UserContext";
 
 export const GameContext = createContext(null);
 
@@ -12,6 +13,7 @@ export function GameProvider(props) {
   const [userHit, setUserHit] = useState(0);
   const [oppHit, setOppHit] = useState(0);
   const [totalGuesses, setTotalGuesses] = useState(0);
+  const {isHostCon} = useContext(UserContext);
 
   useEffect(() => {
     resetBoards();

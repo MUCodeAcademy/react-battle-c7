@@ -10,15 +10,15 @@ import { UserContext } from "../../shared/context/UserContext";
 
 export default function GamePage() {
   const {placeBoat, userData, opponentData} = useContext(GameContext);
-  const { username } = useContext(UserContext);
+  const { username, isHostCon } = useContext(UserContext);
   const { room } = useParams();
-  const { joinRoom, sendChat, messages } = useSocket(room, true);
+  const { joinRoom, sendChat, messages } = useSocket(room, isHostCon);
 
   useEffect(() => {
     joinRoom(username);
   }, []);
   console.log(userData)
-  
+
   return (
     <>
       <div className="bigShell">
