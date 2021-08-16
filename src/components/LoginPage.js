@@ -44,6 +44,7 @@ function LoginPage() {
                   <Form.Label>Username</Form.Label>
                   <Form.Control
                     id="username"
+                    placeholder="Must be 5 to 20 characters"
                     onChange={(e) => setUsername(e.target.value)}
                     onBlur={() => {
                       if (
@@ -63,6 +64,7 @@ function LoginPage() {
                   <Form.Label>Password</Form.Label>
                   <Form.Control
                     type="password"
+                    placeholder="Must be 5 to 20 characters"
                     onChange={(e) => setPassword(e.target.value)}
                     onBlur={() => {
                       if (
@@ -79,7 +81,7 @@ function LoginPage() {
                 </Form.Group>
 
                 {error && <div style={{ color: "red" }}>{error}</div>}
-                {message && <div>{message}</div>}
+                {/* {message && <div>{message}</div>} */}
                 <div className="w-100 text-center mt-3">
                   <Button
                     className="w-100 mt-5"
@@ -89,13 +91,18 @@ function LoginPage() {
                       if (
                         username &&
                         password &&
-                        username.length > 0 &&
-                        password.length > 0
+                        username.length > 4 &&
+                        username.length < 21 &&
+                        password.length > 4 &&
+                        password.length < 21
                       ) {
                         setError(null);
                         login(username, password);
                       } else {
-                        setError("Must enter a username and password");
+                        setError("Invalid login credentials");
+                      }
+                      if (message && message !== "Success") {
+                        setError("Invalid login credentials");
                       }
                     }}
                   >

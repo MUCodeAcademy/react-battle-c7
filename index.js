@@ -13,7 +13,7 @@ const io = require("socket.io")(server, {
 
 io.on("connection", (socket) => {
   const { roomNum } = socket.handshake.query;
-  console.log("Room Connected")
+  console.log("Room Connected");
   const randColor = COLORS[Math.floor(Math.random() * COLORS.length)];
   socket.emit("userColor", { color: randColor });
 
@@ -23,7 +23,7 @@ io.on("connection", (socket) => {
     io.in(roomNum).emit("chatMessage", {
       username: "Game Master",
       msg: `${username} has joined the room`,
-      color: randColor
+      color: randColor,
     });
   });
 

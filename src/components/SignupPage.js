@@ -46,6 +46,7 @@ function SignupPage() {
                   <Form.Label>Username</Form.Label>
                   <Form.Control
                     id="username"
+                    placeholder="Must be 5 to 20 characters"
                     onChange={(e) => setUsername(e.target.value)}
                     onBlur={() => {
                       if (
@@ -71,6 +72,7 @@ function SignupPage() {
                   <Form.Label>Password</Form.Label>
                   <Form.Control
                     type="password"
+                    placeholder="Must be 5 to 20 characters"
                     onChange={(e) => setPassword(e.target.value)}
                     onBlur={() => {
                       if (
@@ -101,6 +103,7 @@ function SignupPage() {
                   <Form.Label>Confirm Password</Form.Label>
                   <Form.Control
                     type="password"
+                    placeholder="Passwords must match"
                     onChange={(e) => setPassword2(e.target.value)}
                     onBlur={() => {
                       if (password === password2) {
