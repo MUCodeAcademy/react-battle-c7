@@ -75,6 +75,7 @@ const WaitingRoom = () => {
                         >
                           <Button
                             onClick={(e) => {
+                              e.preventDefaullt();
                               // set limits of roomNum
                               if (roomNum.length !== 8) {
                                 setError("Room Number must be 8 characters!");
@@ -143,7 +144,7 @@ const WaitingRoom = () => {
             {/* <Row>
               <Col className="d-flex justify-content-center"> */}
             {error && (
-              <Alert style={{ margin: "10px" }} variant="danger">
+              <Alert style={{ margin: "10px", color: "red" }} variant="danger">
                 {error}
               </Alert>
             )}
