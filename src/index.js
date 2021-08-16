@@ -1,16 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {UserProvider} from "./shared/context/UserContext";
+import { UserProvider } from "./shared/context/UserContext";
+import { GameProvider } from "./shared/context/GameContext";
 
 ReactDOM.render(
   <UserProvider>
-    <App />
+    <GameProvider>
+      <App />
+    </GameProvider>
   </UserProvider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

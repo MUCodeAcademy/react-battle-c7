@@ -4,8 +4,21 @@ import Chat from "./components/Chat";
 import Board from "./components/Board";
 import ScoreBoard from "./components/ScoreBoard";
 import { GameContext } from "../../shared/context/GameContext";
+import useSocket from "../../shared/hooks/useSocket";
+import { useParams } from "react-router-dom";
+import { UserContext } from "../../shared/context/UserContext";
 
-export default function () {
+export default function GamePage() {
+  const {placeBoat, userData, opponentData} = useContext(GameContext);
+  const { username } = useContext(UserContext);
+  const { room } = useParams();
+  const { joinRoom, sendChat, messages } = useSocket(room, true);
+
+  useEffect(() => {
+    joinRoom(username);
+  }, []);
+  console.log(userData)
+  
   return (
     <>
       <div className="bigShell">
@@ -28,7 +41,7 @@ export default function () {
 
                   <Card.Body>
                     <div>
-                      <Board board={arr1} />
+                      <Board board={userData} />
                     </div>
                   </Card.Body>
                 </Card.Body>
@@ -44,7 +57,7 @@ export default function () {
 
                   <Card.Body>
                     <div>
-                      <Board board={arr} />
+                      <Board board={opponentData} />
                     </div>
                   </Card.Body>
                 </Card.Body>

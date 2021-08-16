@@ -1,72 +1,86 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, { useCallback, useEffect, useState, createContext } from "react";
 
 export const GameContext = createContext(null);
 
-
 export function GameProvider(props) {
-    const [userData, setUserData] = useState([]);
-    const [opponentData, setOpponentData] = useState([]);
-    let ready = false;
-    let turn = false;
-    let userHit = 0;
-    let opponentHit = 0;
-    let totalGuesses = 0;
+  const [gameActive, setGameActive] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [userData, setUserData] = useState([]);
+  const [opponentData, setOpponentData] = useState([]);
 
-    useEffect(()=>{
-      userData.fill({player: true, hit: false, ship: false}, 0, 99);
-      opponentData.fill({player: false, hit: false, ship: false}, 0, 99);
-      setUserData(curr => [...curr]);
-      setOpponentData(curr => [...curr]);
-    },[])
+  useEffect(() => {
+    for (let i = 0; i < 100; i++) {
+      userData[i] = { player: true, hit: false, ship: false };
+      opponentData[i] = { player: false, hit: false, ship: false };
+    }
+    console.log(userData);
+    setUserData((curr) => [...curr]);
+    setOpponentData((curr) => [...curr]);
+  }, []);
 
-
-    const placeBoat = useCallback( (coordinates, int, orientation) => {
-      for(let i = 0; i < int; i++)
-      {
-        if(orientation === 'h')
+  const placeBoat = useCallback((coordinate, int, orientation) => {
+    let boatCheck = false;
+    if (orientation === "h" && 10 - ((coordinate) % 10) >= int) {
+      for(let i = 0; i < int; i++){
+        if(userData[coordinate + i].ship === true)
         {
-          userData[coordinates + i].ship = true;
-        }
-        else
-        {
-          userData[coordinates + (i * 10)].ship = true;
+          boatCheck = true;
         }
       }
-    });
-
-
-   const ready = (()=>{
-        
-    })
-    const startGame = (()=>{
-        if(user.ready && opponent.ready){
-
+      if (boatCheck === false)
+      {
+        for (let i = 0; i < int; i++) {
+          userData[coordinate + i].ship = true;
         }
+      }
+    } else if (orientation === "v" && coordinate + ((int - 1) * 10) < 100) {
+      for(let i = 0; i < int; i++){
+        if(userData[coordinate + i * 10].ship === true)
+        {
+          boatCheck = true;
+        }
+      }
+      if(boatCheck === false)
+      {
+        for (let i = 0; i < int; i++) {
+          userData[coordinate + i * 10].ship = true;
+        }
+      }
+    }
+    setUserData(curr => [...curr]);
+  });
 
-    })
-    const endGame = (()=>{
-        
-    })
-    const selectCoords = ((coordinates)=>{
-        
-    })
-    const checkHit = ((coordinates)=>{
-        
-    })
-    const checkWin = ((userHit)=>{
-        
-    })
-    const newGame = (()=>{
-        
-    })
+  //  const ready = (()=>{
 
+  //   })
+  // const startGame = (()=>{
+  //     if(user.ready && opponent.ready){
 
+  //     }
 
+  // })
+  // const endGame = (()=>{
 
+  // })
+  const select = useCallback((coordinate, player) => {
+    if (!gameActive && !ready && player) {
+      console.log(coordinate, 3, "v");
+      placeBoat(coordinate, 3, "v");
+    }
+  });
+  // const checkHit = ((coordinates)=>{
 
-    return (
-        <GameContext.Provider value={{ placeBoat, ready, startGame, endGame, selectCoords, checkHit, checkWin, newGame }}>
-          {props.children}
-        </GameContext.Provider>
-      );
+  // })
+  // const checkWin = ((userHit)=>{
+
+  // })
+  // const newGame = (()=>{
+
+  // })
+
+  return (
+    <GameContext.Provider value={{ userData, opponentData, placeBoat, select }}>
+      {props.children}
+    </GameContext.Provider>
+  );
 }

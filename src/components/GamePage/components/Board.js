@@ -5,7 +5,7 @@ function Board({ board }) {
   return (
     <div className="flex flexWrap board">
       {board.map((cell,i) => {
-        return <Cell key={i} coordinate={cell} />;
+        return <Cell key={i} i={i} coordinate={cell} />;
       })}
     </div>
   );

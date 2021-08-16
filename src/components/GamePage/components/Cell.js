@@ -1,10 +1,13 @@
-import React from "react";
+import React, {useContext} from "react";
+import { GameContext } from "../../../shared/context/GameContext";
 
-function Cell({ coordinate }) {
+function Cell({ coordinate, i }) {
+  const {select} = useContext(GameContext);
   return (
     <div
       onClick={() => {
-        // cellSelected(coordinate.coordinate);
+        console.log(i, coordinate.player)
+        select(i, coordinate.player);
       }}
       className={`cell flex ${
         coordinate.player
