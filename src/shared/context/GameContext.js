@@ -54,14 +54,14 @@ export function GameProvider(props) {
       }
     }
     setUserData((curr) => [...curr]);
-  });
+  }, []);
 
   const boatsReady = useCallback(() => {
     setReady(true);
-  });
+  }, []);
   const startGame = useCallback(() => {
     setGameActive(true);
-  });
+  }, []);
 
   const checkHit = useCallback((coordinate, user) => {
     if (user) {
@@ -74,7 +74,7 @@ export function GameProvider(props) {
     }
     checkWin(user);
     setTurn(curr => !curr);
-  });
+  }, []);
 
   const select = useCallback((coordinate, user, type, orientation) => {
     if (!gameActive && !ready && user) {
@@ -83,9 +83,9 @@ export function GameProvider(props) {
     if (gameActive && !user) {
       checkHit(coordinate, user);
     }
-  });
+  }, []);
 
-  const checkWin = (user) => {
+  const checkWin = useCallback((user) => {
     if (user && oppHit === 14) {
       setWinner("Opponent");
       endGame();
@@ -93,8 +93,9 @@ export function GameProvider(props) {
       setWinner("User");
       endGame();
     }
-  };
-  const newGame = () => {
+  },[]);
+
+  const newGame = useCallback(() => {
     resetBoards();
     setReady(false);
     setOppHit(0);
@@ -109,11 +110,11 @@ export function GameProvider(props) {
     {
       setTurn(false);
     }
-  };
+  });
 
-  const endGame = () => {
+  const endGame = useCallback(() => {
     setGameActive(false);
-  };
+  },[])
 
   const resetBoards = useCallback(() => {
     for (let i = 0; i < 100; i++) {
@@ -123,7 +124,7 @@ export function GameProvider(props) {
     console.log(userData);
     setUserData((curr) => [...curr]);
     setOpponentData((curr) => [...curr]);
-  });
+  },[]);
 
   return (
     <GameContext.Provider
