@@ -5,7 +5,7 @@ function Cell({ coordinate, boatsToPlace }) {
   return (
     <div
       onClick={() => {
-        if (coordinate.player) {
+        if (!coordinate.player) {
           Select(coordinate.coordinate);
           CheckHit(coordinate.coordinate);
         } else if (!gameActive) {
