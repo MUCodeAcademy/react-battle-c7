@@ -103,7 +103,7 @@ function SignupPage() {
                   <Form.Label>Confirm Password</Form.Label>
                   <Form.Control
                     type="password"
-                    placeholder="Must be 5 to 20 characters"
+                    placeholder="Passwords must match"
                     onChange={(e) => setPassword2(e.target.value)}
                     onBlur={() => {
                       if (password === password2) {
