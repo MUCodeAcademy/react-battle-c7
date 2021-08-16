@@ -34,7 +34,6 @@ async function login(res, username, password) {
       username,
     ]);
 
-    console.log(users[0])
     const user = users.rows[0] || { password: "1234" };
     const match = await bcrypt.compare(password, user.password);
     if (match) {
