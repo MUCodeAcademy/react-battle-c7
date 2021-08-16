@@ -14,6 +14,7 @@ export function GameProvider(props) {
   const [oppHit, setOppHit] = useState(0);
   const [totalGuesses, setTotalGuesses] = useState(0);
   const {isHostCon} = useContext(UserContext);
+  
 
   useEffect(() => {
     resetBoards();
@@ -60,9 +61,11 @@ export function GameProvider(props) {
 
   const boatsReady = useCallback(() => {
     setReady(true);
+    console.log(ready);
   }, []);
   const startGame = useCallback(() => {
     setGameActive(true);
+    console.log(gameActive)
   }, []);
 
   const checkHit = useCallback((coordinate, user) => {
@@ -112,7 +115,7 @@ export function GameProvider(props) {
     {
       setTurn(false);
     }
-  });
+  },[]);
 
   const endGame = useCallback(() => {
     setGameActive(false);
@@ -140,7 +143,8 @@ export function GameProvider(props) {
         newGame,
         winner,
         turn,
-        totalGuesses
+        totalGuesses,
+        resetBoards
       }}
     >
       {props.children}
