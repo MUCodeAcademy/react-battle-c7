@@ -48,7 +48,7 @@ const useSocket = (roomNum, isHost) => {
       username,
       color,
     });
-  }, []);
+  }, [color]);
   // function passed to game that sends a guess
   const sendGuess = useCallback((newGuess) => {
     console.log(newGuess);

@@ -5,8 +5,8 @@ import { CreateBoards } from "../../../shared/context/GameContext";
 function Board({ board, boatToPlace }) {
   return (
     <div className="flex flexWrap board">
-      {board.map((cell) => {
-        return <Cell coordinate={cell} boatToPlace={boatToPlace} />;
+      {board.map((cell, i) => {
+        return <Cell key={i} coordinate={cell} />;
       })}
     </div>
   );
