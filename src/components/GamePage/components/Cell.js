@@ -1,9 +1,12 @@
 import React from "react";
+import { Select, CheckHit } from "../../../shared/context/GameContext";
 
 function Cell({ coordinate }) {
   return (
     <div
       onClick={() => {
+        Select(coordinate.coordinate);
+        CheckHit(coordinate.coordinate);
         // cellSelected(coordinate.coordinate);
       }}
       className={`cell flex ${
