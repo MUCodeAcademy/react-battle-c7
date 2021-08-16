@@ -3,10 +3,6 @@ import Cell from "./Cell";
 import {
   CreateBoards,
   PlaceBoats,
-  Select,
-  CheckHit,
-  Turn,
-  GameActive,
   UserData,
   OppData,
 } from "../../../shared/context/GameContext";
