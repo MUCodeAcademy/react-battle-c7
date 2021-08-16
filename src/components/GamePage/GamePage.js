@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Col, Row, Card } from "react-bootstrap";
 import Chat from "./components/Chat";
 import Board from "./components/Board";
@@ -217,6 +217,8 @@ export default function GamePage() {
   const { username } = useContext(UserContext);
   const { room } = useParams();
   const { joinRoom, sendChat, messages } = useSocket(room, true);
+  const [boatToPlace, setBoatToPlace] = useState(null);
+  const [boatOrient, setBoatOrient] = useState("v");
 
   useEffect(() => {
     joinRoom(username);
@@ -229,7 +231,11 @@ export default function GamePage() {
             <Col style={{ backgroundColor: "gray" }}>
               <Card>
                 <Card.Body>
-                  <ScoreBoard setBoatToPlace={setBoatToPlace} />
+                  <ScoreBoard
+                    setOrientation={setBoatOrient}
+                    setBoatToPlace={setBoatToPlace}
+                    setBoatOrient={setBoatOrient}
+                  />
                 </Card.Body>
               </Card>
             </Col>
@@ -243,7 +249,11 @@ export default function GamePage() {
 
                   <Card.Body>
                     <div>
-                      <Board board={userData} boatToPlace={boatToPlace} />
+                      <Board
+                        board={userData}
+                        boatToPlace={boatToPlace}
+                        boatOrient={boatOrient}
+                      />
                     </div>
                   </Card.Body>
                 </Card.Body>
