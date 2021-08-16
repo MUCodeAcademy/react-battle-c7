@@ -6,7 +6,7 @@ import {
   Ready,
 } from "../../../shared/context/GameContext";
 
-function ScoreBoard({ setBoatOrient }) {
+function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
   const [isActive2, setActive2] = useState("false");
   const [isActive3, setActive3] = useState("false");
   const [isActive4, setActive4] = useState("false");
@@ -39,7 +39,7 @@ function ScoreBoard({ setBoatOrient }) {
               <div className={isActive2 ? "boat2" : "boat2v"}>
                 <button
                   onClick={() => {
-                    setBoatsToPlace(2);
+                    setBoatToPlace(2);
                     if (isActive2) {
                       setBoatOrient("h");
                     } else {
@@ -53,7 +53,7 @@ function ScoreBoard({ setBoatOrient }) {
               <div className={isActive3 ? "boat3" : "boat3v"}>
                 <button
                   onClick={() => {
-                    setBoatsToPlace(3);
+                    setBoatToPlace(3);
                     if (isActive3) {
                       setBoatOrient("h");
                     } else {
@@ -67,7 +67,7 @@ function ScoreBoard({ setBoatOrient }) {
               <div className={isActive4 ? "boat4" : "boat4v"}>
                 <button
                   onClick={() => {
-                    setBoatsToPlace(4);
+                    setBoatToPlace(4);
                     if (isActive4) {
                       setBoatOrient("h");
                     } else {
@@ -81,7 +81,7 @@ function ScoreBoard({ setBoatOrient }) {
               <div className={isActive5 ? "boat5" : "boat5v"}>
                 <button
                   onClick={() => {
-                    setBoatsToPlace(5);
+                    setBoatToPlace(5);
                     if (isActive5) {
                       setBoatOrient("h");
                     } else {
