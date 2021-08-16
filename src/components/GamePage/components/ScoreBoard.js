@@ -36,19 +36,39 @@ function ScoreBoard() {
           <div className="shell">
             <div className="flexship">
               <div className={isActive2 ? "boat2" : "boat2v"}>
-                <button onClick={boat2Toggle}></button>
+                <button
+                  onClick={() => {
+                    setBoatsToPlace(2);
+                    boat2Toggle();
+                  }}
+                ></button>
               </div>
 
               <div className={isActive3 ? "boat3" : "boat3v"}>
-                <button onClick={boat3Toggle}></button>
+                <button
+                  onClick={() => {
+                    setBoatsToPlace(3);
+                    boat3Toggle();
+                  }}
+                ></button>
               </div>
 
               <div className={isActive4 ? "boat4" : "boat4v"}>
-                <button onClick={boat4Toggle}></button>
+                <button
+                  onClick={() => {
+                    setBoatsToPlace(4);
+                    boat4Toggle();
+                  }}
+                ></button>
               </div>
 
               <div className={isActive5 ? "boat5" : "boat5v"}>
-                <button onClick={boat5Toggle}></button>
+                <button
+                  onClick={() => {
+                    setBoatsToPlace(5);
+                    boat5Toggle();
+                  }}
+                ></button>
               </div>
             </div>
           </div>
