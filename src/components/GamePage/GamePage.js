@@ -6,7 +6,6 @@ import ScoreBoard from "./components/ScoreBoard";
 import {
   Ready,
   StartGame,
-  NewGame,
   userData,
   oppData,
 } from "../../shared/context/GameContext";

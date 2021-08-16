@@ -3,6 +3,7 @@ import {
   userHits,
   oppHits,
   totalGuesses,
+  Ready,
 } from "../../../shared/context/GameContext";
 
 function ScoreBoard() {
@@ -78,7 +79,7 @@ function ScoreBoard() {
         <button
           className="readybtn"
           onClick={() => {
-            setBoatsToggle(!boatsToggle);
+            Ready();
           }}
         ></button>
       </div>
