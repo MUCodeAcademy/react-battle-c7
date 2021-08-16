@@ -1,17 +1,14 @@
-import React, { useState, useContext } from "react";
-import useSocket from "../../../shared/hooks/useSocket";
-import { Card, Form, Button, Container, Row, Col } from "react-bootstrap";
-import { UserContext } from "../../../shared/context/UserContext";
+import React, { useState} from "react";
+import { Card, Form, Button, Container, Row } from "react-bootstrap";
 
-function Chat() {
+function Chat({messages, sendChat}) {
   const [message, setMessage] = useState("");
-  const { username } = useContext(UserContext);
-  const { messages, sendChat } = useSocket(12345678, username);
+
   return (
     <Container fluid>
       <Card className="chat bg-black">
-        {messages.map((msg) => {
-          return <Card.Text style={{color: msg.color}}>{`${msg.username}: ${msg.msg}`}</Card.Text>;
+        {messages && messages.map((msg,i) => {
+          return <Card.Text key={i} style={{color: msg.color}}>{`${msg.username}: ${msg.msg}`}</Card.Text>;
         })}
       </Card>
       <Row className="flex flexSpaceBetween">
@@ -31,7 +28,7 @@ function Chat() {
         </Form.Group>
         <Button
           onClick={() => {
-            if (message.length > 1) {
+            if (message.length > 0) {
               sendChat(message);
               setMessage("");
             }

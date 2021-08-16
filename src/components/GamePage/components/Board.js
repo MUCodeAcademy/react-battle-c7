@@ -4,8 +4,8 @@ import Cell from "./Cell";
 function Board({ board }) {
   return (
     <div className="flex flexWrap board">
-      {board.map((cell) => {
-        return <Cell coordinate={cell} />;
+      {board.map((cell,i) => {
+        return <Cell key={i} coordinate={cell} />;
       })}
     </div>
   );

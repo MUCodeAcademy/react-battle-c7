@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Col, Row, Card } from "react-bootstrap";
 import Chat from "./components/Chat";
 import Board from "./components/Board";
 import ScoreBoard from "./components/ScoreBoard";
+import useSocket from "../../shared/hooks/useSocket";
+import { useParams } from "react-router-dom";
+import { UserContext } from "../../shared/context/UserContext";
 
 const arr = [
   { player: false, hit: false, ship: true, coordinate: "" },
@@ -210,7 +213,14 @@ const arr1 = [
   { player: true, hit: true, ship: true, coordinate: "" },
 ];
 
-export default function About() {
+export default function GamePage() {
+  const { username } = useContext(UserContext);
+  const { room } = useParams();
+  const { joinRoom, sendChat, messages } = useSocket(room, true);
+
+  useEffect(() => {
+    joinRoom(username);
+  }, []);
   return (
     <>
       <div className="bigShell">
@@ -226,16 +236,16 @@ export default function About() {
           </Row>
 
           <Row>
-          <Col style={{ backgroundColor: "gray" }}>
-              <Card style={{ maxWidth: "300px", minWidth: "300px" }}>
+            <Col style={{ backgroundColor: "gray" }}>
+              <Card>
                 <Card.Body>
                   <Card.Header as="h5">Player Board:</Card.Header>
 
-                  <Card.Text>
+                  <Card.Body>
                     <div>
                       <Board board={arr1} />
                     </div>
-                  </Card.Text>
+                  </Card.Body>
                 </Card.Body>
 
                 <Card.Body></Card.Body>
@@ -243,15 +253,15 @@ export default function About() {
             </Col>
 
             <Col style={{ backgroundColor: "gray" }}>
-              <Card style={{ maxWidth: "300px", minWidth: "300px" }}>
+              <Card>
                 <Card.Body>
                   <Card.Header as="h5">Opponent Board:</Card.Header>
 
-                  <Card.Text>
+                  <Card.Body>
                     <div>
                       <Board board={arr} />
                     </div>
-                  </Card.Text>
+                  </Card.Body>
                 </Card.Body>
 
                 <Card.Body></Card.Body>
@@ -267,7 +277,7 @@ export default function About() {
                   <Card.Text></Card.Text>
                 </Card.Body>
                 <div>
-                  <Chat />
+                  <Chat sendChat={sendChat} messages={messages}/>
                 </div>
               </Card>
             </Col>
