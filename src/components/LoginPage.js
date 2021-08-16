@@ -44,7 +44,7 @@ function LoginPage() {
                   <Form.Label>Username</Form.Label>
                   <Form.Control
                     id="username"
-                    placeholder="Username"
+                    placeholder="Must be 5 to 20 characters"
                     onChange={(e) => setUsername(e.target.value)}
                     onBlur={() => {
                       if (
@@ -96,13 +96,12 @@ function LoginPage() {
                         password.length > 4 &&
                         password.length < 21
                       ) {
-                        if (message === "Success") {
-                          setError(null);
-                          login(username, password);
-                        } else {
-                          setError("Invalid login credentials");
-                        }
+                        setError(null);
+                        login(username, password);
                       } else {
+                        setError("Invalid login credentials");
+                      }
+                      if (message && message !== "Success") {
                         setError("Invalid login credentials");
                       }
                     }}
