@@ -7,7 +7,6 @@ import {
 } from "../../../shared/context/GameContext";
 
 function ScoreBoard() {
-  const [boatsToggle, setBoatsToggle] = useState(false);
   const [isActive2, setActive2] = useState("false");
   const [isActive3, setActive3] = useState("false");
   const [isActive4, setActive4] = useState("false");
@@ -30,7 +29,7 @@ function ScoreBoard() {
 
   return (
     <>
-      {boatsToggle && (
+      {
         <div>
           <h5 className="title"> Place Boats</h5>
 
@@ -74,7 +73,7 @@ function ScoreBoard() {
             </div>
           </div>
         </div>
-      )}
+      }
       <div className="rbtn">
         <button
           className="readybtn"
