@@ -42,13 +42,16 @@ const useSocket = (roomNum, isHost) => {
     return () => socketRef.current.disconnect();
   }, [roomNum]);
   // function passed to chat/gamePage that sends a message
-  const sendChat = useCallback((msg) => {
-    socketRef.current.emit(CHAT_MESSAGE, {
-      msg,
-      username,
-      color,
-    });
-  }, [color]);
+  const sendChat = useCallback(
+    (msg) => {
+      socketRef.current.emit(CHAT_MESSAGE, {
+        msg,
+        username,
+        color,
+      });
+    },
+    [color]
+  );
   // function passed to game that sends a guess
   const sendGuess = useCallback((newGuess) => {
     console.log(newGuess);
@@ -61,7 +64,7 @@ const useSocket = (roomNum, isHost) => {
   }, []);
 
   const joinRoom = useCallback((username) => {
-    socketRef.current.emit("joinRoom", { ...username });
+    socketRef.current.emit("joinRoom", { username });
   }, []);
 
   return { messages, sendChat, sendGuess, sendBoatsReady, joinRoom, isHost };

@@ -277,7 +277,7 @@ export default function GamePage() {
                   <Card.Text></Card.Text>
                 </Card.Body>
                 <div>
-                  <Chat sendChat={sendChat} messages={messages}/>
+                  <Chat sendChat={sendChat} messages={messages} />
                 </div>
               </Card>
             </Col>
