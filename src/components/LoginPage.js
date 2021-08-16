@@ -21,7 +21,7 @@ function LoginPage() {
       >
         <div
           className=" justify-content-center"
-          style={{ maxWidth: "400px" }}
+          style={{ maxWidth: "300px" }}
         ></div>
         <div>
           <Card>
@@ -29,7 +29,7 @@ function LoginPage() {
               style={{
                 backgroundColor: "lightgray",
                 boxShadow: "4px 4px 5px darkgray",
-                minWidth: "350px",
+                width: "300px",
               }}
             >
               <h2 className="mt-2 text-center">
@@ -45,9 +45,16 @@ function LoginPage() {
                   <Form.Control
                     id="username"
                     onChange={(e) => setUsername(e.target.value)}
-                    onBlur={() => {if(username && password && username.length > 0 && password.length > 0) {
-                      setError("");
-                    }}}
+                    onBlur={() => {
+                      if (
+                        username &&
+                        password &&
+                        username.length > 0 &&
+                        password.length > 0
+                      ) {
+                        setError("");
+                      }
+                    }}
                     value={username}
                   />
                 </Form.Group>
@@ -57,18 +64,21 @@ function LoginPage() {
                   <Form.Control
                     type="password"
                     onChange={(e) => setPassword(e.target.value)}
-                    onBlur={() => {if (username && password && username.length > 0 && password.length > 0) {
-                      setError("");
-                    }}}
+                    onBlur={() => {
+                      if (
+                        username &&
+                        password &&
+                        username.length > 0 &&
+                        password.length > 0
+                      ) {
+                        setError("");
+                      }
+                    }}
                     value={password}
                   />
                 </Form.Group>
 
-                {error && (
-                  <div style={{ color: "red" }}>
-                    {error}
-                  </div>
-                )}
+                {error && <div style={{ color: "red" }}>{error}</div>}
                 {message && <div>{message}</div>}
                 <div className="w-100 text-center mt-3">
                   <Button
@@ -76,7 +86,12 @@ function LoginPage() {
                     type="submit"
                     onClick={(e) => {
                       e.preventDefault();
-                      if (username && password && username.length > 0 && password.length > 0) {
+                      if (
+                        username &&
+                        password &&
+                        username.length > 0 &&
+                        password.length > 0
+                      ) {
                         setError(null);
                         login(username, password);
                       } else {

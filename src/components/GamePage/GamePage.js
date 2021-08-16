@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Col, Row, Card } from "react-bootstrap";
 import Chat from "./components/Chat";
 import Board from "./components/Board";
@@ -21,16 +21,16 @@ export default function () {
           </Row>
 
           <Row>
-          <Col style={{ backgroundColor: "gray" }}>
-              <Card style={{ maxWidth: "300px", minWidth: "300px" }}>
+            <Col style={{ backgroundColor: "gray" }}>
+              <Card>
                 <Card.Body>
                   <Card.Header as="h5">Player Board:</Card.Header>
 
-                  <Card.Text>
+                  <Card.Body>
                     <div>
                       <Board board={arr1} />
                     </div>
-                  </Card.Text>
+                  </Card.Body>
                 </Card.Body>
 
                 <Card.Body></Card.Body>
@@ -38,15 +38,15 @@ export default function () {
             </Col>
 
             <Col style={{ backgroundColor: "gray" }}>
-              <Card style={{ maxWidth: "300px", minWidth: "300px" }}>
+              <Card>
                 <Card.Body>
                   <Card.Header as="h5">Opponent Board:</Card.Header>
 
-                  <Card.Text>
+                  <Card.Body>
                     <div>
                       <Board board={arr} />
                     </div>
-                  </Card.Text>
+                  </Card.Body>
                 </Card.Body>
 
                 <Card.Body></Card.Body>
@@ -62,7 +62,7 @@ export default function () {
                   <Card.Text></Card.Text>
                 </Card.Body>
                 <div>
-                  <Chat />
+                  <Chat sendChat={sendChat} messages={messages}/>
                 </div>
               </Card>
             </Col>
