@@ -6,11 +6,12 @@ import {
   Ready,
 } from "../../../shared/context/GameContext";
 
-function ScoreBoard() {
+function ScoreBoard({ setBoatOrient }) {
   const [isActive2, setActive2] = useState("false");
   const [isActive3, setActive3] = useState("false");
   const [isActive4, setActive4] = useState("false");
   const [isActive5, setActive5] = useState("false");
+  let misses = totalGuesses - userHits;
 
   const boat2Toggle = () => {
     setActive2(!isActive2);
@@ -39,6 +40,11 @@ function ScoreBoard() {
                 <button
                   onClick={() => {
                     setBoatsToPlace(2);
+                    if (isActive2) {
+                      setBoatOrient("h");
+                    } else {
+                      setBoatOrient("v");
+                    }
                     boat2Toggle();
                   }}
                 ></button>
@@ -48,6 +54,11 @@ function ScoreBoard() {
                 <button
                   onClick={() => {
                     setBoatsToPlace(3);
+                    if (isActive3) {
+                      setBoatOrient("h");
+                    } else {
+                      setBoatOrient("v");
+                    }
                     boat3Toggle();
                   }}
                 ></button>
@@ -57,6 +68,11 @@ function ScoreBoard() {
                 <button
                   onClick={() => {
                     setBoatsToPlace(4);
+                    if (isActive4) {
+                      setBoatOrient("h");
+                    } else {
+                      setBoatOrient("v");
+                    }
                     boat4Toggle();
                   }}
                 ></button>
@@ -66,6 +82,11 @@ function ScoreBoard() {
                 <button
                   onClick={() => {
                     setBoatsToPlace(5);
+                    if (isActive5) {
+                      setBoatOrient("h");
+                    } else {
+                      setBoatOrient("v");
+                    }
                     boat5Toggle();
                   }}
                 ></button>
@@ -89,7 +110,7 @@ function ScoreBoard() {
       <div className="shell2">
         <div className="ht-ms">
           <div>Hits: {userHits}</div>
-          <div>Misses: {{ totalGuesses } - { userHits }}</div>
+          <div>Misses: {misses}</div>
           <div>Opponent Hits: {oppHits}</div>
         </div>
 
