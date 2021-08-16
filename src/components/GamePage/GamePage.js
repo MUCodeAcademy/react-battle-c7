@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Col, Row, Card } from "react-bootstrap";
+import { Col, Row, Card, Modal, Button, CloseButton } from "react-bootstrap";
 import Chat from "./components/Chat";
 import Board from "./components/Board";
 import ScoreBoard from "./components/ScoreBoard";
@@ -214,6 +214,11 @@ const arr1 = [
 ];
 
 export default function GamePage() {
+  const { winner } = useContext(UserContext);
+  // modal state and cb functions
+  const [showModal, setShowModal] = useState(true);
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
   const { username } = useContext(UserContext);
   const { room } = useParams();
   const { joinRoom, sendChat, messages } = useSocket(room, true);
@@ -225,6 +230,30 @@ export default function GamePage() {
   }, []);
   return (
     <>
+      <Modal
+        show={showModal}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+        centered
+      >
+        <Modal.Header closeButton>
+          {winner ? (
+            <Modal.Title>Congratulations! You Won!</Modal.Title>
+          ) : (
+            <Modal.Title>Oh No, You lost! Better luck next time!</Modal.Title>
+          )}
+        </Modal.Header>
+        <Modal.Body>We'll put text here and it will say something.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            New Game Button NYI
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <div className="bigShell">
         <Card fluid="lg" style={{ backgroundColor: "blue", color: "darkblue" }}>
           <Row lg={1}>
@@ -250,7 +279,7 @@ export default function GamePage() {
                   <Card.Body>
                     <div>
                       <Board
-                        board={userData}
+                        board={arr}
                         boatToPlace={boatToPlace}
                         boatOrient={boatOrient}
                       />
@@ -269,7 +298,7 @@ export default function GamePage() {
 
                   <Card.Body>
                     <div>
-                      <Board board={oppData} boatToPlace={boatToPlace} />
+                      <Board board={arr1} boatToPlace={boatToPlace} />
                     </div>
                   </Card.Body>
                 </Card.Body>
