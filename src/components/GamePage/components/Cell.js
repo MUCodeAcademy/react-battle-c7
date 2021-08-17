@@ -11,8 +11,14 @@ function Cell({ i, coordinate, boatToPlace, boatOrient }) {
   return (
     <div
       onClick={() => {
-        console.log(i, coordinate.player);
-        select(i, coordinate.player);
+        if(coordinate.user === true)
+        {
+          select(i, coordinate.user, boatToPlace, boatOrient);
+        }
+        else
+        {
+          select(i, coordinate.user);
+        }
       }}
       className={`cell flex ${
         coordinate.user ? (coordinate.ship ? "bg-grey" : "bg-blue") : "bg-grey"

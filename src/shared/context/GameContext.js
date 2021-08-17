@@ -137,8 +137,8 @@ export function GameProvider(props) {
 
   const resetBoards = useCallback(() => {
     for (let i = 0; i < 100; i++) {
-      userData[i] = { player: true, hit: false, ship: false };
-      opponentData[i] = { player: false, hit: false, ship: false };
+      userData[i] = { user: true, hit: false, ship: false };
+      opponentData[i] = { user: false, hit: false, ship: false };
     }
     console.log(userData);
     setUserData((curr) => [...curr]);
