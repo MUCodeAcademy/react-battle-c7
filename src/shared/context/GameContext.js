@@ -74,7 +74,9 @@ export function GameProvider(props) {
 
   const checkHit = useCallback(
     async (coordinate, user) => {
-      if (user) {
+      if (!user) {
+        console.log(coordinate);
+        console.log(userData);
         userData[coordinate].hit = true;
         setUserData((curr) => [...curr]);
         if (userData[coordinate].ship === true)
@@ -158,7 +160,15 @@ export function GameProvider(props) {
     } else {
       setTurn(false);
     }
-  }, [resetBoards, userBoatsReady, oppHit, userHit, totalGuesses, winner, isHostCon]);
+  }, [
+    resetBoards,
+    userBoatsReady,
+    oppHit,
+    userHit,
+    totalGuesses,
+    winner,
+    isHostCon,
+  ]);
 
   return (
     <GameContext.Provider

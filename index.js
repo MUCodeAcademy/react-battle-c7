@@ -33,9 +33,9 @@ io.on("connection", (socket) => {
     io.in(roomNum).emit("chatMessage", { ...newMsg, time });
   });
   // When guess received, send to room
-  socket.on("sendGuess", (newGuess) => {
+  socket.on("sendGuess", ({ newGuess, wasHost }) => {
     console.log("Received sendGuess from Front End successfuly", newGuess);
-    io.to(roomNum).emit("sendGuess", { ...newGuess });
+    io.to(roomNum).emit("sendGuess", { newGuess, wasHost });
   });
   // When both players confirm, set boats ready?
   socket.on("boatsReady", (ready) => {
