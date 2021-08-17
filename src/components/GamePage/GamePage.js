@@ -4,8 +4,9 @@ import Chat from "./components/Chat";
 import Board from "./components/Board";
 import ScoreBoard from "./components/ScoreBoard";
 import useSocket from "../../shared/hooks/useSocket";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { UserContext } from "../../shared/context/UserContext";
+import { GameContext } from "../../shared/context/GameContext";
 
 const arr = [
   { player: false, hit: false, ship: true, coordinate: "" },
@@ -214,7 +215,7 @@ const arr1 = [
 ];
 
 export default function GamePage() {
-  const { winner } = useContext(UserContext);
+  const { winner, NewGame } = useContext(GameContext);
   // modal state and cb functions
   const [showModal, setShowModal] = useState(true);
   const handleClose = () => setShowModal(false);
@@ -224,6 +225,7 @@ export default function GamePage() {
   const { joinRoom, sendChat, messages } = useSocket(room, true);
   const [boatToPlace, setBoatToPlace] = useState(null);
   const [boatOrient, setBoatOrient] = useState("v");
+  const history = useHistory();
 
   useEffect(() => {
     joinRoom(username);
@@ -244,12 +246,20 @@ export default function GamePage() {
             <Modal.Title>Oh No, You lost! Better luck next time!</Modal.Title>
           )}
         </Modal.Header>
-        <Modal.Body>We'll put text here and it will say something.</Modal.Body>
+        <Modal.Body>
+          The game is over now. Play again or return to waiting room. Or don't,
+          it's up to you.
+        </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
+          <Button variant="secondary" onClick={() => history.push("/waiting")}>
+            Go to Waiting Room
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button
+            variant="primary"
+            onClick={() => {
+              NewGame();
+            }}
+          >
             New Game Button NYI
           </Button>
         </Modal.Footer>
