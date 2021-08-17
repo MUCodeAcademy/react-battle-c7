@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { GameContext } from "../../../shared/context/GameContext";
 import { useParams } from "react-router-dom";
 
-function ScoreBoard() {
-  const [boatsToggle, setBoatsToggle] = useState(false);
-  const [isActive2, setActive2] = useState("false");
-  const [isActive3, setActive3] = useState("false");
-  const [isActive4, setActive4] = useState("false");
-  const [isActive5, setActive5] = useState("false");
+function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
+  const { userHit, oppHit, totalGuesses, setReady, gameActive } =
+    useContext(GameContext);
+  const [isActive2, setActive2] = useState(false);
+  const [isActive3, setActive3] = useState(false);
+  const [isActive4, setActive4] = useState(false);
+  const [isActive5, setActive5] = useState(false);
+  let misses = totalGuesses - userHit;
+
   const { room } = useParams();
   const boat2Toggle = () => {
     setActive2(!isActive2);
@@ -25,26 +29,66 @@ function ScoreBoard() {
 
   return (
     <>
-      {boatsToggle && (
+      {!gameActive && (
         <div>
           <h5 className="title"> Place Boats</h5>
 
           <div className="shell">
             <div className="flexship">
               <div className={isActive2 ? "boat2" : "boat2v"}>
-                <button onClick={boat2Toggle}></button>
+                <button
+                  onClick={() => {
+                    setBoatToPlace(2);
+                    if (isActive2) {
+                      setBoatOrient("h");
+                    } else {
+                      setBoatOrient("v");
+                    }
+                    boat2Toggle();
+                  }}
+                ></button>
               </div>
 
               <div className={isActive3 ? "boat3" : "boat3v"}>
-                <button onClick={boat3Toggle}></button>
+                <button
+                  onClick={() => {
+                    setBoatToPlace(3);
+                    if (isActive3) {
+                      setBoatOrient("h");
+                    } else {
+                      setBoatOrient("v");
+                    }
+                    boat3Toggle();
+                  }}
+                ></button>
               </div>
 
               <div className={isActive4 ? "boat4" : "boat4v"}>
-                <button onClick={boat4Toggle}></button>
+                <button
+                  onClick={() => {
+                    setBoatToPlace(4);
+                    if (isActive4) {
+                      setBoatOrient("h");
+                    } else {
+                      setBoatOrient("v");
+                    }
+                    boat4Toggle();
+                  }}
+                ></button>
               </div>
 
               <div className={isActive5 ? "boat5" : "boat5v"}>
-                <button onClick={boat5Toggle}></button>
+                <button
+                  onClick={() => {
+                    setBoatToPlace(5);
+                    if (isActive5) {
+                      setBoatOrient("h");
+                    } else {
+                      setBoatOrient("v");
+                    }
+                    boat5Toggle();
+                  }}
+                ></button>
               </div>
             </div>
           </div>
@@ -57,7 +101,7 @@ function ScoreBoard() {
         <button
           className="readybtn"
           onClick={() => {
-            setBoatsToggle(!boatsToggle);
+            setReady(true);
           }}
         ></button>
         <h6>{`You're Battling in Room: ${room}`}</h6>
@@ -68,8 +112,9 @@ function ScoreBoard() {
 
       <div className="shell2">
         <div className="ht-ms">
-          <div>Hits:</div>
-          <div>Miss:</div>
+          <div>Hits: {userHit}</div>
+          <div>Misses: {misses}</div>
+          <div>Opponent Hits: {oppHit}</div>
         </div>
 
         <div className="shipbox">

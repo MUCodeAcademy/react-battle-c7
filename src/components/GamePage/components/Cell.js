@@ -1,20 +1,21 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { GameContext } from "../../../shared/context/GameContext";
+import {
+  Select,
+  CheckHit,
+  gameActive,
+} from "../../../shared/context/GameContext";
 
-function Cell({ coordinate, i }) {
-  const {select} = useContext(GameContext);
+function Cell({ i, coordinate, boatToPlace, boatOrient }) {
+  const { select } = useContext(GameContext);
   return (
     <div
       onClick={() => {
-        console.log(i, coordinate.player)
+        console.log(i, coordinate.player);
         select(i, coordinate.player);
       }}
       className={`cell flex ${
-        coordinate.player
-          ? coordinate.ship
-            ? "bg-grey"
-            : "bg-blue"
-          : "bg-grey"
+        coordinate.user ? (coordinate.ship ? "bg-grey" : "bg-blue") : "bg-grey"
       }`}
     >
       {coordinate.hit && (

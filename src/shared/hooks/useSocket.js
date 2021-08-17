@@ -10,14 +10,14 @@ const GAME_END = "gameEnd";
 const SERVER_URL = "http://localhost:8080";
 
 const useSocket = (roomNum, isHost) => {
-  const { username } = useContext(UserContext);
+  const { username, isHostCon } = useContext(UserContext);
   const { startGame, checkHit, setOppData } = useContext(GameContext);
   const [color, setColor] = useState(null);
   const [messages, setMessages] = useState([]);
   const [currGuess, setCurrGuess] = useState(null);
   const [userBoatsReady, setUserBoatsReady] = useState(null);
   const [oppBoatsReady, setOppBoatsReady] = useState(null);
-  const [isHostSoc] = useState(isHost);
+  const [isHostSoc] = useState(isHostCon);
   const socketRef = useRef();
   useEffect(() => {
     socketRef.current = socketIOClient(SERVER_URL, {
@@ -81,7 +81,7 @@ const useSocket = (roomNum, isHost) => {
     socketRef.current.emit("joinRoom", { username });
   }, []);
 
-  return { messages, sendChat, sendGuess, sendBoatsReady, joinRoom, isHost };
+  return { messages, sendChat, sendGuess, sendBoatsReady, joinRoom, isHostSoc };
 };
 
 export default useSocket;
