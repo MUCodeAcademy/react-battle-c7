@@ -4,7 +4,7 @@ import Chat from "./GamePage/components/Chat";
 
 export default function About() {
   return (
-    <div className="bgAbout" style={{backgroundImage: "url(./assets/7battleA.png)", height: "100vh", backgroundBlendMode: "light", opacity: ".8", zIndex: "-1", textShadow: "1px 1px 0px #ffffff"}}>
+    <div className="bgAbout" style={{backgroundImage: "url(./assets/7battleA.png)", height: "100vh", zIndex: "-1", textShadow: "1px 1px 0px #ffffff"}}>
 <Container>    
 <p>
         <strong>
