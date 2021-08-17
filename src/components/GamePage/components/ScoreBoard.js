@@ -1,9 +1,10 @@
 import React, { useState, useContext } from "react";
+import { Button } from "react-bootstrap";
 import { GameContext } from "../../../shared/context/GameContext";
 import { useParams } from "react-router-dom";
 
 function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
-  const { userHit, oppHit, totalGuesses, setReady, gameActive } =
+  const { userHit, oppHit, totalGuesses, setUserBoatsReady, gameActive } =
     useContext(GameContext);
   const [isActive2, setActive2] = useState(false);
   const [isActive3, setActive3] = useState(false);
@@ -25,7 +26,7 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
     setActive5(!isActive5);
   };
 
-  let boatsReady = true;
+  let userBoatsReady = true;
 
   return (
     <>
@@ -40,9 +41,9 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
                   onClick={() => {
                     setBoatToPlace(2);
                     if (isActive2) {
-                      setBoatOrient("h");
-                    } else {
                       setBoatOrient("v");
+                    } else {
+                      setBoatOrient("h");
                     }
                     boat2Toggle();
                   }}
@@ -54,9 +55,9 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
                   onClick={() => {
                     setBoatToPlace(3);
                     if (isActive3) {
-                      setBoatOrient("h");
-                    } else {
                       setBoatOrient("v");
+                    } else {
+                      setBoatOrient("h");
                     }
                     boat3Toggle();
                   }}
@@ -68,9 +69,9 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
                   onClick={() => {
                     setBoatToPlace(4);
                     if (isActive4) {
-                      setBoatOrient("h");
-                    } else {
                       setBoatOrient("v");
+                    } else {
+                      setBoatOrient("h");
                     }
                     boat4Toggle();
                   }}
@@ -82,9 +83,9 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
                   onClick={() => {
                     setBoatToPlace(5);
                     if (isActive5) {
-                      setBoatOrient("h");
-                    } else {
                       setBoatOrient("v");
+                    } else {
+                      setBoatOrient("h");
                     }
                     boat5Toggle();
                   }}
@@ -98,12 +99,12 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
         className="rbtn"
         style={{ justifyContent: "center", alignItems: "center" }}
       >
-        <button
-          className="readybtn"
+        <Button
+          // className="readybtn"
           onClick={() => {
-            setReady(true);
+            setUserBoatsReady(true);
           }}
-        ></button>
+        >Ready</Button>
         <h6>{`You're Battling in Room: ${room}`}</h6>
       </div>
       {/* conditional render for active play */}

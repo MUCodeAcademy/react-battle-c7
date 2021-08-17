@@ -11,12 +11,10 @@ const SERVER_URL = "http://localhost:8080";
 
 const useSocket = (roomNum, isHost) => {
   const { username, isHostCon } = useContext(UserContext);
-  const { startGame, checkHit, setOppData } = useContext(GameContext);
+  const { startGame, checkHit, setOppData, userBoatsReady, setUserBoatsReady, oppBoatsReady, setOppBoatsReady } = useContext(GameContext);
   const [color, setColor] = useState(null);
   const [messages, setMessages] = useState([]);
   const [currGuess, setCurrGuess] = useState(null);
-  const [userBoatsReady, setUserBoatsReady] = useState(null);
-  const [oppBoatsReady, setOppBoatsReady] = useState(null);
   const [isHostSoc] = useState(isHostCon);
   const socketRef = useRef();
   useEffect(() => {

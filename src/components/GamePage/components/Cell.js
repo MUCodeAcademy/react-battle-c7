@@ -6,7 +6,7 @@ import {
   gameActive,
 } from "../../../shared/context/GameContext";
 
-function Cell({ i, coordinate, boatToPlace, boatOrient }) {
+function Cell({ i, coordinate, boatToPlace, boatOrient, sendGuess}) {
   const { select } = useContext(GameContext);
   return (
     <div
@@ -18,6 +18,7 @@ function Cell({ i, coordinate, boatToPlace, boatOrient }) {
         else
         {
           select(i, coordinate.user);
+          sendGuess(i);
         }
       }}
       className={`cell flex ${

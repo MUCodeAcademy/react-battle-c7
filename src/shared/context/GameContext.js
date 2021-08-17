@@ -12,7 +12,8 @@ export const GameContext = createContext(null);
 
 export function GameProvider(props) {
   const [gameActive, setGameActive] = useState(false);
-  const [ready, setReady] = useState(false);
+  const [userBoatsReady, setUserBoatsReady] = useState(false);
+  const [oppBoatsReady, setOppBoatsReady] = useState(false);
   const [userData, setUserData] = useState([]);
   const [opponentData, setOpponentData] = useState([]);
   const [winner, setWinner] = useState("");
@@ -63,9 +64,9 @@ export function GameProvider(props) {
   }, []);
 
   const boatsReady = useCallback(() => {
-    setReady(true);
-    console.log(ready);
-  }, [ready]);
+    setUserBoatsReady(true);
+    console.log(userBoatsReady);
+  }, [userBoatsReady]);
   const startGame = useCallback(() => {
     setGameActive(true);
     console.log(gameActive);
@@ -109,14 +110,14 @@ export function GameProvider(props) {
 
   const select = useCallback(
     (coordinate, user, type, orientation) => {
-      if (!gameActive && !ready && user) {
+      if (!gameActive && !userBoatsReady && user) {
         placeBoat(coordinate, type, orientation);
       }
       if (gameActive && !user && turn) {
         checkHit(coordinate, user);
       }
     },
-    [gameActive, ready, placeBoat, checkHit]
+    [gameActive, userBoatsReady, placeBoat, checkHit]
   );
 
   const endGame = useCallback(() => {
@@ -147,7 +148,7 @@ export function GameProvider(props) {
 
   const newGame = useCallback(() => {
     resetBoards();
-    setReady(false);
+    setUserBoatsReady(false);
     setOppHit(0);
     setUserHit(0);
     setTotalGuesses(0);
@@ -157,7 +158,7 @@ export function GameProvider(props) {
     } else {
       setTurn(false);
     }
-  }, [resetBoards, ready, oppHit, userHit, totalGuesses, winner, isHostCon]);
+  }, [resetBoards, userBoatsReady, oppHit, userHit, totalGuesses, winner, isHostCon]);
 
   return (
     <GameContext.Provider
@@ -173,12 +174,16 @@ export function GameProvider(props) {
         turn,
         totalGuesses,
         resetBoards,
-        ready,
-        setReady,
+        userBoatsReady,
+        setUserBoatsReady,
         checkHit,
         gameActive,
         oppHit,
         userHit,
+        userBoatsReady,
+        setUserBoatsReady,
+        oppBoatsReady,
+        setOppBoatsReady,
       }}
     >
       {props.children}
