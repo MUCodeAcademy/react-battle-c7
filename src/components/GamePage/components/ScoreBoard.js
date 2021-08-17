@@ -1,18 +1,15 @@
-import React, { useState } from "react";
-import {
-  userHit,
-  oppHit,
-  totalGuesses,
-  setReady,
-} from "../../../shared/context/GameContext";
+import React, { useState, useContext } from "react";
+import { GameContext } from "../../../shared/context/GameContext";
 import { useParams } from "react-router-dom";
 
 function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
-  const [isActive2, setActive2] = useState("false");
-  const [isActive3, setActive3] = useState("false");
-  const [isActive4, setActive4] = useState("false");
-  const [isActive5, setActive5] = useState("false");
-  let misses = totalGuesses - userHits;
+  const { userHit, oppHit, totalGuesses, setReady, gameActive } =
+    useContext(GameContext);
+  const [isActive2, setActive2] = useState(false);
+  const [isActive3, setActive3] = useState(false);
+  const [isActive4, setActive4] = useState(false);
+  const [isActive5, setActive5] = useState(false);
+  let misses = totalGuesses - userHit;
 
   const { room } = useParams();
   const boat2Toggle = () => {
@@ -32,7 +29,7 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
 
   return (
     <>
-      {boatsToggle && (
+      {!gameActive && (
         <div>
           <h5 className="title"> Place Boats</h5>
 
@@ -115,9 +112,9 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
 
       <div className="shell2">
         <div className="ht-ms">
-          <div>Hits: {userHits}</div>
+          <div>Hits: {userHit}</div>
           <div>Misses: {misses}</div>
-          <div>Opponent Hits: {oppHits}</div>
+          <div>Opponent Hits: {oppHit}</div>
         </div>
 
         <div className="shipbox">
