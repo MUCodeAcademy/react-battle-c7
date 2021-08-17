@@ -21,6 +21,10 @@ export function GameProvider(props) {
   const [oppHit, setOppHit] = useState(0);
   const [totalGuesses, setTotalGuesses] = useState(0);
   const { isHostCon } = useContext(UserContext);
+  const [shipTwo, setShipTwo] = useState({ coord: [], sunk: false });
+  const [shipThree, setShipThree] = useState({ coord: [], sunk: false });
+  const [shipFour, setShipFour] = useState({ coord: [], sunk: false });
+  const [shipFive, setShipFive] = useState({ coord: [], sunk: false });
 
   useEffect(() => {
     resetBoards();
@@ -34,6 +38,61 @@ export function GameProvider(props) {
     }
   }, [isHostCon]);
 
+  useEffect(() => {
+    if (shipTwo.sunk === false) {
+      let count = 0;
+      for (let i = 0; i < 2; i++) {
+        if (userData[shipTwo.coord[i]].hit) {
+          count++;
+        }
+      }
+      if (count === 2) {
+        setShipTwo({ ...shipTwo, sunk: true });
+      }
+    }
+    if (shipThree.sunk === false) {
+      let count = 0;
+      for (let i = 0; i < 2; i++) {
+        if (userData[shipThree.coord[i]].hit) {
+          count++;
+        }
+      }
+      if (count === 2) {
+        setShipThree({ ...shipThree, sunk: true });
+      }
+    }
+    if (shipFour.sunk === false) {
+      let count = 0;
+      for (let i = 0; i < 2; i++) {
+        if (userData[shipFour.coord[i]].hit) {
+          count++;
+        }
+      }
+      if (count === 2) {
+        setShipFour({ ...shipFour, sunk: true });
+      }
+    }
+    if (shipFive.sunk === false) {
+      let count = 0;
+      for (let i = 0; i < 2; i++) {
+        if (userData[shipFive.coord[i]].hit) {
+          count++;
+        }
+      }
+      if (count === 2) {
+        setShipFive({ ...shipFive, sunk: true });
+      }
+    }
+  }, [
+    checkHit,
+    userData,
+    opponentData,
+    shipTwo,
+    shipThree,
+    shipFour,
+    shipFive,
+  ]);
+
   const placeBoat = useCallback((coordinate, int, orientation) => {
     let boatCheck = false;
     if (orientation === "h" && 10 - (coordinate % 10) >= int) {
@@ -45,6 +104,7 @@ export function GameProvider(props) {
       if (boatCheck === false) {
         for (let i = 0; i < int; i++) {
           userData[coordinate + i].ship = true;
+          trackBoat(coordinate + i, int);
         }
       }
     } else if (orientation === "v" && coordinate + (int - 1) * 10 < 100) {
@@ -56,11 +116,36 @@ export function GameProvider(props) {
       if (boatCheck === false) {
         for (let i = 0; i < int; i++) {
           userData[coordinate + i * 10].ship = true;
+          trackBoat(coordinate + i * 10, int);
         }
       }
     }
     setUserData((curr) => [...curr]);
   }, []);
+
+  function trackBoat(coordinate, type) {
+    switch (type) {
+      case 2:
+        shipTwo.coord.push(coordinate);
+        setShipTwo(...shipTwo);
+        break;
+      case 3:
+        shipThree.coord.push(coordinate);
+        setShipThree(...shipThree);
+        break;
+      case 4:
+        shipFour.coord.push(coordinate);
+        setShipFour(...shipFour);
+        break;
+      case 5:
+        shipFive.coord.push(coordinate);
+        setShipFive(...shipFive);
+        break;
+      default:
+        console.log("Switch broke.");
+        break;
+    }
+  }
 
   const boatsReady = useCallback(() => {
     setReady(true);
@@ -176,6 +261,10 @@ export function GameProvider(props) {
         ready,
         checkHit,
         gameActive,
+        shipTwo,
+        shipThree,
+        shipFour,
+        shipFive,
       }}
     >
       {props.children}

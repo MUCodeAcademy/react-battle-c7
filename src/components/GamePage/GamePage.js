@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import { UserContext } from "../../shared/context/UserContext";
 
 export default function GamePage() {
-  const {placeBoat, userData, opponentData} = useContext(GameContext);
+  const {placeBoat, userData, opponentData, shipTwo, shipThree, shipFour, shipFive} = useContext(GameContext);
   const { username, isHostCon } = useContext(UserContext);
   const { room } = useParams();
   const { joinRoom, sendChat, messages } = useSocket(room, isHostCon);
