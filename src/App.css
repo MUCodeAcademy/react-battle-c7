@@ -138,8 +138,7 @@ border-radius: 50px;
 
 }
 
-.ship-2, .ship-3, .ship-4, .ship-5 {
-background-image: src="/assets/7battle.png alt=ship";
+.ship{
 display: flex;
 align-items: center;
 justify-content: center;

@@ -75,18 +75,20 @@ function ScoreBoard() {
         <div className="shipbox">
           <div>
             <img className="size2" src="/assets/7battle.png" alt="ship 2" />
-            <div className="ship-2">2</div>
+            <div className="ship">2</div>
           </div>
           <div>
             <img className="size3" src="/assets/7battle.png" alt="ship 3" />
-            <div className="ship-3">3</div>
+            <div className="ship">3</div>
           </div>
           <div>
             <img className="size4" src="/assets/7battle.png" alt="ship 4" />
-            <div className="ship-4">4</div>
+            <div className="ship">4</div>
           </div>
           <div>
-            <img className="size5" src="/assets/7battleG.png" alt="ship 5" style={{opacity: ".25"}}/>
+            <img className="size5" src="/assets/7battleG.png" alt="ship 5"/>
+
+
             <div className="ship-4">5</div>
           </div>
         </div>
