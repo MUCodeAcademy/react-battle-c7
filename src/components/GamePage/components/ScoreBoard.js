@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import {
-  userHits,
-  oppHits,
+  userHit,
+  oppHit,
   totalGuesses,
-  Ready,
+  setReady,
 } from "../../../shared/context/GameContext";
 import { useParams } from "react-router-dom";
 
@@ -104,7 +104,7 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
         <button
           className="readybtn"
           onClick={() => {
-            Ready();
+            setReady(true);
           }}
         ></button>
         <h6>{`You're Battling in Room: ${room}`}</h6>

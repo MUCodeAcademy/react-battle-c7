@@ -174,8 +174,11 @@ export function GameProvider(props) {
         totalGuesses,
         resetBoards,
         ready,
+        setReady,
         checkHit,
         gameActive,
+        oppHit,
+        userHit,
       }}
     >
       {props.children}

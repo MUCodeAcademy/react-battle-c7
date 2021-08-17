@@ -3,7 +3,6 @@ import { Col, Row, Card, Modal, Button, CloseButton } from "react-bootstrap";
 import Chat from "./components/Chat";
 import Board from "./components/Board";
 import ScoreBoard from "./components/ScoreBoard";
-import { GameContext } from "../../shared/context/GameContext";
 import useSocket from "../../shared/hooks/useSocket";
 import { useParams, useHistory } from "react-router-dom";
 import { UserContext } from "../../shared/context/UserContext";
