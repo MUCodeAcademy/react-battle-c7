@@ -72,22 +72,23 @@ export function GameProvider(props) {
     if (user) {
       userData[coordinate].hit = true;
       setUserData(curr => [...curr])
-      if (userData[coordinate].ship === true) setOppHit((curr) => curr++);
+      if (userData[coordinate].ship === true) setOppHit((curr) => curr + 1);
     } else {
       opponentData[coordinate].hit = true;
       setOpponentData(curr => [...curr]);
-      if (opponentData[coordinate].ship === true) setUserHit((curr) => curr++);
-      setTotalGuesses((curr) => curr++);
+      if (opponentData[coordinate].ship === true) setUserHit((curr) => curr + 1);
+      setTotalGuesses((curr) => curr + 1);
     }
+    console.log(userHit, oppHit, totalGuesses)
     checkWin(user);
-    setTurn(curr => !curr);
+    setTurn( !turn);
   }, [userData, opponentData, totalGuesses, turn, oppHit, userHit]);
   
   const select = useCallback((coordinate, user, type, orientation) => {
     if (!gameActive && !ready && user) {
       placeBoat(coordinate, type, orientation);
     }
-    if (gameActive && !user) {
+    if (gameActive && !user && turn) {
       checkHit(coordinate, user);
       
     }
@@ -96,14 +97,16 @@ export function GameProvider(props) {
 
 
   const checkWin = useCallback((user) => {
-    if (user && oppHit === 14) {
+    if (user && oppHit === 1) {
       setWinner("Opponent");
       endGame();
-    } else if (!user && userHit === 14) {
+      console.log("Win")
+    } else if (!user && userHit === 1) {
       setWinner("User");
       endGame();
+      console.log("Win")
     }
-  },[]);
+  },[winner,checkHit, oppHit, userHit]);
 
   const newGame = useCallback(() => {
     resetBoards();
@@ -124,7 +127,7 @@ export function GameProvider(props) {
 
   const endGame = useCallback(() => {
     setGameActive(false);
-  },[])
+  },[gameActive, checkWin, winner])
 
   const resetBoards = useCallback(() => {
     for (let i = 0; i < 100; i++) {
@@ -151,6 +154,7 @@ export function GameProvider(props) {
         totalGuesses,
         resetBoards,
         ready,
+        checkHit,
         gameActive
       }}
     >
