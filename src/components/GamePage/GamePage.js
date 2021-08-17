@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import { UserContext } from "../../shared/context/UserContext";
 
 export default function GamePage() {
-  const {placeBoat, userData, opponentData, resetBoards, boatsReady, startGame, select, gameActive, ready, checkHit, winner} = useContext(GameContext);
+  const {placeBoat, userData, opponentData} = useContext(GameContext);
   const { username, isHostCon } = useContext(UserContext);
   const { room } = useParams();
   const { joinRoom, sendChat, messages } = useSocket(room, isHostCon);
@@ -20,15 +20,6 @@ export default function GamePage() {
 
   return (
     <>
-    {ready? "True": "False"}
-    {gameActive? "True": "False"}
-    {winner === "Opponent" ? "True": "False"}
-    <button onClick={()=>{placeBoat(0, 2, "h")}}>placeboats</button>
-    <button onClick={()=>{boatsReady(); }}>boatsready</button>
-    <button onClick={()=>{startGame();}}>startgame</button>
-    <button onClick={()=>{checkHit(1,true);}}>hitboats</button>
-    <button onClick={()=>{resetBoards()}}>resetboards</button>
-    {gameActive && ready && <div>{gameActive, ready}</div>}
       <div className="bigShell">
         <Card fluid="lg" style={{ backgroundColor: "blue", color: "darkblue" }}>
           <Row lg={1}>

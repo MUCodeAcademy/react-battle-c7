@@ -1,4 +1,11 @@
-import React, { useCallback, useEffect, useState, createContext, useContext } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useState,
+  createContext,
+  useContext,
+  useMemo,
+} from "react";
 import { UserContext } from "./UserContext";
 
 export const GameContext = createContext(null);
@@ -13,23 +20,19 @@ export function GameProvider(props) {
   const [userHit, setUserHit] = useState(0);
   const [oppHit, setOppHit] = useState(0);
   const [totalGuesses, setTotalGuesses] = useState(0);
-  const {isHostCon} = useContext(UserContext);
-  
+  const { isHostCon } = useContext(UserContext);
 
   useEffect(() => {
     resetBoards();
   }, []);
 
   useEffect(() => {
-    if(isHostCon)
-    {
+    if (isHostCon) {
       setTurn(true);
-    }
-    else
-    {
+    } else {
       setTurn(false);
     }
-  },[isHostCon])
+  }, [isHostCon]);
 
   const placeBoat = useCallback((coordinate, int, orientation) => {
     let boatCheck = false;
@@ -65,69 +68,72 @@ export function GameProvider(props) {
   }, [ready]);
   const startGame = useCallback(() => {
     setGameActive(true);
-    console.log(gameActive)
+    console.log(gameActive);
   }, [gameActive]);
 
-  const checkHit = useCallback((coordinate, user) => {
-    if (user) {
-      userData[coordinate].hit = true;
-      setUserData(curr => [...curr])
-      if (userData[coordinate].ship === true) setOppHit((curr) => curr + 1);
-    } else {
-      opponentData[coordinate].hit = true;
-      setOpponentData(curr => [...curr]);
-      if (opponentData[coordinate].ship === true) setUserHit((curr) => curr + 1);
-      setTotalGuesses((curr) => curr + 1);
-    }
-    console.log(userHit, oppHit, totalGuesses)
-    checkWin(user);
-    setTurn( !turn);
-  }, [userData, opponentData, totalGuesses, turn, oppHit, userHit]);
-  
-  const select = useCallback((coordinate, user, type, orientation) => {
-    if (!gameActive && !ready && user) {
-      placeBoat(coordinate, type, orientation);
-    }
-    if (gameActive && !user && turn) {
-      checkHit(coordinate, user);
-      
-    }
-  }, [gameActive, ready, placeBoat, checkHit]);
+  const checkHit = useCallback(
+    async (coordinate, user) => {
+      if (user) {
+        userData[coordinate].hit = true;
+        setUserData((curr) => [...curr]);
+        if (userData[coordinate].ship === true)
+          await setOppHit((curr) => curr + 1);
+      } else {
+        opponentData[coordinate].hit = true;
+        setOpponentData((curr) => [...curr]);
+        if (opponentData[coordinate].ship === true)
+          await setUserHit((curr) => curr + 1);
+        setTotalGuesses((curr) => curr + 1);
+      }
+      console.log(userHit, oppHit, totalGuesses);
+      checkWin(user);
+      setTurn(!turn);
+    },
+    [userData, opponentData, totalGuesses, turn, oppHit, userHit]
+  );
 
+  const checkWin = useCallback(
+    (user) => {
+      if (user && oppHit === 1) {
+        setWinner("Opponent");
+        endGame();
+        console.log("Win");
+      } else if (!user && userHit === 1) {
+        setWinner("User");
+        endGame();
+        console.log("Win");
+      }
+    },
+    [winner, oppHit, userHit, checkHit]
+  );
 
-
-  const checkWin = useCallback((user) => {
-    if (user && oppHit === 1) {
-      setWinner("Opponent");
-      endGame();
-      console.log("Win")
-    } else if (!user && userHit === 1) {
-      setWinner("User");
-      endGame();
-      console.log("Win")
-    }
-  },[winner,checkHit, oppHit, userHit]);
-
-  const newGame = useCallback(() => {
-    resetBoards();
-    setReady(false);
-    setOppHit(0);
-    setUserHit(0);
-    setTotalGuesses(0);
-    setWinner("");
-    if(isHostCon)
-    {
-      setTurn(true);
-    }
-    else
-    {
-      setTurn(false);
-    }
-  },[]);
+  const select = useCallback(
+    (coordinate, user, type, orientation) => {
+      if (!gameActive && !ready && user) {
+        placeBoat(coordinate, type, orientation);
+      }
+      if (gameActive && !user && turn) {
+        checkHit(coordinate, user);
+      }
+    },
+    [gameActive, ready, placeBoat, checkHit]
+  );
 
   const endGame = useCallback(() => {
     setGameActive(false);
-  },[gameActive, checkWin, winner])
+  }, [gameActive, checkWin, winner]);
+
+  const checkWinner = useMemo(() => {
+    if (userHit === 1) {
+      setWinner("User");
+      endGame();
+      console.log("Win");
+    } else if (oppHit === 1) {
+      setWinner("Opponent");
+      endGame();
+      console.log("Winner");
+    }
+  }, [userHit, oppHit]);
 
   const resetBoards = useCallback(() => {
     for (let i = 0; i < 100; i++) {
@@ -137,7 +143,21 @@ export function GameProvider(props) {
     console.log(userData);
     setUserData((curr) => [...curr]);
     setOpponentData((curr) => [...curr]);
-  },[userData, opponentData]);
+  }, [userData, opponentData]);
+
+  const newGame = useCallback(() => {
+    resetBoards();
+    setReady(false);
+    setOppHit(0);
+    setUserHit(0);
+    setTotalGuesses(0);
+    setWinner("");
+    if (isHostCon) {
+      setTurn(true);
+    } else {
+      setTurn(false);
+    }
+  }, [resetBoards, ready, oppHit, userHit, totalGuesses, winner, isHostCon]);
 
   return (
     <GameContext.Provider
@@ -155,7 +175,7 @@ export function GameProvider(props) {
         resetBoards,
         ready,
         checkHit,
-        gameActive
+        gameActive,
       }}
     >
       {props.children}
