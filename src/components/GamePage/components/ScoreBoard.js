@@ -89,7 +89,7 @@ function ScoreBoard() {
             <img className="size5" src="/assets/7battleG.png" alt="ship 5"/>
 
 
-git             <div className="ship-4">5</div>
+        <div className="ship-4">5</div>
           </div>
         </div>
       </div>
