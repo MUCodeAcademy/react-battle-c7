@@ -9,12 +9,12 @@ import { UserContext } from "../../shared/context/UserContext";
 import { GameContext } from "../../shared/context/GameContext";
 
 export default function GamePage() {
-  // modal state and cb functions
-  const [showModal, setShowModal] = useState(true);
-  const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
   const { placeBoat, userData, opponentData, winner, newGame } =
     useContext(GameContext);
+  // modal state and cb functions
+  const [showModal, setShowModal] = useState(winner);
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
   const { username, isHostCon } = useContext(UserContext);
   const { room } = useParams();
   const { joinRoom, sendChat, messages } = useSocket(room, isHostCon);
@@ -26,6 +26,10 @@ export default function GamePage() {
     joinRoom(username);
   }, []);
 
+  useEffect(() => {
+    setShowModal(winner);
+  }, [winner]);
+
   return (
     <>
       <Modal
@@ -36,15 +40,11 @@ export default function GamePage() {
         centered
       >
         <Modal.Header>
-          {/* {winner ? (
+          {winner ? (
             <Modal.Title>Congratulations! You Won!</Modal.Title>
           ) : (
             <Modal.Title>Oh No, You lost! Better luck next time!</Modal.Title>
-          )} */}
-          <Modal.Title>
-            Test Title, uncomment above and delete this once Game Context is
-            done
-          </Modal.Title>
+          )}
         </Modal.Header>
         <Modal.Body>
           The game is over now. Play again or return to waiting room. Or don't -
