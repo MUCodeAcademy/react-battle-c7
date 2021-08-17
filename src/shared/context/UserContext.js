@@ -6,6 +6,7 @@ export const UserContext = createContext(null);
 export function UserProvider(props) {
   const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
+  const [isHostCon, setIsHostCon] = useState(false);
 
   const { callAPI: loginCall } = useAxios("POST");
   const { callAPI: signupCall } = useAxios("POST");
@@ -44,7 +45,7 @@ export function UserProvider(props) {
   },[])
 
   return (
-    <UserContext.Provider value={{ login, signup, username, logout, message, setMessage }}>
+    <UserContext.Provider value={{ login, signup, username, logout, message, setMessage, isHostCon, setIsHostCon }}>
       {props.children}
     </UserContext.Provider>
   );

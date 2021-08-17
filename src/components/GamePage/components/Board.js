@@ -9,6 +9,7 @@ function Board({ board, boatToPlace, boatOrient }) {
         return (
           <Cell
             key={i}
+            i={i}
             coordinate={cell}
             boatToPlace={boatToPlace}
             boatOrient={boatOrient}

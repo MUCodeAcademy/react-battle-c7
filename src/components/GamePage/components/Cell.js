@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { GameContext } from "../../../shared/context/GameContext";
 import {
   Select,
   CheckHit,
@@ -6,16 +7,12 @@ import {
 } from "../../../shared/context/GameContext";
 
 function Cell({ i, coordinate, boatToPlace, boatOrient }) {
+  const { select } = useContext(GameContext);
   return (
     <div
       onClick={() => {
-        if (coordinate.user) {
-          Select(i, coordinate.user, boatToPlace, boatOrient);
-        }
-        if (!coordinate.user) {
-          Select(i, coordinate.user);
-          CheckHit(i);
-        }
+        console.log(i, coordinate.player);
+        select(i, coordinate.player);
       }}
       className={`cell flex ${
         coordinate.user ? (coordinate.ship ? "bg-grey" : "bg-blue") : "bg-grey"

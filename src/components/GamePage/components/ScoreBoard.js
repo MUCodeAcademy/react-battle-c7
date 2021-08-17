@@ -5,6 +5,7 @@ import {
   totalGuesses,
   Ready,
 } from "../../../shared/context/GameContext";
+import { useParams } from "react-router-dom";
 
 function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
   const [isActive2, setActive2] = useState("false");
@@ -13,6 +14,7 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
   const [isActive5, setActive5] = useState("false");
   let misses = totalGuesses - userHits;
 
+  const { room } = useParams();
   const boat2Toggle = () => {
     setActive2(!isActive2);
   };
@@ -30,7 +32,7 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
 
   return (
     <>
-      {
+      {boatsToggle && (
         <div>
           <h5 className="title"> Place Boats</h5>
 
@@ -94,14 +96,18 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
             </div>
           </div>
         </div>
-      }
-      <div className="rbtn">
+      )}
+      <div
+        className="rbtn"
+        style={{ justifyContent: "center", alignItems: "center" }}
+      >
         <button
           className="readybtn"
           onClick={() => {
             Ready();
           }}
         ></button>
+        <h6>{`You're Battling in Room: ${room}`}</h6>
       </div>
       {/* conditional render for active play */}
 

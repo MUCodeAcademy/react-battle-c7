@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { UserContext } from "../shared/context/UserContext";
 import {
   Card,
   Alert,
@@ -11,6 +12,7 @@ import {
 } from "react-bootstrap";
 
 const WaitingRoom = () => {
+  const {setIsHostCon} = useContext(UserContext);
   const [roomNum, setRoomNum] = useState("");
   const history = useHistory();
   const [error, setError] = useState(null);
@@ -75,6 +77,7 @@ const WaitingRoom = () => {
                         >
                           <Button
                             onClick={(e) => {
+                              e.preventDefault();
                               // set limits of roomNum
                               if (roomNum.length !== 8) {
                                 setError("Room Number must be 8 characters!");
@@ -118,9 +121,10 @@ const WaitingRoom = () => {
                       <Row>
                         <Col className="d-flex justify-content-center">
                           <Button
-                            onClick={(e) => {
+                            onClick={async (e) => {
                               //generate a random number
                               let room = genRoomNum();
+                              await setIsHostCon(true);
                               //use history to redirect them
                               console.log(
                                 `Directing user to Game Room ${room} NYI`
@@ -143,7 +147,7 @@ const WaitingRoom = () => {
             {/* <Row>
               <Col className="d-flex justify-content-center"> */}
             {error && (
-              <Alert style={{ margin: "10px" }} variant="danger">
+              <Alert style={{ margin: "10px", color: "red" }} variant="danger">
                 {error}
               </Alert>
             )}
