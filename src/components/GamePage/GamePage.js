@@ -17,12 +17,14 @@ export default function GamePage() {
   useEffect(() => {
     joinRoom(username);
   }, []);
-  console.log(userData)
 
   return (
     <>
+    {ready? "True": "False"}
+    {gameActive? "True": "False"}
     <button onClick={()=>{placeBoat(0, 2, "h")}}>placeboats</button>
-    <button onClick={()=>{boatsReady(); startGame();}}>boatsready</button>
+    <button onClick={()=>{boatsReady(); }}>boatsready</button>
+    <button onClick={()=>{startGame();}}>startgame</button>
     <button onClick={()=>{select(1,false);select(50,false);}}>hitboats</button>
     <button onClick={()=>{resetBoards()}}>resetboards</button>
     {gameActive && ready && <div>{gameActive, ready}</div>}
