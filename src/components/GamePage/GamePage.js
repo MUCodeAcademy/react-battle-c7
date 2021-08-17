@@ -215,7 +215,7 @@ const arr1 = [
 ];
 
 export default function GamePage() {
-  const { winner, NewGame } = useContext(GameContext);
+  // const { winner, newGame } = useContext(GameContext);
   // modal state and cb functions
   const [showModal, setShowModal] = useState(true);
   const handleClose = () => setShowModal(false);
@@ -239,16 +239,20 @@ export default function GamePage() {
         keyboard={false}
         centered
       >
-        <Modal.Header closeButton>
-          {winner ? (
+        <Modal.Header>
+          {/* {winner ? (
             <Modal.Title>Congratulations! You Won!</Modal.Title>
           ) : (
             <Modal.Title>Oh No, You lost! Better luck next time!</Modal.Title>
-          )}
+          )} */}
+          <Modal.Title>
+            Test Title, uncomment above and delete this once Game Context is
+            done
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          The game is over now. Play again or return to waiting room. Or don't,
-          it's up to you.
+          The game is over now. Play again or return to waiting room. Or don't -
+          we're not the boss of you.
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => history.push("/waiting")}>
@@ -257,7 +261,8 @@ export default function GamePage() {
           <Button
             variant="primary"
             onClick={() => {
-              NewGame();
+              console.log("new game function nyi");
+              // newGame();
             }}
           >
             New Game Button NYI
