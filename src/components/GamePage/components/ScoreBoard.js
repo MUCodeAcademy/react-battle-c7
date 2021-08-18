@@ -13,16 +13,16 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
   let misses = totalGuesses - userHit;
 
   const { room } = useParams();
-  const boat2Toggle = () => {
+  const boat5Toggle = () => {
     setActive5(!isActive5);
   };
-  const boat3Toggle = () => {
+  const boat4Toggle = () => {
     setActive4(!isActive4);
   };
-  const boat4Toggle = () => {
+  const boat3Toggle = () => {
     setActive3(!isActive3);
   };
-  const boat5Toggle = () => {
+  const boat2Toggle = () => {
     setActive2(!isActive2);
   };
 
@@ -32,9 +32,8 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
     <>
       {!gameActive && (
         <div>
-          <h5 className="title"> Place Boats</h5>
-
-          <div className="shell">
+          <h5 className="title"> Place Boats <h6>(Click on the button to change orientation of ships)</h6></h5>
+             <div className="shell">
             <div className="flexship">
               <div className={isActive5 ? "boat5" : "boat5v"}>
                 <button
@@ -111,21 +110,20 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
 
         <div className="shipbox">
           <div>
-            <img className="size2" src="/assets/7battle.png" alt="ship 2" />
-            <div className="ship">2</div>
-          </div>
-          <div>
-            <img className="size3" src="/assets/7battle.png" alt="ship 3" />
-            <div className="ship">3</div>
+            <img className="size5" src="/assets/7battle.png" alt="ship 5" />
+            <div className="ship">5</div>
           </div>
           <div>
             <img className="size4" src="/assets/7battle.png" alt="ship 4" />
             <div className="ship">4</div>
           </div>
           <div>
-            <img className="size5" src="/assets/7battleG.png" alt="ship 5" />
-
-            <div className="ship-4">5</div>
+            <img className="size3" src="/assets/7battle.png" alt="ship 3" />
+            <div className="ship">3</div>
+          </div>
+          <div>
+            <img className="size2" src="/assets/7battleG.png" alt="ship 2" />
+            <div className="ship">2</div>
           </div>
         </div>
       </div>
