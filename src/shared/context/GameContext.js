@@ -27,6 +27,7 @@ export function GameProvider(props) {
   const [shipThree, setShipThree] = useState({ coord: [], sunk: false });
   const [shipFour, setShipFour] = useState({ coord: [], sunk: false });
   const [shipFive, setShipFive] = useState({ coord: [], sunk: false });
+  const [oppShips, setOppShips] = useState({shipTwoSunk: false, shipThreeSunk: false, shipFourSunk: false, shipFiveSunk: false})
 
   useEffect(() => {
     resetBoards();
@@ -62,7 +63,7 @@ export function GameProvider(props) {
             count++;
           }
         }
-        if (count === 2) {
+        if (count === 3) {
           setShipThree({ ...shipThree, sunk: true });
         }
       }
@@ -73,7 +74,7 @@ export function GameProvider(props) {
             count++;
           }
         }
-        if (count === 2) {
+        if (count === 4) {
           setShipFour({ ...shipFour, sunk: true });
         }
       }
@@ -84,7 +85,7 @@ export function GameProvider(props) {
             count++;
           }
         }
-        if (count === 2) {
+        if (count === 5) {
           setShipFive({ ...shipFive, sunk: true });
         }
       }
@@ -296,7 +297,9 @@ export function GameProvider(props) {
         shipThree,
         shipFour,
         shipFive,
-        currentShip
+        currentShip,
+        oppShips,
+        setOppShips
       }}
     >
       {props.children}

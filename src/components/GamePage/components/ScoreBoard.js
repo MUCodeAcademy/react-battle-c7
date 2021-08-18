@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import { GameContext } from "../../../shared/context/GameContext";
 import { useParams } from "react-router-dom";
 
-function ScoreBoard({ setBoatToPlace, setBoatOrient, boatOrient }) {
+function ScoreBoard({ setBoatOrient, boatOrient }) {
   const {
     userHit,
     oppHit,
@@ -11,6 +11,7 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient, boatOrient }) {
     setUserBoatsReady,
     gameActive,
     currentShip,
+    oppShips
   } = useContext(GameContext);
   const [isActive2, setActive2] = useState(false);
   const [isActive3, setActive3] = useState(false);
@@ -93,19 +94,19 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient, boatOrient }) {
 
         <div className="shipbox">
           <div>
-            <img className="size5" src="/assets/7battle.png" alt="ship 5" />
+            <img className="size5" src={`${oppShips.shipFiveSunk ? "/assets/7battleG.png" : "/assets/7battle.png" }`} alt="ship 5" />
             <div className="ship">5</div>
           </div>
           <div>
-            <img className="size4" src="/assets/7battle.png" alt="ship 4" />
+            <img className="size4" src={`${oppShips.shipFourSunk ? "/assets/7battleG.png" : "/assets/7battle.png" }`} alt="ship 4" />
             <div className="ship">4</div>
           </div>
           <div>
-            <img className="size3" src="/assets/7battle.png" alt="ship 3" />
+            <img className="size3" src={`${oppShips.shipThreeSunk ? "/assets/7battleG.png" : "/assets/7battle.png" }`} alt="ship 3" />
             <div className="ship">3</div>
           </div>
           <div>
-            <img className="size2" src="/assets/7battleG.png" alt="ship 2" />
+            <img className="size2" src={`${oppShips.shipTwoSunk ? "/assets/7battleG.png" : "/assets/7battle.png" }`} alt="ship 2" />
             <div className="ship">2</div>
           </div>
         </div>
