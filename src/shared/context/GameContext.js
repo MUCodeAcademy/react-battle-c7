@@ -244,6 +244,7 @@ export function GameProvider(props) {
 
   const newGame = useCallback(() => {
     resetBoards();
+    setCurrentShip(5);
     setGameActive(false);
     setUserBoatsReady(false);
     setOppHit(0);
