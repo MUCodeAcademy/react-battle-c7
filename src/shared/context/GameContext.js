@@ -33,13 +33,10 @@ export function GameProvider(props) {
   }, []);
 
   useEffect(() => {
-    if (isHostCon) {
-      setTurn(true);
-    } else {
-      setTurn(false);
-    }
+    setTurn(isHostCon);
   }, [isHostCon]);
 
+<<<<<<< HEAD
   useEffect(() => {
     if (currentShip < 2) {
       setUserBoatsReady(true);
@@ -115,19 +112,49 @@ export function GameProvider(props) {
       for (let i = 0; i < int; i++) {
         if (userData[coordinate + i * 10].ship === true) {
           boatCheck = true;
-        }
-      }
-      if (boatCheck === false) {
+=======
+  const placeBoat = useCallback(
+    (coordinate, int, orientation) => {
+      let boatCheck = false;
+      let newArr = [...userData];
+      if (orientation === "h" && 10 - (coordinate % 10) >= int) {
         for (let i = 0; i < int; i++) {
+          if (newArr[coordinate + i].ship === true) {
+            boatCheck = true;
+          }
+        }
+        if (!boatCheck) {
+          for (let i = 0; i < int; i++) {
+            newArr[coordinate + i] = { ...newArr[coordinate + i], ship: true };
+          }
+>>>>>>> d9ec23fb03dcb2f79244600985a552084ca54306
+        }
+      } else if (orientation === "v" && coordinate + (int - 1) * 10 < 100) {
+        for (let i = 0; i < int; i++) {
+<<<<<<< HEAD
           userData[coordinate + i * 10].ship = true;
           opponentData[coordinate + i * 10].ship = true;
           //   trackBoat(coordinate + i * 10, int);
+=======
+          if (newArr[coordinate + i * 10].ship === true) {
+            boatCheck = true;
+          }
+        }
+        if (!boatCheck) {
+          for (let i = 0; i < int; i++) {
+            newArr[coordinate + i * 10] = {
+              ...newArr[coordinate + i * 10],
+              ship: true,
+            };
+          }
+>>>>>>> d9ec23fb03dcb2f79244600985a552084ca54306
         }
         setCurrentShip((curr) => curr - 1);
       }
-    }
-    setUserData((curr) => [...curr]);
-  }, []);
+      setUserData(() => newArr);
+    },
+    [userData]
+  );
 
   function trackBoat(coordinate, type) {
     switch (type) {
@@ -203,7 +230,12 @@ export function GameProvider(props) {
   const select = useCallback(
     (coordinate, user, orientation) => {
       if (!gameActive && !userBoatsReady && user) {
+<<<<<<< HEAD
         placeBoat(coordinate, currentShip, orientation);
+=======
+        placeBoat(coordinate, type, orientation);
+        console.log(coordinate, type, orientation);
+>>>>>>> d9ec23fb03dcb2f79244600985a552084ca54306
       }
       if (gameActive && !user && turn) {
         checkHit(coordinate, user);
@@ -229,17 +261,21 @@ export function GameProvider(props) {
   }, [userHit, oppHit]);
 
   const resetBoards = useCallback(() => {
-    for (let i = 0; i < 100; i++) {
-      userData[i] = { user: true, hit: false, ship: false };
-      opponentData[i] = { user: false, hit: false, ship: false };
-    }
-    console.log(userData);
-    setUserData((curr) => [...curr]);
-    setOpponentData((curr) => [...curr]);
+    setUserData((curr) => {
+      let next = new Array(100);
+      next.fill({ user: true, hit: false, ship: false });
+      return next;
+    });
+    setOpponentData((curr) => {
+      let next = new Array(100);
+      next.fill({ user: false, hit: false, ship: false });
+      return next;
+    });
   }, [userData, opponentData]);
 
   const newGame = useCallback(() => {
     resetBoards();
+    setGameActive(false);
     setUserBoatsReady(false);
     setOppHit(0);
     setUserHit(0);
@@ -258,6 +294,7 @@ export function GameProvider(props) {
     totalGuesses,
     winner,
     isHostCon,
+    gameActive,
   ]);
 
   return (
