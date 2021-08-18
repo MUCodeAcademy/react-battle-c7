@@ -90,7 +90,6 @@ export function GameProvider(props) {
       }
       console.log(userHit, oppHit, totalGuesses);
       checkWin(user);
-      setIsTurn(!isTurn);
     },
     [userData, opponentData, totalGuesses, isTurn, oppHit, userHit]
   );
