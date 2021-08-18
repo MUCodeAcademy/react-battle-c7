@@ -17,7 +17,10 @@ export default function GamePage() {
   const handleShow = () => setShowModal(true);
   const { username, isHostCon } = useContext(UserContext);
   const { room } = useParams();
-  const { joinRoom, sendChat, messages } = useSocket(room, isHostCon);
+  const { joinRoom, sendChat, messages, sendGuess } = useSocket(
+    room,
+    isHostCon
+  );
   const [boatToPlace, setBoatToPlace] = useState(null);
   const [boatOrient, setBoatOrient] = useState("v");
   const history = useHistory();
@@ -40,7 +43,7 @@ export default function GamePage() {
         centered
       >
         <Modal.Header>
-          {winner ? (
+          {winner && winner === "user" ? (
             <Modal.Title>Congratulations! You Won!</Modal.Title>
           ) : (
             <Modal.Title>Oh No, You lost! Better luck next time!</Modal.Title>
@@ -93,6 +96,7 @@ export default function GamePage() {
                         board={userData}
                         boatToPlace={boatToPlace}
                         boatOrient={boatOrient}
+                        sendGuess={sendGuess}
                       />
                     </div>
                   </Card.Body>
@@ -109,7 +113,11 @@ export default function GamePage() {
 
                   <Card.Body>
                     <div>
-                      <Board board={opponentData} boatToPlace={boatToPlace} />
+                      <Board
+                        board={opponentData}
+                        boatToPlace={boatToPlace}
+                        sendGuess={sendGuess}
+                      />
                     </div>
                   </Card.Body>
                 </Card.Body>

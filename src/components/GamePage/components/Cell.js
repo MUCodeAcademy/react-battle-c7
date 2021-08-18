@@ -6,13 +6,20 @@ import {
   gameActive,
 } from "../../../shared/context/GameContext";
 
-function Cell({ i, coordinate, boatToPlace, boatOrient }) {
+function Cell({ i, coordinate, boatToPlace, boatOrient, sendGuess}) {
   const { select } = useContext(GameContext);
   return (
     <div
       onClick={() => {
-        console.log(i, coordinate.player);
-        select(i, coordinate.player);
+        if(coordinate.user === true)
+        {
+          select(i, coordinate.user, boatToPlace, boatOrient);
+        }
+        else
+        {
+          select(i, coordinate.user);
+          sendGuess(i);
+        }
       }}
       className={`cell flex ${
         coordinate.user ? (coordinate.ship ? "bg-grey" : "bg-blue") : "bg-grey"

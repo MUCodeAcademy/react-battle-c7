@@ -11,12 +11,18 @@ const SERVER_URL = "http://localhost:8080";
 
 const useSocket = (roomNum, isHost) => {
   const { username, isHostCon } = useContext(UserContext);
-  const { startGame, checkHit, setOppData } = useContext(GameContext);
+  const {
+    startGame,
+    checkHit,
+    setOppData,
+    userBoatsReady,
+    setUserBoatsReady,
+    oppBoatsReady,
+    setOppBoatsReady,
+  } = useContext(GameContext);
   const [color, setColor] = useState(null);
   const [messages, setMessages] = useState([]);
   const [currGuess, setCurrGuess] = useState(null);
-  const [userBoatsReady, setUserBoatsReady] = useState(null);
-  const [oppBoatsReady, setOppBoatsReady] = useState(null);
   const [isHostSoc] = useState(isHostCon);
   const socketRef = useRef();
   useEffect(() => {
@@ -32,10 +38,11 @@ const useSocket = (roomNum, isHost) => {
       setColor(color);
     });
 
-    socketRef.current.on(SEND_GUESS, (newGuess) => {
+    socketRef.current.on(SEND_GUESS, ({ newGuess, wasHost }) => {
       // newGuess is i (coord)
       // checkHit should be called with i (coord) and user (boolean)
-      checkHit(newGuess, true);
+      const wasPlayer = isHostSoc === wasHost;
+      checkHit(newGuess, wasPlayer);
       console.log(`Received sendGuess from backend successfuly`);
       // console.log(newGuess);
     });
@@ -64,8 +71,9 @@ const useSocket = (roomNum, isHost) => {
   );
   // function passed to game that sends a guess
   const sendGuess = useCallback((newGuess) => {
-    checkHit(newGuess, false);
-    socketRef.current.emit(SEND_GUESS, { newGuess });
+    // for newGuess, line 76 pass newguessa nd ishostcon
+    // checkHit(newGuess, false);
+    socketRef.current.emit(SEND_GUESS, { newGuess, wasHost: isHostSoc });
   }, []);
   // function that determines boats are ready
   const sendBoatsReady = useCallback((boardData) => {
