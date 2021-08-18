@@ -23,9 +23,13 @@ export default function GamePage() {
     opponentData,
     winner,
     newGame,
+    userBoatsReady,
+    shipTwo,
+    shipThree,
+    shipFour,
+    shipFive,
     isTurn,
     gameActive,
-    userBoatsReady,
   } = useContext(GameContext);
   // modal state and cb functions
   const [showModal, setShowModal] = useState(winner);
@@ -44,6 +48,13 @@ export default function GamePage() {
   useEffect(() => {
     joinRoom(username);
   }, []);
+
+  // useEffect(()=> {
+  //   if(userBoatsReady === true)
+  //   {
+  //     sendBoatsReady();
+  //   }
+  // }, [userBoatsReady])
 
   useEffect(() => {
     setShowModal(winner);
@@ -94,7 +105,7 @@ export default function GamePage() {
                   setOrientation={setBoatOrient}
                   setBoatToPlace={setBoatToPlace}
                   setBoatOrient={setBoatOrient}
-                  sendBoatsReady={sendBoatsReady}
+                  boatOrient={boatOrient}
                 />
               </Card.Body>
             </Card>
