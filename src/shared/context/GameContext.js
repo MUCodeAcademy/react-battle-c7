@@ -61,6 +61,7 @@ export function GameProvider(props) {
       }
     }
     setUserData((curr) => [...curr]);
+    console.log(userData);
   }, []);
 
   const boatsReady = useCallback(() => {
@@ -114,6 +115,7 @@ export function GameProvider(props) {
     (coordinate, user, type, orientation) => {
       if (!gameActive && !userBoatsReady && user) {
         placeBoat(coordinate, type, orientation);
+        console.log(coordinate, type, orientation);
       }
       if (gameActive && !user && turn) {
         checkHit(coordinate, user);
@@ -150,6 +152,7 @@ export function GameProvider(props) {
 
   const newGame = useCallback(() => {
     resetBoards();
+    setGameActive(false);
     setUserBoatsReady(false);
     setOppHit(0);
     setUserHit(0);
@@ -168,6 +171,7 @@ export function GameProvider(props) {
     totalGuesses,
     winner,
     isHostCon,
+    gameActive,
   ]);
 
   return (
