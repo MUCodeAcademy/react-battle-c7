@@ -34,11 +34,7 @@
 }
 
 .bg-white {
-  background-color: white !important;
-}
-
-.bg-darkgrey {
-  background-color: darkgrey !important;
+  background-color: white;
 }
 
 .peg{
@@ -104,7 +100,7 @@ border: 1px solid black; background-color: darkgray;
 border: 1px solid black; background-color: darkgray;
 }
 
-.boat5v{ height: 133px; width: 25px; margin-right: 113px;
+.boat5v{ height: 133px; width: 25px; 
 border: 1px solid black; background-color: darkgray;
 }
 
