@@ -17,7 +17,7 @@ export function GameProvider(props) {
   const [userData, setUserData] = useState([]);
   const [opponentData, setOpponentData] = useState([]);
   const [winner, setWinner] = useState("");
-  const [turn, setTurn] = useState(false);
+  const [isTurn, setIsTurn] = useState(false);
   const [userHit, setUserHit] = useState(0);
   const [oppHit, setOppHit] = useState(0);
   const [totalGuesses, setTotalGuesses] = useState(0);
@@ -29,9 +29,9 @@ export function GameProvider(props) {
 
   useEffect(() => {
     if (isHostCon) {
-      setTurn(true);
+      setIsTurn(true);
     } else {
-      setTurn(false);
+      setIsTurn(false);
     }
   }, [isHostCon]);
 
@@ -90,9 +90,9 @@ export function GameProvider(props) {
       }
       console.log(userHit, oppHit, totalGuesses);
       checkWin(user);
-      setTurn(!turn);
+      setIsTurn(!isTurn);
     },
-    [userData, opponentData, totalGuesses, turn, oppHit, userHit]
+    [userData, opponentData, totalGuesses, isTurn, oppHit, userHit]
   );
 
   const checkWin = useCallback(
@@ -115,7 +115,7 @@ export function GameProvider(props) {
       if (!gameActive && !userBoatsReady && user) {
         placeBoat(coordinate, type, orientation);
       }
-      if (gameActive && !user && turn) {
+      if (gameActive && !user && isTurn) {
         checkHit(coordinate, user);
       }
     },
@@ -143,7 +143,8 @@ export function GameProvider(props) {
       userData[i] = { user: true, hit: false, ship: false };
       opponentData[i] = { user: false, hit: false, ship: false };
     }
-    console.log(userData);
+    console.log("userData:", userData);
+    console.log("opponentData:", opponentData);
     setUserData((curr) => [...curr]);
     setOpponentData((curr) => [...curr]);
   }, [userData, opponentData]);
@@ -156,9 +157,9 @@ export function GameProvider(props) {
     setTotalGuesses(0);
     setWinner("");
     if (isHostCon) {
-      setTurn(true);
+      setIsTurn(true);
     } else {
-      setTurn(false);
+      setIsTurn(false);
     }
   }, [
     resetBoards,
@@ -175,17 +176,17 @@ export function GameProvider(props) {
       value={{
         userData,
         opponentData,
+        setOpponentData,
         placeBoat,
         select,
         boatsReady,
         startGame,
         newGame,
         winner,
-        turn,
+        isTurn,
+        setIsTurn,
         totalGuesses,
         resetBoards,
-        userBoatsReady,
-        setUserBoatsReady,
         checkHit,
         gameActive,
         oppHit,

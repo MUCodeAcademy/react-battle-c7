@@ -3,9 +3,15 @@ import { Button } from "react-bootstrap";
 import { GameContext } from "../../../shared/context/GameContext";
 import { useParams } from "react-router-dom";
 
-function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
-  const { userHit, oppHit, totalGuesses, setUserBoatsReady, gameActive } =
-    useContext(GameContext);
+function ScoreBoard({ setBoatToPlace, setBoatOrient, sendBoatsReady }) {
+  const {
+    userHit,
+    oppHit,
+    totalGuesses,
+    setUserBoatsReady,
+    gameActive,
+    userData,
+  } = useContext(GameContext);
   const [isActive2, setActive2] = useState(false);
   const [isActive3, setActive3] = useState(false);
   const [isActive4, setActive4] = useState(false);
@@ -103,8 +109,11 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
           // className="readybtn"
           onClick={() => {
             setUserBoatsReady(true);
+            sendBoatsReady(userData);
           }}
-        >Ready</Button>
+        >
+          Ready
+        </Button>
         <h6>{`You're Battling in Room: ${room}`}</h6>
       </div>
       {/* conditional render for active play */}
@@ -132,10 +141,9 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
             <div className="ship">4</div>
           </div>
           <div>
-            <img className="size5" src="/assets/7battleG.png" alt="ship 5"/>
+            <img className="size5" src="/assets/7battleG.png" alt="ship 5" />
 
-
-        <div className="ship-4">5</div>
+            <div className="ship-4">5</div>
           </div>
         </div>
       </div>
