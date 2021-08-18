@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../shared/context/UserContext";
 import {
@@ -10,11 +10,9 @@ import {
   Col,
   Row,
 } from "react-bootstrap";
-import { GameContext } from "../shared/context/GameContext";
 
 const WaitingRoom = () => {
-  const { newGame } = useContext(GameContext);
-  const { setIsHostCon } = useContext(UserContext);
+  const {setIsHostCon} = useContext(UserContext);
   const [roomNum, setRoomNum] = useState("");
   const history = useHistory();
   const [error, setError] = useState(null);
@@ -28,9 +26,7 @@ const WaitingRoom = () => {
     }
     return randNum;
   }
-  useEffect(() => {
-    newGame();
-  }, []);
+
   return (
     <>
       <Container
