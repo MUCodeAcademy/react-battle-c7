@@ -29,12 +29,12 @@ export default function GamePage() {
     joinRoom(username);
   }, []);
 
-  useEffect(()=> {
-    if(userBoatsReady === true)
-    {
-      sendBoatsReady()
-    }
-  }, [userBoatsReady])
+  // useEffect(()=> {
+  //   if(userBoatsReady === true)
+  //   {
+  //     sendBoatsReady();
+  //   }
+  // }, [userBoatsReady])
 
   useEffect(() => {
     setShowModal(winner);

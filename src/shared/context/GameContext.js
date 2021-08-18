@@ -106,9 +106,10 @@ export function GameProvider(props) {
       if (boatCheck === false) {
         for (let i = 0; i < int; i++) {
           userData[coordinate + i].ship = true;
-        //   trackBoat(coordinate + i, int);
-          setCurrentShip((curr) => curr - 1);
+          opponentData[coordinate + i].ship = true;
+          //   trackBoat(coordinate + i, int);
         }
+        setCurrentShip((curr) => curr - 1);
       }
     } else if (orientation === "v" && coordinate + (int - 1) * 10 < 100) {
       for (let i = 0; i < int; i++) {
@@ -119,9 +120,10 @@ export function GameProvider(props) {
       if (boatCheck === false) {
         for (let i = 0; i < int; i++) {
           userData[coordinate + i * 10].ship = true;
-        //   trackBoat(coordinate + i * 10, int);
-          setCurrentShip((curr) => curr - 1);
+          opponentData[coordinate + i * 10].ship = true;
+          //   trackBoat(coordinate + i * 10, int);
         }
+        setCurrentShip((curr) => curr - 1);
       }
     }
     setUserData((curr) => [...curr]);
