@@ -36,7 +36,6 @@ export function GameProvider(props) {
     setTurn(isHostCon);
   }, [isHostCon]);
 
-<<<<<<< HEAD
   useEffect(() => {
     if (currentShip < 2) {
       setUserBoatsReady(true);
@@ -94,6 +93,7 @@ export function GameProvider(props) {
 
   const placeBoat = useCallback((coordinate, int, orientation) => {
     let boatCheck = false;
+    let newArr = [...userData];
     if (orientation === "h" && 10 - (coordinate % 10) >= int) {
       for (let i = 0; i < int; i++) {
         if (userData[coordinate + i].ship === true) {
@@ -102,7 +102,7 @@ export function GameProvider(props) {
       }
       if (boatCheck === false) {
         for (let i = 0; i < int; i++) {
-          userData[coordinate + i].ship = true;
+          newArr[coordinate + i] = { ...newArr[coordinate + i], ship: true };
           opponentData[coordinate + i].ship = true;
           //   trackBoat(coordinate + i, int);
         }
@@ -110,44 +110,18 @@ export function GameProvider(props) {
       }
     } else if (orientation === "v" && coordinate + (int - 1) * 10 < 100) {
       for (let i = 0; i < int; i++) {
-        if (userData[coordinate + i * 10].ship === true) {
+        if (newArr[coordinate + i * 10].ship === true) {
           boatCheck = true;
-=======
-  const placeBoat = useCallback(
-    (coordinate, int, orientation) => {
-      let boatCheck = false;
-      let newArr = [...userData];
-      if (orientation === "h" && 10 - (coordinate % 10) >= int) {
-        for (let i = 0; i < int; i++) {
-          if (newArr[coordinate + i].ship === true) {
-            boatCheck = true;
-          }
         }
-        if (!boatCheck) {
-          for (let i = 0; i < int; i++) {
-            newArr[coordinate + i] = { ...newArr[coordinate + i], ship: true };
-          }
->>>>>>> d9ec23fb03dcb2f79244600985a552084ca54306
-        }
-      } else if (orientation === "v" && coordinate + (int - 1) * 10 < 100) {
-        for (let i = 0; i < int; i++) {
-<<<<<<< HEAD
-          userData[coordinate + i * 10].ship = true;
-          opponentData[coordinate + i * 10].ship = true;
-          //   trackBoat(coordinate + i * 10, int);
-=======
-          if (newArr[coordinate + i * 10].ship === true) {
-            boatCheck = true;
-          }
-        }
+      }
         if (!boatCheck) {
           for (let i = 0; i < int; i++) {
             newArr[coordinate + i * 10] = {
               ...newArr[coordinate + i * 10],
               ship: true,
             };
+            opponentData[coordinate + i * 10].ship = true;
           }
->>>>>>> d9ec23fb03dcb2f79244600985a552084ca54306
         }
         setCurrentShip((curr) => curr - 1);
       }
@@ -230,12 +204,7 @@ export function GameProvider(props) {
   const select = useCallback(
     (coordinate, user, orientation) => {
       if (!gameActive && !userBoatsReady && user) {
-<<<<<<< HEAD
         placeBoat(coordinate, currentShip, orientation);
-=======
-        placeBoat(coordinate, type, orientation);
-        console.log(coordinate, type, orientation);
->>>>>>> d9ec23fb03dcb2f79244600985a552084ca54306
       }
       if (gameActive && !user && turn) {
         checkHit(coordinate, user);
