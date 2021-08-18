@@ -97,11 +97,11 @@ export function GameProvider(props) {
 
   const checkWin = useCallback(
     (user) => {
-      if (user && oppHit === 1) {
+      if (user && oppHit === 14) {
         setWinner("Opponent");
         endGame();
         console.log("Win");
-      } else if (!user && userHit === 1) {
+      } else if (!user && userHit === 14) {
         setWinner("User");
         endGame();
         console.log("Win");
