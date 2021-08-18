@@ -6,14 +6,14 @@ import {
   gameActive,
 } from "../../../shared/context/GameContext";
 
-function Cell({ i, coordinate, boatToPlace, boatOrient, sendGuess}) {
+function Cell({ i, coordinate, boatOrient, sendGuess}) {
   const { select } = useContext(GameContext);
   return (
     <div
       onClick={() => {
         if(coordinate.user === true)
         {
-          select(i, coordinate.user, boatToPlace, boatOrient);
+          select(i, coordinate.user, boatOrient);
         }
         else
         {

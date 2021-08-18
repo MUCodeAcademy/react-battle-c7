@@ -14,16 +14,16 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
 
   const { room } = useParams();
   const boat2Toggle = () => {
-    setActive2(!isActive2);
+    setActive5(!isActive5);
   };
   const boat3Toggle = () => {
-    setActive3(!isActive3);
-  };
-  const boat4Toggle = () => {
     setActive4(!isActive4);
   };
+  const boat4Toggle = () => {
+    setActive3(!isActive3);
+  };
   const boat5Toggle = () => {
-    setActive5(!isActive5);
+    setActive2(!isActive2);
   };
 
   let userBoatsReady = true;
@@ -36,30 +36,16 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
 
           <div className="shell">
             <div className="flexship">
-              <div className={isActive2 ? "boat2" : "boat2v"}>
+              <div className={isActive5 ? "boat5" : "boat5v"}>
                 <button
                   onClick={() => {
-                    setBoatToPlace(2);
-                    if (isActive2) {
+                    setBoatToPlace(5);
+                    if (isActive5) {
                       setBoatOrient("v");
                     } else {
                       setBoatOrient("h");
                     }
-                    boat2Toggle();
-                  }}
-                ></button>
-              </div>
-
-              <div className={isActive3 ? "boat3" : "boat3v"}>
-                <button
-                  onClick={() => {
-                    setBoatToPlace(3);
-                    if (isActive3) {
-                      setBoatOrient("v");
-                    } else {
-                      setBoatOrient("h");
-                    }
-                    boat3Toggle();
+                    boat5Toggle();
                   }}
                 ></button>
               </div>
@@ -78,16 +64,30 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
                 ></button>
               </div>
 
-              <div className={isActive5 ? "boat5" : "boat5v"}>
+              <div className={isActive3 ? "boat3" : "boat3v"}>
                 <button
                   onClick={() => {
-                    setBoatToPlace(5);
-                    if (isActive5) {
+                    setBoatToPlace(3);
+                    if (isActive3) {
                       setBoatOrient("v");
                     } else {
                       setBoatOrient("h");
                     }
-                    boat5Toggle();
+                    boat3Toggle();
+                  }}
+                ></button>
+              </div>
+
+              <div className={isActive2 ? "boat2" : "boat2v"}>
+                <button
+                  onClick={() => {
+                    setBoatToPlace(2);
+                    if (isActive2) {
+                      setBoatOrient("v");
+                    } else {
+                      setBoatOrient("h");
+                    }
+                    boat2Toggle();
                   }}
                 ></button>
               </div>
@@ -95,16 +95,7 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
           </div>
         </div>
       )}
-      <div
-        className="rbtn"
-        style={{ justifyContent: "center", alignItems: "center" }}
-      >
-        <Button
-          // className="readybtn"
-          onClick={() => {
-            setUserBoatsReady(true);
-          }}
-        >Ready</Button>
+      <div>
         <h6>{`You're Battling in Room: ${room}`}</h6>
       </div>
       {/* conditional render for active play */}
@@ -132,10 +123,9 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
             <div className="ship">4</div>
           </div>
           <div>
-            <img className="size5" src="/assets/7battleG.png" alt="ship 5"/>
+            <img className="size5" src="/assets/7battleG.png" alt="ship 5" />
 
-
-        <div className="ship-4">5</div>
+            <div className="ship-4">5</div>
           </div>
         </div>
       </div>
