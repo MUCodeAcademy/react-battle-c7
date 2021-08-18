@@ -33,7 +33,7 @@ export function GameProvider(props) {
   }, []);
 
   useEffect(() => {
-    setTurn(isHostCon);
+    setIsTurn(isHostCon);
   }, [isHostCon]);
 
   useEffect(() => {
@@ -91,29 +91,30 @@ export function GameProvider(props) {
     }
   }, [userData, opponentData, shipTwo, shipThree, shipFour, shipFive]);
 
-  const placeBoat = useCallback((coordinate, int, orientation) => {
-    let boatCheck = false;
-    let newArr = [...userData];
-    if (orientation === "h" && 10 - (coordinate % 10) >= int) {
-      for (let i = 0; i < int; i++) {
-        if (userData[coordinate + i].ship === true) {
-          boatCheck = true;
-        }
-      }
-      if (boatCheck === false) {
+  const placeBoat = useCallback(
+    (coordinate, int, orientation) => {
+      let boatCheck = false;
+      let newArr = [...userData];
+      if (orientation === "h" && 10 - (coordinate % 10) >= int) {
         for (let i = 0; i < int; i++) {
-          newArr[coordinate + i] = { ...newArr[coordinate + i], ship: true };
-          opponentData[coordinate + i].ship = true;
-          //   trackBoat(coordinate + i, int);
+          if (userData[coordinate + i].ship === true) {
+            boatCheck = true;
+          }
         }
-        setCurrentShip((curr) => curr - 1);
-      }
-    } else if (orientation === "v" && coordinate + (int - 1) * 10 < 100) {
-      for (let i = 0; i < int; i++) {
-        if (newArr[coordinate + i * 10].ship === true) {
-          boatCheck = true;
+        if (boatCheck === false) {
+          for (let i = 0; i < int; i++) {
+            newArr[coordinate + i] = { ...newArr[coordinate + i], ship: true };
+            opponentData[coordinate + i].ship = true;
+            //   trackBoat(coordinate + i, int);
+          }
+          setCurrentShip((curr) => curr - 1);
         }
-      }
+      } else if (orientation === "v" && coordinate + (int - 1) * 10 < 100) {
+        for (let i = 0; i < int; i++) {
+          if (newArr[coordinate + i * 10].ship === true) {
+            boatCheck = true;
+          }
+        }
         if (!boatCheck) {
           for (let i = 0; i < int; i++) {
             newArr[coordinate + i * 10] = {
@@ -294,7 +295,7 @@ export function GameProvider(props) {
         shipThree,
         shipFour,
         shipFive,
-        currentShip
+        currentShip,
       }}
     >
       {props.children}
