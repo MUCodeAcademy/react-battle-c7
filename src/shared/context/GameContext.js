@@ -218,11 +218,11 @@ export function GameProvider(props) {
   }, [gameActive, checkWin, winner]);
 
   const checkWinner = useMemo(() => {
-    if (userHit === 1) {
+    if (userHit === 14) {
       setWinner("User");
       endGame();
       console.log("Win");
-    } else if (oppHit === 1) {
+    } else if (oppHit === 14) {
       setWinner("Opponent");
       endGame();
       console.log("Winner");
@@ -232,12 +232,18 @@ export function GameProvider(props) {
   const resetBoards = useCallback(() => {
     setUserData((curr) => {
       let next = new Array(100);
-      next.fill({ user: true, hit: false, ship: false });
+      for(let i = 0; i < 100; i++)
+      {
+        next[i] = { user: true, hit: false, ship: false };
+      }
       return next;
     });
     setOpponentData((curr) => {
       let next = new Array(100);
-      next.fill({ user: false, hit: false, ship: false });
+      for(let i = 0; i < 100; i++)
+      {
+        next[i] = { user: false, hit: false, ship: false };
+      }
       return next;
     });
   }, [userData, opponentData]);
