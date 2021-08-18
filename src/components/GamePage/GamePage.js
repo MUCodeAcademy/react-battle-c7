@@ -68,7 +68,7 @@ export default function GamePage() {
             variant="primary"
             onClick={() => {
               console.log("new game function nyi");
-              // newGame();
+              newGame();
             }}
           >
             New Game Button NYI
