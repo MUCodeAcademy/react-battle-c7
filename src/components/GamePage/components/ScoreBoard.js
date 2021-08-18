@@ -3,9 +3,15 @@ import { Button } from "react-bootstrap";
 import { GameContext } from "../../../shared/context/GameContext";
 import { useParams } from "react-router-dom";
 
-function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
-  const { userHit, oppHit, totalGuesses, setUserBoatsReady, gameActive } =
-    useContext(GameContext);
+function ScoreBoard({ setBoatToPlace, setBoatOrient, boatOrient }) {
+  const {
+    userHit,
+    oppHit,
+    totalGuesses,
+    setUserBoatsReady,
+    gameActive,
+    currentShip,
+  } = useContext(GameContext);
   const [isActive2, setActive2] = useState(false);
   const [isActive3, setActive3] = useState(false);
   const [isActive4, setActive4] = useState(false);
@@ -13,83 +19,60 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
   let misses = totalGuesses - userHit;
 
   const { room } = useParams();
-  const boat5Toggle = () => {
+  const boatToggle = () => {
     setActive5(!isActive5);
-  };
-  const boat4Toggle = () => {
     setActive4(!isActive4);
-  };
-  const boat3Toggle = () => {
     setActive3(!isActive3);
-  };
-  const boat2Toggle = () => {
     setActive2(!isActive2);
   };
-
-  let userBoatsReady = true;
 
   return (
     <>
       {!gameActive && (
         <div>
-          <h5 className="title"> Place Boats <h6>(Click on the button to change orientation of ships)</h6></h5>
-             <div className="shell">
+          <h5 className="title"> Place Boats</h5>
+          <h6>
+            (Click on the button to change orientation of ships)
+            <button
+              onClick={() => {
+                if (boatOrient === "v") {
+                  setBoatOrient("h");
+                  boatToggle();
+                } else {
+                  setBoatOrient("v");
+                  boatToggle();
+                }
+              }}
+            >
+              Swap Orientation
+            </button>
+          </h6>
+
+          <div className="shell">
             <div className="flexship">
-              <div className={isActive5 ? "boat5" : "boat5v"}>
-                <button
-                  onClick={() => {
-                    setBoatToPlace(5);
-                    if (isActive5) {
-                      setBoatOrient("v");
-                    } else {
-                      setBoatOrient("h");
-                    }
-                    boat5Toggle();
-                  }}
-                ></button>
-              </div>
+              <div
+                className={`${isActive5 ? "boat5" : "boat5v"} ${
+                  currentShip < 5 ? "bg-white" : ""
+                }`}
+              ></div>
 
-              <div className={isActive4 ? "boat4" : "boat4v"}>
-                <button
-                  onClick={() => {
-                    setBoatToPlace(4);
-                    if (isActive4) {
-                      setBoatOrient("v");
-                    } else {
-                      setBoatOrient("h");
-                    }
-                    boat4Toggle();
-                  }}
-                ></button>
-              </div>
+              <div
+                className={`${isActive4 ? "boat4" : "boat4v"} ${
+                  currentShip < 4 ? "bg-white" : ""
+                }`}
+              ></div>
 
-              <div className={isActive3 ? "boat3" : "boat3v"}>
-                <button
-                  onClick={() => {
-                    setBoatToPlace(3);
-                    if (isActive3) {
-                      setBoatOrient("v");
-                    } else {
-                      setBoatOrient("h");
-                    }
-                    boat3Toggle();
-                  }}
-                ></button>
-              </div>
+              <div
+                className={`${isActive3 ? "boat3" : "boat3v"} ${
+                  currentShip < 3 ? "bg-white" : ""
+                }`}
+              ></div>
 
-              <div className={isActive2 ? "boat2" : "boat2v"}>
-                <button
-                  onClick={() => {
-                    setBoatToPlace(2);
-                    if (isActive2) {
-                      setBoatOrient("v");
-                    } else {
-                      setBoatOrient("h");
-                    }
-                    boat2Toggle();
-                  }}
-                ></button>
-              </div>
+              <div
+                className={`${isActive2 ? "boat2" : "boat2v"} ${
+                  currentShip < 2 ? "bg-white" : ""
+                }`}
+              ></div>
             </div>
           </div>
         </div>

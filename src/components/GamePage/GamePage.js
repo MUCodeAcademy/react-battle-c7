@@ -85,6 +85,7 @@ export default function GamePage() {
                     setOrientation={setBoatOrient}
                     setBoatToPlace={setBoatToPlace}
                     setBoatOrient={setBoatOrient}
+                    boatOrient={boatOrient}
                   />
                 </Card.Body>
               </Card>

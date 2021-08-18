@@ -34,7 +34,11 @@
 }
 
 .bg-white {
-  background-color: white;
+  background-color: white !important;
+}
+
+.bg-darkgrey {
+  background-color: darkgrey !important;
 }
 
 .peg{

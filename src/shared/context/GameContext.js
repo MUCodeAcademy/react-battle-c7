@@ -289,6 +289,7 @@ export function GameProvider(props) {
         shipThree,
         shipFour,
         shipFive,
+        currentShip
       }}
     >
       {props.children}
