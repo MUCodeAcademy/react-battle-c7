@@ -23,10 +23,10 @@ export function GameProvider(props) {
   const [totalGuesses, setTotalGuesses] = useState(0);
   const { isHostCon } = useContext(UserContext);
   const [currentShip, setCurrentShip] = useState(5);
-  const [shipTwo, setShipTwo] = useState({placed: false, coord: [], sunk: false });
-  const [shipThree, setShipThree] = useState({placed: false, coord: [], sunk: false });
-  const [shipFour, setShipFour] = useState({placed: false, coord: [], sunk: false });
-  const [shipFive, setShipFive] = useState({placed: false, coord: [], sunk: false });
+  const [shipTwo, setShipTwo] = useState({ coord: [], sunk: false });
+  const [shipThree, setShipThree] = useState({ coord: [], sunk: false });
+  const [shipFour, setShipFour] = useState({ coord: [], sunk: false });
+  const [shipFive, setShipFive] = useState({ coord: [], sunk: false });
 
   useEffect(() => {
     resetBoards();
@@ -106,7 +106,7 @@ export function GameProvider(props) {
       if (boatCheck === false) {
         for (let i = 0; i < int; i++) {
           userData[coordinate + i].ship = true;
-          trackBoat(coordinate + i, int);
+        //   trackBoat(coordinate + i, int);
           setCurrentShip((curr) => curr - 1);
         }
       }
@@ -119,7 +119,7 @@ export function GameProvider(props) {
       if (boatCheck === false) {
         for (let i = 0; i < int; i++) {
           userData[coordinate + i * 10].ship = true;
-          trackBoat(coordinate + i * 10, int);
+        //   trackBoat(coordinate + i * 10, int);
           setCurrentShip((curr) => curr - 1);
         }
       }
@@ -263,6 +263,7 @@ export function GameProvider(props) {
       value={{
         userData,
         opponentData,
+        setOpponentData,
         placeBoat,
         select,
         boatsReady,
