@@ -81,11 +81,12 @@ const useSocket = (roomNum, isHost) => {
   }, [roomNum]);
   // function passed to chat/gamePage that sends a message
   const sendChat = useCallback(
-    (msg) => {
+    (msg, time) => {
       socketRef.current.emit(CHAT_MESSAGE, {
         msg,
         username,
         color,
+        time,
       });
     },
     [color]

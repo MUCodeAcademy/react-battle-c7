@@ -20,8 +20,10 @@ io.on("connection", (socket) => {
   // Join the specific room
   socket.on("joinRoom", ({ username }) => {
     socket.join(roomNum);
+    const time = new Date().toString().split(" ")[4];
     io.in(roomNum).emit("chatMessage", {
       username: "Game Master",
+      time: time,
       msg: `${username} has joined the room`,
       color: randColor,
     });
@@ -57,8 +59,10 @@ io.on("connection", (socket) => {
   // Leave the room on disconnect
   socket.on("disconnect", ({ username }) => {
     socket.leave(roomNum);
+    const time = new Date().toString().split(" ")[4];
     io.in(roomNum).emit("chatMessage", {
       username: "Game Master",
+      time: time,
       msg: `Your opponent has left the room`,
       color: randColor,
     });
