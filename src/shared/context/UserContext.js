@@ -4,7 +4,7 @@ import useAxios from "../hooks/useAxios";
 export const UserContext = createContext(null);
 
 export function UserProvider(props) {
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState("asdfk");
   const [message, setMessage] = useState("");
   const [isHostCon, setIsHostCon] = useState(false);
 
@@ -15,11 +15,9 @@ export function UserProvider(props) {
     async function fetchData() {
       const res = await loginCall("/api/users/login", { username, password });
       if (res.data.success === true) {
-        console.log("Success");
         setUsername(username);
         setMessage("Success");
       } else if (res.data.error) {
-        console.log(res.data.error);
         setMessage(res.data.error);
       }
     }
@@ -29,7 +27,6 @@ export function UserProvider(props) {
   const signup = useCallback((username, password) => {
     async function fetchData() {
       const res = await signupCall("/api/users/signup", { username, password });
-      console.log(res.data);
       if (res.data.success === true) {
         setUsername(username);
         setMessage("success");
@@ -42,10 +39,21 @@ export function UserProvider(props) {
 
   const logout = useCallback(() => {
     setUsername("");
-  },[])
+  }, []);
 
   return (
-    <UserContext.Provider value={{ login, signup, username, logout, message, setMessage, isHostCon, setIsHostCon }}>
+    <UserContext.Provider
+      value={{
+        login,
+        signup,
+        username,
+        logout,
+        message,
+        setMessage,
+        isHostCon,
+        setIsHostCon,
+      }}
+    >
       {props.children}
     </UserContext.Provider>
   );

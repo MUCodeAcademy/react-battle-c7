@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Cell from "./Cell";
-import { CreateBoards } from "../../../shared/context/GameContext";
 
 function Board({ board, boatToPlace, boatOrient, sendGuess }) {
   return (

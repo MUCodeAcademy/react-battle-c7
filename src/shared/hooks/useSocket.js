@@ -9,23 +9,24 @@ const BOATS_READY = "boatsReady";
 const GAME_END = "gameEnd";
 const SERVER_URL = "http://localhost:8080";
 
-const useSocket = (roomNum, isHost) => {
+const useSocket = (roomNum) => {
   const { username, isHostCon } = useContext(UserContext);
   const {
     startGame,
     checkHit,
-    setOpponentData,
+    setUserData,
     userBoatsReady,
     setUserBoatsReady,
     oppBoatsReady,
     setOppBoatsReady,
     oppShips,
     setOppShips,
+
+    setIsTurn,
+    setOpponentData,
   } = useContext(GameContext);
   const [color, setColor] = useState(null);
   const [messages, setMessages] = useState([]);
-  const [currGuess, setCurrGuess] = useState(null);
-  const [isHostSoc] = useState(isHostCon);
   const socketRef = useRef();
   useEffect(() => {
     socketRef.current = socketIOClient(SERVER_URL, {
@@ -62,19 +63,44 @@ const useSocket = (roomNum, isHost) => {
     socketRef.current.on(SEND_GUESS, ({ newGuess, wasHost }) => {
       // newGuess is i (coord)
       // checkHit should be called with i (coord) and user (boolean)
-      const wasPlayer = isHostSoc === wasHost;
-      checkHit(newGuess, wasPlayer);
-      console.log(`Received sendGuess from backend successfuly`);
-      // console.log(newGuess);
+      const wasUserBoard = isHostCon !== wasHost;
+      const valid = checkHit(newGuess, wasUserBoard);
+      if (valid) {
+        if (wasUserBoard) {
+          setUserData((curr) => {
+            curr[newGuess].hit = true;
+            return curr;
+          });
+        } else {
+          setOpponentData((curr) => {
+            curr[newGuess].hit = true;
+            return curr;
+          });
+        }
+        setIsTurn((curr) => !curr);
+      }
     });
 
-    socketRef.current.on(BOATS_READY, (boardData) => {
-      setOpponentData(boardData);
-      setOppBoatsReady(true);
+    socketRef.current.on(BOATS_READY, ({ boardData, wasHost }) => {
+      // wasUser checks to see if the event was sent from the user/socket's player
+      // If the event was sent from the host and the user is the host, then it knows it was sent from the user
+      // Same if the user isn't the host and the event wasn't sent from the host
+      // Otherwise we know the event was sent from the opponent, and the opponents board is set to the boardData.
+      // If the event was received and both user and opp boats are ready it calls the startGame function
+      const wasUser = isHostCon === wasHost;
+      if (wasUser) {
+        return;
+      } else {
+        let newOpp = boardData.map((obj) => {
+          obj.user = false;
+          return obj;
+        });
+        setOpponentData(newOpp);
+        setOppBoatsReady(true);
+      }
       if (userBoatsReady && oppBoatsReady) {
         startGame();
       }
-      console.log(`Received boatsReady from backend successfuly`);
     });
 
     return () => socketRef.current.disconnect();
@@ -93,18 +119,17 @@ const useSocket = (roomNum, isHost) => {
   );
   // function passed to game that sends a guess
   const sendGuess = useCallback((newGuess) => {
-    // for newGuess, line 76 pass newguessa nd ishostcon
-    // checkHit(newGuess, false);
-    socketRef.current.emit(SEND_GUESS, { newGuess, wasHost: isHostSoc });
+    socketRef.current.emit(SEND_GUESS, { newGuess, wasHost: isHostCon });
   }, []);
   // function that determines boats are ready
   const sendBoatsReady = useCallback((boardData) => {
+    console.log(isHostCon);
     // when function is called, pass in userData as boardData
     setUserBoatsReady(true);
-    socketRef.current.emit(BOATS_READY, { ...boardData });
-    if (userBoatsReady && oppBoatsReady) {
+    if (oppBoatsReady) {
       startGame();
     }
+    socketRef.current.emit(BOATS_READY, { boardData, wasHost: isHostCon });
   }, []);
 
   const joinRoom = useCallback((username) => {
@@ -125,7 +150,6 @@ const useSocket = (roomNum, isHost) => {
     sendGuess,
     sendBoatsReady,
     joinRoom,
-    isHostSoc,
     disconnect,
   };
 };

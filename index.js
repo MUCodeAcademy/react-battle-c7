@@ -45,12 +45,12 @@ io.on("connection", (socket) => {
     io.to(roomNum).emit("sunkShip", { boat });
   });
   // When both players confirm, set boats ready?
-  socket.on("boatsReady", (ready) => {
+  socket.on("boatsReady", ({ boardData, wasHost }) => {
     //
     // have button emit boatsReady event
-    console.log("Received boatsReady from Front End", ready);
+    console.log("Received boatsReady from Front End");
 
-    io.in(roomNum).emit("boatsReady", { ...ready });
+    io.in(roomNum).emit("boatsReady", { boardData, wasHost });
   });
   // When game is ended, send to room
   // socket.on("gameEnd", (something) => {

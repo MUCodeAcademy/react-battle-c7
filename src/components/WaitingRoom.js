@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../shared/context/UserContext";
+import { GameContext } from "../shared/context/GameContext";
 import {
   Card,
   Alert,
@@ -10,11 +11,10 @@ import {
   Col,
   Row,
 } from "react-bootstrap";
-import { GameContext } from "../shared/context/GameContext";
 
 const WaitingRoom = () => {
-  const { newGame } = useContext(GameContext);
   const { setIsHostCon } = useContext(UserContext);
+  const { newGame } = useContext(GameContext);
   const [roomNum, setRoomNum] = useState("");
   const history = useHistory();
   const [error, setError] = useState(null);
@@ -40,7 +40,6 @@ const WaitingRoom = () => {
 
       // TODO Only let user join if room exists and if room only has one other user
       history.push(`/gamepage/${roomNum}`);
-      console.log(`Directing user to Game Room ${roomNum} NYI`);
     }
   }
   return (
@@ -137,10 +136,7 @@ const WaitingRoom = () => {
                               let room = genRoomNum();
                               await setIsHostCon(true);
                               //use history to redirect them
-                              console.log(
-                                `Directing user to Game Room ${room} NYI`
-                              );
-                              // TODO Only let user
+
                               history.push(`/gamepage/${room}`);
                             }}
                             // This will need to have on onclick function of generating a random room number and then joining that room.

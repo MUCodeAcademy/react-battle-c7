@@ -1,23 +1,20 @@
 import React, { useContext } from "react";
 import { GameContext } from "../../../shared/context/GameContext";
-import {
-  Select,
-  CheckHit,
-  gameActive,
-} from "../../../shared/context/GameContext";
 
-function Cell({ i, coordinate, boatToPlace, boatOrient, sendGuess}) {
-  const { select } = useContext(GameContext);
+function Cell({ i, coordinate, boatOrient, sendGuess }) {
+  const { placeBoat, isTurn, gameActive, userBoatsReady, currentShip } =
+    useContext(GameContext);
   return (
     <div
       onClick={() => {
-        if(coordinate.user === true)
-        {
-          select(i, coordinate.user, boatOrient);
-        }
-        else
-        {
-          select(i, coordinate.user);
+        if (coordinate.user && !userBoatsReady) {
+          placeBoat(i, currentShip, boatOrient);
+        } else if (
+          !coordinate.user &&
+          gameActive &&
+          isTurn &&
+          !coordinate.hit
+        ) {
           sendGuess(i);
         }
       }}

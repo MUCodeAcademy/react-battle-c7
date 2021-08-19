@@ -17,8 +17,7 @@ export function GameProvider(props) {
   const [userData, setUserData] = useState([]);
   const [opponentData, setOpponentData] = useState([]);
   const [winner, setWinner] = useState("");
-  const [turn, setTurn] = useState(false);
-  const [userHit, setUserHit] = useState(0);
+  const [isTurn, setIsTurn] = useState(false);
   const [oppHit, setOppHit] = useState(0);
   const [totalGuesses, setTotalGuesses] = useState(0);
   const { isHostCon } = useContext(UserContext);
@@ -27,21 +26,33 @@ export function GameProvider(props) {
   const [shipThree, setShipThree] = useState({ coord: [], sunk: false });
   const [shipFour, setShipFour] = useState({ coord: [], sunk: false });
   const [shipFive, setShipFive] = useState({ coord: [], sunk: false });
-  const [oppShips, setOppShips] = useState({shipTwoSunk: false, shipThreeSunk: false, shipFourSunk: false, shipFiveSunk: false})
+  const [oppShips, setOppShips] = useState({
+    shipTwoSunk: false,
+    shipThreeSunk: false,
+    shipFourSunk: false,
+    shipFiveSunk: false,
+  });
+  const userHit = useMemo(() => {
+    let hitCount = 0;
+    opponentData.forEach(
+      (v) => (hitCount = v.ship && v.hit ? hitCount + 1 : hitCount)
+    );
+    return hitCount;
+  });
 
   useEffect(() => {
     resetBoards();
   }, []);
 
   useEffect(() => {
-    setTurn(isHostCon);
+    setIsTurn(isHostCon);
   }, [isHostCon]);
 
   useEffect(() => {
-    if (currentShip < 2) {
-      setUserBoatsReady(true);
+    if (userBoatsReady && oppBoatsReady) {
+      startGame();
     }
-  }, [currentShip]);
+  }, [userBoatsReady, oppBoatsReady]);
 
   useEffect(() => {
     if (userData.length > 0 && gameActive) {
@@ -90,136 +101,112 @@ export function GameProvider(props) {
         }
       }
     }
-  }, [userData, opponentData, shipTwo, shipThree, shipFour, shipFive]);
-
-  const placeBoat = useCallback((coordinate, int, orientation) => {
-    let boatCheck = false;
-    let newArr = [...userData];
-    if (orientation === "h" && 10 - (coordinate % 10) >= int) {
-      for (let i = 0; i < int; i++) {
-        if (userData[coordinate + i].ship === true) {
-          boatCheck = true;
-        }
-      }
-      if (boatCheck === false) {
+  }, [isHostCon]);
+  const placeBoat = useCallback(
+    (coordinate, int, orientation) => {
+      let boatCheck = false;
+      let newArr = [...userData];
+      if (orientation === "h" && 10 - (coordinate % 10) >= int) {
         for (let i = 0; i < int; i++) {
-          newArr[coordinate + i] = { ...newArr[coordinate + i], ship: true };
-          opponentData[coordinate + i].ship = true;
-          //   trackBoat(coordinate + i, int);
+          if (userData[coordinate + i].ship === true) {
+            boatCheck = true;
+          }
         }
-        setCurrentShip((curr) => curr - 1);
-      }
-    } else if (orientation === "v" && coordinate + (int - 1) * 10 < 100) {
-      for (let i = 0; i < int; i++) {
-        if (newArr[coordinate + i * 10].ship === true) {
-          boatCheck = true;
+        if (boatCheck === false) {
+          for (let i = 0; i < int; i++) {
+            newArr[coordinate + i] = { ...newArr[coordinate + i], ship: true };
+            opponentData[coordinate + i].ship = true;
+            //   trackBoat(coordinate + i, int);
+          }
+          setCurrentShip((curr) => curr - 1);
         }
-      }
+      } else if (orientation === "v" && coordinate + (int - 1) * 10 < 100) {
+        for (let i = 0; i < int; i++) {
+          if (newArr[coordinate + i * 10].ship === true) {
+            boatCheck = true;
+          }
+        }
         if (!boatCheck) {
           for (let i = 0; i < int; i++) {
-            newArr[coordinate + i * 10] = {
-              ...newArr[coordinate + i * 10],
-              ship: true,
-            };
-            opponentData[coordinate + i * 10].ship = true;
+            newArr[coordinate + i * 10].ship = true;
           }
         }
         setCurrentShip((curr) => curr - 1);
       }
-      setUserData(() => newArr);
+      setUserData(newArr);
     },
     [userData]
   );
 
   const boatsReady = useCallback(() => {
     setUserBoatsReady(true);
-    console.log(userBoatsReady);
   }, [userBoatsReady]);
+
   const startGame = useCallback(() => {
     setGameActive(true);
-    console.log(gameActive);
   }, [gameActive]);
 
   const checkHit = useCallback(
-    async (coordinate, user) => {
-      if (!user) {
-        console.log(coordinate);
-        console.log(userData);
-        userData[coordinate].hit = true;
-        setUserData((curr) => [...curr]);
-        if (userData[coordinate].ship === true)
-          await setOppHit((curr) => curr + 1);
+    (coordinate, user) => {
+      let wasValid = false;
+      if (user) {
+        if (!userData[coordinate].hit) {
+          if (userData[coordinate].ship === true) {
+            setOppHit((curr) => curr + 1);
+          }
+          wasValid = true;
+        }
       } else {
-        opponentData[coordinate].hit = true;
-        setOpponentData((curr) => [...curr]);
-        if (opponentData[coordinate].ship === true)
-          await setUserHit((curr) => curr + 1);
-        setTotalGuesses((curr) => curr + 1);
+        if (!opponentData[coordinate].hit) {
+          setTotalGuesses((curr) => curr + 1);
+          console.log(opponentData[coordinate]);
+          if (opponentData[coordinate].ship) {
+            console.log("Here");
+          }
+          wasValid = true;
+        }
       }
-      console.log(userHit, oppHit, totalGuesses);
       checkWin(user);
-      setTurn(!turn);
+      return wasValid;
     },
-    [userData, opponentData, totalGuesses, turn, oppHit, userHit]
+    [
+      userData,
+      opponentData,
+      totalGuesses,
+      oppHit,
+      userHit,
+      setOpponentData,
+      setUserData,
+    ]
   );
-
   const checkWin = useCallback(
     (user) => {
       if (user && oppHit === 14) {
         setWinner("Opponent");
         endGame();
-        console.log("Win");
       } else if (!user && userHit === 14) {
         setWinner("User");
         endGame();
-        console.log("Win");
       }
     },
     [winner, oppHit, userHit, checkHit]
-  );
-
-  const select = useCallback(
-    (coordinate, user, orientation) => {
-      if (!gameActive && !userBoatsReady && user) {
-        placeBoat(coordinate, currentShip, orientation);
-        console.log(coordinate, orientation);
-      }
-      if (gameActive && !user && turn) {
-        checkHit(coordinate, user);
-      }
-    },
-    [gameActive, userBoatsReady, placeBoat, checkHit]
   );
 
   const endGame = useCallback(() => {
     setGameActive(false);
   }, [gameActive, checkWin, winner]);
 
-  const checkWinner = useMemo(() => {
-    if (userHit === 14) {
-      setWinner("User");
-      endGame();
-      console.log("Win");
-    } else if (oppHit === 14) {
-      setWinner("Opponent");
-      endGame();
-      console.log("Winner");
-    }
-  }, [userHit, oppHit]);
-
   const resetBoards = useCallback(() => {
     setUserData((curr) => {
       let next = new Array(100);
-      for(let i = 0; i < 100; i++)
-      {
+      for (let i = 0; i < 100; i++) {
         next[i] = { user: true, hit: false, ship: false };
       }
       return next;
     });
     setOpponentData((curr) => {
       let next = new Array(100);
-      for(let i = 0; i < 100; i++)
-      {
+      for (let i = 0; i < 100; i++) {
         next[i] = { user: false, hit: false, ship: false };
       }
       return next;
@@ -232,13 +219,12 @@ export function GameProvider(props) {
     setUserBoatsReady(false);
     setCurrentShip(5);
     setOppHit(0);
-    setUserHit(0);
     setTotalGuesses(0);
     setWinner("");
     if (isHostCon) {
-      setTurn(true);
+      setIsTurn(true);
     } else {
-      setTurn(false);
+      setIsTurn(false);
     }
   }, [
     resetBoards,
@@ -248,7 +234,6 @@ export function GameProvider(props) {
     totalGuesses,
     winner,
     isHostCon,
-    gameActive,
   ]);
 
   return (
@@ -256,17 +241,16 @@ export function GameProvider(props) {
       value={{
         userData,
         opponentData,
+        setOpponentData,
         placeBoat,
-        select,
         boatsReady,
         startGame,
         newGame,
         winner,
-        turn,
+        isTurn,
+        setIsTurn,
         totalGuesses,
         resetBoards,
-        userBoatsReady,
-        setUserBoatsReady,
         checkHit,
         gameActive,
         oppHit,
@@ -275,13 +259,14 @@ export function GameProvider(props) {
         setUserBoatsReady,
         oppBoatsReady,
         setOppBoatsReady,
+        setUserData,
         shipTwo,
         shipThree,
         shipFour,
         shipFive,
         currentShip,
         oppShips,
-        setOppShips
+        setOppShips,
       }}
     >
       {props.children}
