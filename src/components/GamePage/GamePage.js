@@ -26,6 +26,7 @@ export default function GamePage() {
     isTurn,
     gameActive,
     currentShip,
+    userBoatsReady,
   } = useContext(GameContext);
   // modal state and cb functions
   const [showModal, setShowModal] = useState(winner);
@@ -110,7 +111,7 @@ export default function GamePage() {
             </Card>
           </Col>
         </Row>
-        {/* {gameActive === false && userBoatsReady === false && (
+        {gameActive === false && userBoatsReady === false && (
           <Row>
             <Col>
               <Card>
@@ -135,7 +136,7 @@ export default function GamePage() {
                 <Card.Body>
                   <Alert
                     className="text-center"
-                    variant="primary"
+                    variant="warning"
                     style={{ margin: "0px" }}
                   >
                     You're ready to battle! But, we're waiting on Opponent to
@@ -145,47 +146,41 @@ export default function GamePage() {
               </Card>
             </Col>
           </Row>
-        )} */}
-        {
-          // gameActive === true &&
-          isTurn === true && (
-            <Row>
-              <Col>
-                <Card>
-                  <Card.Body>
-                    <Alert
-                      className="text-center"
-                      variant="primary"
-                      style={{ margin: "0px" }}
-                    >
-                      Hey, it's your turn! Make a move please.
-                    </Alert>
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
-          )
-        }
-        {
-          // gameActive === true &&
-          isTurn === false && (
-            <Row>
-              <Col>
-                <Card>
-                  <Card.Body>
-                    <Alert
-                      className="text-center"
-                      variant="warning"
-                      style={{ margin: "0px" }}
-                    >
-                      Waiting for Opponent's move.
-                    </Alert>
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
-          )
-        }
+        )}
+        {gameActive === true && isTurn === true && (
+          <Row>
+            <Col>
+              <Card>
+                <Card.Body>
+                  <Alert
+                    className="text-center"
+                    variant="primary"
+                    style={{ margin: "0px" }}
+                  >
+                    Hey, it's your turn! Make a move please.
+                  </Alert>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        )}
+        {gameActive === true && isTurn === false && (
+          <Row>
+            <Col>
+              <Card>
+                <Card.Body>
+                  <Alert
+                    className="text-center"
+                    variant="warning"
+                    style={{ margin: "0px" }}
+                  >
+                    Waiting for Opponent's move.
+                  </Alert>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        )}
         <Row>
           <Col style={{ backgroundColor: "gray" }}>
             <Card>

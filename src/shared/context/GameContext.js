@@ -148,7 +148,7 @@ export function GameProvider(props) {
 
   const checkHit = useCallback(
     async (coordinate, user) => {
-      if (!user) {
+      if (user) {
         console.log(coordinate);
         console.log(userData);
         if (!userData[coordinate].hit) {
@@ -161,11 +161,17 @@ export function GameProvider(props) {
           return false;
         }
       } else {
-        opponentData[coordinate].hit = true;
-        setOpponentData((curr) => [...curr]);
-        if (opponentData[coordinate].ship === true)
-          await setUserHit((curr) => curr + 1);
-        setTotalGuesses((curr) => curr + 1);
+        if (!opponentData[coordinate].hit) {
+          opponentData[coordinate].hit = true;
+          setOpponentData((curr) => [...curr]);
+          if (opponentData[coordinate].ship === true) {
+            await setUserHit((curr) => curr + 1);
+          }
+          setTotalGuesses((curr) => curr + 1);
+          return true;
+        } else {
+          return false;
+        }
       }
       console.log(userHit, oppHit, totalGuesses);
       checkWin(user);
