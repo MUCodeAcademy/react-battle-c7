@@ -12,7 +12,7 @@ import {
 } from "react-bootstrap";
 
 const WaitingRoom = () => {
-  const {setIsHostCon} = useContext(UserContext);
+  const { setIsHostCon } = useContext(UserContext);
   const [roomNum, setRoomNum] = useState("");
   const history = useHistory();
   const [error, setError] = useState(null);
@@ -26,7 +26,21 @@ const WaitingRoom = () => {
     }
     return randNum;
   }
+  useEffect(() => {
+    newGame();
+  }, []);
+  function joinRoom(roomNum) {
+    if (roomNum.length !== 8) {
+      setError("Room Number must be 8 characters!");
+    } else {
+      setError(null);
+      // TODO figure out how to tell if a room already exists
 
+      // TODO Only let user join if room exists and if room only has one other user
+      history.push(`/gamepage/${roomNum}`);
+      console.log(`Directing user to Game Room ${roomNum} NYI`);
+    }
+  }
   return (
     <>
       <Container
@@ -52,7 +66,12 @@ const WaitingRoom = () => {
                     className="d-flex align-items-center justify-content-center"
                     style={{ height: "200px", backgroundColor: "lightgray" }}
                   >
-                    <Form>
+                    <Form
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        joinRoom(roomNum);
+                      }}
+                    >
                       <Form.Group>
                         <Row>
                           <Col>
@@ -78,19 +97,7 @@ const WaitingRoom = () => {
                           <Button
                             onClick={(e) => {
                               e.preventDefault();
-                              // set limits of roomNum
-                              if (roomNum.length !== 8) {
-                                setError("Room Number must be 8 characters!");
-                              } else {
-                                setError(null);
-                                // TODO figure out how to tell if a room already exists
-
-                                // TODO Only let user join if room exists and if room only has one other user
-                                history.push(`/gamepage/${roomNum}`);
-                                console.log(
-                                  `Directing user to Game Room ${roomNum} NYI`
-                                );
-                              }
+                              joinRoom(roomNum);
                             }}
                           >
                             Join room
@@ -122,6 +129,8 @@ const WaitingRoom = () => {
                         <Col className="d-flex justify-content-center">
                           <Button
                             onClick={async (e) => {
+                              e.preventDefault();
+
                               //generate a random number
                               let room = genRoomNum();
                               await setIsHostCon(true);

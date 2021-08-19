@@ -37,6 +37,11 @@ io.on("connection", (socket) => {
     console.log("Received sendGuess from Front End successfuly", newGuess);
     io.to(roomNum).emit("sendGuess", { newGuess, wasHost });
   });
+  // When sunk ship is recieved, send to opponent
+  socket.on("sunkShip", ({boat})=>{
+    console.log("Recieved sunkShip from Front End successfully", boat);
+    io.to(roomNum).emit("sunkShip", { boat });
+  })
   // When both players confirm, set boats ready?
   socket.on("boatsReady", ({ boardData, wasHost }) => {
     //

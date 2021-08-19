@@ -33,7 +33,7 @@ export default function GamePage() {
   const handleShow = () => setShowModal(true);
   const { username, isHostCon } = useContext(UserContext);
   const { room } = useParams();
-  const { joinRoom, sendChat, messages, sendGuess, sendBoatsReady } = useSocket(
+  const { joinRoom, sendChat, messages, sendGuess } = useSocket(
     room,
     isHostCon
   );
@@ -77,7 +77,7 @@ export default function GamePage() {
             variant="primary"
             onClick={() => {
               console.log("new game function nyi");
-              // newGame();
+              newGame();
             }}
           >
             New Game Button NYI
