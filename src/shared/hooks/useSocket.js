@@ -20,7 +20,7 @@ const useSocket = (roomNum, isHost) => {
     oppBoatsReady,
     setOppBoatsReady,
     oppShips,
-    setOppShips
+    setOppShips,
   } = useContext(GameContext);
   const [color, setColor] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -43,16 +43,16 @@ const useSocket = (roomNum, isHost) => {
     socketRef.current.on("sunkShip", ({ boat }) => {
       switch (boat) {
         case 2:
-          setOppShips({...oppShips, shipSunk: true});
+          setOppShips({ ...oppShips, shipSunk: true });
           break;
         case 3:
-          setOppShips({...oppShips, shipThreeSunk: true});
+          setOppShips({ ...oppShips, shipThreeSunk: true });
           break;
         case 4:
-          setOppShips({...oppShips, shipFourSunk: true});
+          setOppShips({ ...oppShips, shipFourSunk: true });
           break;
         case 5:
-          setOppShips({...oppShips, shipFiveSunk: true});
+          setOppShips({ ...oppShips, shipFiveSunk: true });
           break;
         default:
           break;
@@ -110,11 +110,23 @@ const useSocket = (roomNum, isHost) => {
     socketRef.current.emit("joinRoom", { username });
   }, []);
 
+  const disconnect = useCallback((username) => {
+    socketRef.current.emit("disconnect", { username });
+  }, []);
+
   const sunkShip = useCallback((boat) => {
     socketRef.current.emit("sunkShip", { boat });
   });
 
-  return { messages, sendChat, sendGuess, sendBoatsReady, joinRoom, isHostSoc };
+  return {
+    messages,
+    sendChat,
+    sendGuess,
+    sendBoatsReady,
+    joinRoom,
+    isHostSoc,
+    disconnect,
+  };
 };
 
 export default useSocket;

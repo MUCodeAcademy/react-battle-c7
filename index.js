@@ -38,10 +38,10 @@ io.on("connection", (socket) => {
     io.to(roomNum).emit("sendGuess", { newGuess, wasHost });
   });
   // When sunk ship is recieved, send to opponent
-  socket.on("sunkShip", ({boat})=>{
+  socket.on("sunkShip", ({ boat }) => {
     console.log("Recieved sunkShip from Front End successfully", boat);
     io.to(roomNum).emit("sunkShip", { boat });
-  })
+  });
   // When both players confirm, set boats ready?
   socket.on("boatsReady", (ready) => {
     //
@@ -55,9 +55,13 @@ io.on("connection", (socket) => {
   //   io.in(roomNum).emit("gameEnd", { something });
   // });
   // Leave the room on disconnect
-  socket.on("disconnect", (data) => {
+  socket.on("disconnect", ({ username }) => {
     socket.leave(roomNum);
-    io.in(roomNum).emit("leftMessage", { ...data });
+    io.in(roomNum).emit("chatMessage", {
+      username: "Game Master",
+      msg: `Your opponent has left the room`,
+      color: randColor,
+    });
   });
 });
 
