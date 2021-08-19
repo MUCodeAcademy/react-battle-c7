@@ -18,6 +18,7 @@ function Chat({ messages, sendChat }) {
               <Card.Text
                 key={i}
                 style={{ color: msg.color }}
+                ref={messageRef}
               >{`${msg.username}: ${msg.msg}`}</Card.Text>
             );
           })}
