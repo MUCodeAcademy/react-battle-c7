@@ -20,7 +20,7 @@ function Chat({ messages, sendChat }) {
                 style={{ color: msg.color }}
                 ref={messageRef}
                 className="chatMargin"
-              >{`${msg.username}: ${msg.msg}`}</Card.Text>
+              >{`${msg.username} ${msg.time}: ${msg.msg}`}</Card.Text>
             );
           })}
       </Card>
