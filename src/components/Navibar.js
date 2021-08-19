@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { UserContext } from "../shared/context/UserContext";
 
@@ -26,20 +26,24 @@ export default function Navibar() {
             <Nav className="me-auto">
               {!username && (
                 <>
-                  <Nav.Link as={Link} to="/login">
+                  <Nav.Link as={NavLink} to="/login" activeClassName="current">
                     Log In
                   </Nav.Link>
-                  <Nav.Link as={Link} to="/signup">
+                  <Nav.Link as={NavLink} to="/signup" activeClassName="current">
                     Sign Up
                   </Nav.Link>
                 </>
               )}
               {username && (
                 <>
-                  <Nav.Link as={Link} to="/waitingroom">
+                  <Nav.Link
+                    as={NavLink}
+                    to="/waiting"
+                    activeClassName="current"
+                  >
                     Waiting Room
                   </Nav.Link>
-                  <Nav.Link as={Link} to="/about">
+                  <Nav.Link as={NavLink} to="/about" activeClassName="current">
                     About
                   </Nav.Link>
                   <Nav.Link
