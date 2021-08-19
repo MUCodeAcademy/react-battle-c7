@@ -23,6 +23,8 @@ const useSocket = (roomNum) => {
     oppShips,
     setOppShips,
     setIsTurn,
+    setUserHit,
+    opponentData,
   } = useContext(GameContext);
   const [color, setColor] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -76,6 +78,9 @@ const useSocket = (roomNum) => {
             curr[newGuess].hit = true;
             return curr;
           });
+          if (opponentData[newGuess].ship) {
+            setUserHit((curr) => curr + 1);
+          }
         }
         setIsTurn((curr) => !curr);
       }

@@ -152,9 +152,6 @@ export function GameProvider(props) {
         }
       } else {
         if (!opponentData[coordinate].hit) {
-          if (opponentData[coordinate].ship === true) {
-            setUserHit((curr) => curr + 1);
-          }
           setTotalGuesses((curr) => curr + 1);
           wasValid = true;
         }
@@ -188,16 +185,6 @@ export function GameProvider(props) {
   const endGame = useCallback(() => {
     setGameActive(false);
   }, [gameActive, checkWin, winner]);
-
-  const checkWinner = useMemo(() => {
-    if (userHit === 14) {
-      setWinner("User");
-      endGame();
-    } else if (oppHit === 14) {
-      setWinner("Opponent");
-      endGame();
-    }
-  }, [userHit, oppHit]);
 
   const resetBoards = useCallback(() => {
     setUserData((curr) => {

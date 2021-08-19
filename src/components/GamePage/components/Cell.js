@@ -9,7 +9,12 @@ function Cell({ i, coordinate, boatOrient, sendGuess }) {
       onClick={() => {
         if (coordinate.user && !userBoatsReady) {
           placeBoat(i, currentShip, boatOrient);
-        } else if (!coordinate.user && gameActive && isTurn) {
+        } else if (
+          !coordinate.user &&
+          gameActive &&
+          isTurn &&
+          !coordinate.hit
+        ) {
           sendGuess(i);
         }
       }}
