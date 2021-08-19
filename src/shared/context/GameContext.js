@@ -18,7 +18,6 @@ export function GameProvider(props) {
   const [opponentData, setOpponentData] = useState([]);
   const [winner, setWinner] = useState("");
   const [isTurn, setIsTurn] = useState(false);
-  const [userHit, setUserHit] = useState(0);
   const [oppHit, setOppHit] = useState(0);
   const [totalGuesses, setTotalGuesses] = useState(0);
   const { isHostCon } = useContext(UserContext);
@@ -32,6 +31,13 @@ export function GameProvider(props) {
     shipThreeSunk: false,
     shipFourSunk: false,
     shipFiveSunk: false,
+  });
+  const userHit = useMemo(() => {
+    let hitCount = 0;
+    opponentData.forEach(
+      (v) => (hitCount = v.ship && v.hit ? hitCount + 1 : hitCount)
+    );
+    return hitCount;
   });
 
   useEffect(() => {
@@ -157,7 +163,6 @@ export function GameProvider(props) {
           if (opponentData[coordinate].ship) {
             console.log("Here");
           }
-          // setUserHit((curr) => curr + 1);
           wasValid = true;
         }
       }
@@ -214,7 +219,6 @@ export function GameProvider(props) {
     setUserBoatsReady(false);
     setCurrentShip(5);
     setOppHit(0);
-    setUserHit(0);
     setTotalGuesses(0);
     setWinner("");
     if (isHostCon) {
