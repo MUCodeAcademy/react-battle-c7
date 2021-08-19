@@ -14,11 +14,13 @@ const useSocket = (roomNum, isHost) => {
   const {
     startGame,
     checkHit,
-    setOppData,
+    setOpponentData,
     userBoatsReady,
     setUserBoatsReady,
     oppBoatsReady,
     setOppBoatsReady,
+    oppShips,
+    setOppShips
   } = useContext(GameContext);
   const [color, setColor] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -38,6 +40,25 @@ const useSocket = (roomNum, isHost) => {
       setColor(color);
     });
 
+    socketRef.current.on("sunkShip", ({ boat }) => {
+      switch (boat) {
+        case 2:
+          setOppShips({...oppShips, shipSunk: true});
+          break;
+        case 3:
+          setOppShips({...oppShips, shipThreeSunk: true});
+          break;
+        case 4:
+          setOppShips({...oppShips, shipFourSunk: true});
+          break;
+        case 5:
+          setOppShips({...oppShips, shipFiveSunk: true});
+          break;
+        default:
+          break;
+      }
+    });
+
     socketRef.current.on(SEND_GUESS, ({ newGuess, wasHost }) => {
       // newGuess is i (coord)
       // checkHit should be called with i (coord) and user (boolean)
@@ -48,7 +69,7 @@ const useSocket = (roomNum, isHost) => {
     });
 
     socketRef.current.on(BOATS_READY, (boardData) => {
-      setOppData(boardData);
+      setOpponentData(boardData);
       setOppBoatsReady(true);
       if (userBoatsReady && oppBoatsReady) {
         startGame();
@@ -88,6 +109,10 @@ const useSocket = (roomNum, isHost) => {
   const joinRoom = useCallback((username) => {
     socketRef.current.emit("joinRoom", { username });
   }, []);
+
+  const sunkShip = useCallback((boat) => {
+    socketRef.current.emit("sunkShip", { boat });
+  });
 
   return { messages, sendChat, sendGuess, sendBoatsReady, joinRoom, isHostSoc };
 };

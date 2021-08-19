@@ -13,7 +13,7 @@ function Cell({ i, coordinate, boatToPlace, boatOrient, sendGuess}) {
       onClick={() => {
         if(coordinate.user === true)
         {
-          select(i, coordinate.user, boatToPlace, boatOrient);
+          select(i, coordinate.user, boatOrient);
         }
         else
         {
