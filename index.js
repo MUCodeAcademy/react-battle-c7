@@ -2,6 +2,9 @@ require("dotenv").config();
 const COLORS = require("./server/shared/colors");
 const express = require("express");
 const app = express();
+const cookieParser = require("cookie-parser");
+const passport = require("passport");
+const passportConf = require("./server/config/passport.conf")
 const PORT = process.env.PORT || 8080;
 const userRoutes = require("./server/routes/user.routes");
 const server = require("http").createServer(app);
@@ -58,6 +61,9 @@ io.on("connection", (socket) => {
 
 app.use(express.json());
 app.use("/api/users", userRoutes);
+passportConf(passport);
+app.use(cookieParser());
+app.use(passport.initialize());
 
 app.use(express.static(__dirname + "/build"));
 
