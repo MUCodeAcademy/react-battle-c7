@@ -3,9 +3,16 @@ import { Button } from "react-bootstrap";
 import { GameContext } from "../../../shared/context/GameContext";
 import { useParams } from "react-router-dom";
 
-function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
-  const { userHit, oppHit, totalGuesses, setUserBoatsReady, gameActive } =
-    useContext(GameContext);
+function ScoreBoard({ setBoatOrient, boatOrient }) {
+  const {
+    userHit,
+    oppHit,
+    totalGuesses,
+    setUserBoatsReady,
+    gameActive,
+    currentShip,
+    oppShips
+  } = useContext(GameContext);
   const [isActive2, setActive2] = useState(false);
   const [isActive3, setActive3] = useState(false);
   const [isActive4, setActive4] = useState(false);
@@ -13,98 +20,65 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
   let misses = totalGuesses - userHit;
 
   const { room } = useParams();
-  const boat2Toggle = () => {
+  const boatToggle = () => {
+    setActive5(!isActive5);
+    setActive4(!isActive4);
+    setActive3(!isActive3);
     setActive2(!isActive2);
   };
-  const boat3Toggle = () => {
-    setActive3(!isActive3);
-  };
-  const boat4Toggle = () => {
-    setActive4(!isActive4);
-  };
-  const boat5Toggle = () => {
-    setActive5(!isActive5);
-  };
-
-  let userBoatsReady = true;
 
   return (
     <>
       {!gameActive && (
         <div>
           <h5 className="title"> Place Boats</h5>
+          <h6>
+            (Click on the button to change orientation of ships)
+            <button
+              onClick={() => {
+                if (boatOrient === "v") {
+                  setBoatOrient("h");
+                  boatToggle();
+                } else {
+                  setBoatOrient("v");
+                  boatToggle();
+                }
+              }}
+            >
+              Swap Orientation
+            </button>
+          </h6>
 
           <div className="shell">
             <div className="flexship">
-              <div className={isActive2 ? "boat2" : "boat2v"}>
-                <button
-                  onClick={() => {
-                    setBoatToPlace(2);
-                    if (isActive2) {
-                      setBoatOrient("v");
-                    } else {
-                      setBoatOrient("h");
-                    }
-                    boat2Toggle();
-                  }}
-                ></button>
-              </div>
+              <div
+                className={`${isActive5 ? "boat5" : "boat5v"} ${
+                  currentShip < 5 ? "bg-white" : ""
+                }`}
+              ></div>
 
-              <div className={isActive3 ? "boat3" : "boat3v"}>
-                <button
-                  onClick={() => {
-                    setBoatToPlace(3);
-                    if (isActive3) {
-                      setBoatOrient("v");
-                    } else {
-                      setBoatOrient("h");
-                    }
-                    boat3Toggle();
-                  }}
-                ></button>
-              </div>
+              <div
+                className={`${isActive4 ? "boat4" : "boat4v"} ${
+                  currentShip < 4 ? "bg-white" : ""
+                }`}
+              ></div>
 
-              <div className={isActive4 ? "boat4" : "boat4v"}>
-                <button
-                  onClick={() => {
-                    setBoatToPlace(4);
-                    if (isActive4) {
-                      setBoatOrient("v");
-                    } else {
-                      setBoatOrient("h");
-                    }
-                    boat4Toggle();
-                  }}
-                ></button>
-              </div>
+              <div
+                className={`${isActive3 ? "boat3" : "boat3v"} ${
+                  currentShip < 3 ? "bg-white" : ""
+                }`}
+              ></div>
 
-              <div className={isActive5 ? "boat5" : "boat5v"}>
-                <button
-                  onClick={() => {
-                    setBoatToPlace(5);
-                    if (isActive5) {
-                      setBoatOrient("v");
-                    } else {
-                      setBoatOrient("h");
-                    }
-                    boat5Toggle();
-                  }}
-                ></button>
-              </div>
+              <div
+                className={`${isActive2 ? "boat2" : "boat2v"} ${
+                  currentShip < 2 ? "bg-white" : ""
+                }`}
+              ></div>
             </div>
           </div>
         </div>
       )}
-      <div
-        className="rbtn"
-        style={{ justifyContent: "center", alignItems: "center" }}
-      >
-        <Button
-          // className="readybtn"
-          onClick={() => {
-            setUserBoatsReady(true);
-          }}
-        >Ready</Button>
+      <div>
         <h6>{`You're Battling in Room: ${room}`}</h6>
       </div>
       {/* conditional render for active play */}
@@ -120,22 +94,20 @@ function ScoreBoard({ setBoatToPlace, setBoatOrient }) {
 
         <div className="shipbox">
           <div>
-            <img className="size2" src="/assets/7battle.png" alt="ship 2" />
-            <div className="ship">2</div>
+            <img className="size5" src={`${oppShips.shipFiveSunk ? "/assets/7battleG.png" : "/assets/7battle.png" }`} alt="ship 5" />
+            <div className="ship">5</div>
           </div>
           <div>
-            <img className="size3" src="/assets/7battle.png" alt="ship 3" />
-            <div className="ship">3</div>
-          </div>
-          <div>
-            <img className="size4" src="/assets/7battle.png" alt="ship 4" />
+            <img className="size4" src={`${oppShips.shipFourSunk ? "/assets/7battleG.png" : "/assets/7battle.png" }`} alt="ship 4" />
             <div className="ship">4</div>
           </div>
           <div>
-            <img className="size5" src="/assets/7battleG.png" alt="ship 5"/>
-
-
-        <div className="ship-4">5</div>
+            <img className="size3" src={`${oppShips.shipThreeSunk ? "/assets/7battleG.png" : "/assets/7battle.png" }`} alt="ship 3" />
+            <div className="ship">3</div>
+          </div>
+          <div>
+            <img className="size2" src={`${oppShips.shipTwoSunk ? "/assets/7battleG.png" : "/assets/7battle.png" }`} alt="ship 2" />
+            <div className="ship">2</div>
           </div>
         </div>
       </div>

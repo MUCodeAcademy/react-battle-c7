@@ -14,11 +14,13 @@ const useSocket = (roomNum, isHost) => {
   const {
     startGame,
     checkHit,
-    setOppData,
+    setOpponentData,
     userBoatsReady,
     setUserBoatsReady,
     oppBoatsReady,
     setOppBoatsReady,
+    oppShips,
+    setOppShips,
   } = useContext(GameContext);
   const [color, setColor] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -31,11 +33,30 @@ const useSocket = (roomNum, isHost) => {
     });
 
     socketRef.current.on(CHAT_MESSAGE, (chatMsg) => {
-      setMessages((curr) => [chatMsg, ...curr]);
+      setMessages((curr) => [...curr, chatMsg]);
     });
 
     socketRef.current.on("userColor", ({ color }) => {
       setColor(color);
+    });
+
+    socketRef.current.on("sunkShip", ({ boat }) => {
+      switch (boat) {
+        case 2:
+          setOppShips({ ...oppShips, shipSunk: true });
+          break;
+        case 3:
+          setOppShips({ ...oppShips, shipThreeSunk: true });
+          break;
+        case 4:
+          setOppShips({ ...oppShips, shipFourSunk: true });
+          break;
+        case 5:
+          setOppShips({ ...oppShips, shipFiveSunk: true });
+          break;
+        default:
+          break;
+      }
     });
 
     socketRef.current.on(SEND_GUESS, ({ newGuess, wasHost }) => {
@@ -48,7 +69,7 @@ const useSocket = (roomNum, isHost) => {
     });
 
     socketRef.current.on(BOATS_READY, (boardData) => {
-      setOppData(boardData);
+      setOpponentData(boardData);
       setOppBoatsReady(true);
       if (userBoatsReady && oppBoatsReady) {
         startGame();
@@ -60,11 +81,12 @@ const useSocket = (roomNum, isHost) => {
   }, [roomNum]);
   // function passed to chat/gamePage that sends a message
   const sendChat = useCallback(
-    (msg) => {
+    (msg, time) => {
       socketRef.current.emit(CHAT_MESSAGE, {
         msg,
         username,
         color,
+        time,
       });
     },
     [color]
@@ -89,7 +111,23 @@ const useSocket = (roomNum, isHost) => {
     socketRef.current.emit("joinRoom", { username });
   }, []);
 
-  return { messages, sendChat, sendGuess, sendBoatsReady, joinRoom, isHostSoc };
+  const disconnect = useCallback((username) => {
+    socketRef.current.emit("disconnect", { username });
+  }, []);
+
+  const sunkShip = useCallback((boat) => {
+    socketRef.current.emit("sunkShip", { boat });
+  });
+
+  return {
+    messages,
+    sendChat,
+    sendGuess,
+    sendBoatsReady,
+    joinRoom,
+    isHostSoc,
+    disconnect,
+  };
 };
 
 export default useSocket;
