@@ -1,31 +1,31 @@
 .App {
   text-align: center;
 }
-.chat{
+.chat {
   overflow-y: scroll;
   height: 150px;
   border: black solid 2px;
 }
-.cell{
+.cell {
   height: 25px;
   width: 25px;
   border: black solid 1px;
 }
 
-.board{
+.board {
   width: 260px;
-  margin:auto;
+  margin: auto;
 }
 
-.bg-black{
+.bg-black {
   background-color: black;
 }
 
-.bg-blue{
+.bg-blue {
   background-color: slateblue;
 }
 
-.bg-grey{
+.bg-grey {
   background-color: grey;
 }
 
@@ -37,7 +37,7 @@
   background-color: white;
 }
 
-.peg{
+.peg {
   height: 15px;
   width: 15px;
   border: black solid 1px;
@@ -45,8 +45,6 @@
   margin: auto;
   align-items: center;
 }
-
-
 
 .flex {
   display: flex;
@@ -60,116 +58,154 @@
 .flexGrow {
   flex-grow: 1;
 }
-.flex25{
-  flex-basis: calc(100% / 4 - 10px) ;
+.flex25 {
+  flex-basis: calc(100% / 4 - 10px);
 }
-.flex75{
+.flex75 {
   flex-basis: calc(100% / 4 * 3 - 10px);
 }
 
 .flexSpaceBetween {
   justify-content: space-between;
-
 }
 
-.boat2{ height: 25px; width: 52px; margin-right: 5px;
-border: 1px solid black; background-color: darkgray;
+.boat2 {
+  height: 25px;
+  width: 52px;
+  margin-right: 5px;
+  border: 1px solid black;
+  background-color: darkgray;
 }
 
-.boat2v{ height: 52px; width: 25px; margin-right: 32px;
-border: 1px solid black; background-color: darkgray;
+.boat2v {
+  height: 52px;
+  width: 25px;
+  margin-right: 32px;
+  border: 1px solid black;
+  background-color: darkgray;
 }
 
-.boat3{ height: 25px; width: 79px; margin-right: 5px;
-border: 1px solid black; background-color: darkgray;
+.boat3 {
+  height: 25px;
+  width: 79px;
+  margin-right: 5px;
+  border: 1px solid black;
+  background-color: darkgray;
 }
 
-.boat3v{ height: 79px; width: 25px;margin-right: 59px;
-border: 1px solid black; background-color: darkgray;
+.boat3v {
+  height: 79px;
+  width: 25px;
+  margin-right: 59px;
+  border: 1px solid black;
+  background-color: darkgray;
 }
 
-.boat4{ height: 25px; width: 106px;margin-right: 5px;
-border: 1px solid black; background-color: darkgray;
+.boat4 {
+  height: 25px;
+  width: 106px;
+  margin-right: 5px;
+  border: 1px solid black;
+  background-color: darkgray;
 }
 
-.boat4v{ height: 106px; width: 25px; margin-right: 86px;
-border: 1px solid black; background-color: darkgray;
+.boat4v {
+  height: 106px;
+  width: 25px;
+  margin-right: 86px;
+  border: 1px solid black;
+  background-color: darkgray;
 }
 
-.boat5{height: 25px; width: 133px; margin-right: 5px;
-border: 1px solid black; background-color: darkgray;
+.boat5 {
+  height: 25px;
+  width: 133px;
+  margin-right: 5px;
+  border: 1px solid black;
+  background-color: darkgray;
 }
 
-.boat5v{ height: 133px; width: 25px; margin-right: 86px;
-border: 1px solid black; background-color: darkgray;
+.boat5v {
+  height: 133px;
+  width: 25px;
+  margin-right: 86px;
+  border: 1px solid black;
+  background-color: darkgray;
 }
 
-.flexship{
-display: flex;
-height: 135px;
+.flexship {
+  display: flex;
+  height: 135px;
 }
 
-.title{
-font-weight: 500;
-margin-bottom: 10px;
+.title {
+  font-weight: 500;
+  margin-bottom: 10px;
 }
 
-.readybtn{
-height: 50px;
-width: 50px;
-border-radius: 100px;
+.readybtn {
+  height: 50px;
+  width: 50px;
+  border-radius: 100px;
 }
 
-.shipbox{
-display: flex;
-max-width: 100px;
-max-height: 100px;
+.shipbox {
+  display: flex;
+  max-width: 100px;
+  max-height: 100px;
 }
 
-.size2, .size3, .size4, .size5 {
-box-sizing: border-box;
-width: 40px;
-height: 40px;
-margin-left: 10px;
+.size2,
+.size3,
+.size4,
+.size5 {
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  margin-left: 10px;
 }
 
-.sunk {border: solid red 2px;
-border-radius: 50px;
-
+.sunk {
+  border: solid red 2px;
+  border-radius: 50px;
 }
-.chatMargin{
+.chatMargin {
   margin-top: 1px;
   margin-bottom: 1px;
 }
 
-.ship{
-display: flex;
-align-items: center;
-justify-content: center;
-
+.ship {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.shell{
-display: flex;
-justify-content: space-between;
-flex-direction: row;
-margin-right: 0;
+.shell {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-right: 0;
 }
 
-.shell2{
-display: flex;
-justify-content: space-between;
-flex-direction: row;
-margin-right: 150px;
+.shell2 {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-right: 150px;
 }
 
 .bigshell {
-max-width: 100vw;
+  max-width: 100vw;
 }
 
-.ht-ms{
-display: flex;
-flex-direction: column;
+.ht-ms {
+  display: flex;
+  flex-direction: column;
 }
 
-.rbtn {display: flex;
+.rbtn {
+  display: flex;
+}
+
+.current {
+  color: white !important;
 }
