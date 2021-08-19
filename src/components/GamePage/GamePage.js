@@ -32,7 +32,7 @@ export default function GamePage() {
   const [showModal, setShowModal] = useState(winner);
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
-  const { username, isHostCon } = useContext(UserContext);
+  const { username, isHostCon, setIsHostCon } = useContext(UserContext);
   const { room } = useParams();
   const { joinRoom, sendChat, messages, sendGuess, sendBoatsReady } = useSocket(
     room,
@@ -64,6 +64,7 @@ export default function GamePage() {
         backdrop="static"
         keyboard={false}
         centered
+        closeButton
       >
         <Modal.Header>
           {winner && winner === "User" ? (
@@ -77,13 +78,32 @@ export default function GamePage() {
           we're not the boss of you.
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => history.push("/waiting")}>
+          <Button variant="primary" onClick={() => history.push("/waiting")}>
             Go to Waiting Room
           </Button>
           <Button
-            variant="primary"
+            variant="secondary"
             onClick={() => {
-              newGame();
+              function genRoomNum() {
+                let randNum = "";
+                var chars =
+                  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                var charsLength = chars.length;
+                for (var i = 0; i < 8; i++) {
+                  randNum += chars.charAt(
+                    Math.floor(Math.random() * charsLength)
+                  );
+                }
+                return randNum;
+              }
+              // join new room, send msg to other player
+              let room = genRoomNum();
+              // send msg to previous room with room num
+              sendChat(`${username} requested a rematch in room: ${room}`);
+              setIsHostCon(true);
+              //use history to redirect them
+
+              history.push(`/gamepage/${room}`);
             }}
           >
             New Game

@@ -63,6 +63,8 @@ const useSocket = (roomNum) => {
       // newGuess is i (coord)
       // checkHit should be called with i (coord) and user (boolean)
       const wasUserBoard = isHostCon !== wasHost;
+      console.log(isHostCon);
+      console.log("wasUserBoard:", wasUserBoard);
       const valid = checkHit(newGuess, wasUserBoard);
       if (valid) {
         if (wasUserBoard) {

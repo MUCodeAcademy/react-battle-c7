@@ -214,14 +214,11 @@ export function GameProvider(props) {
   const newGame = useCallback(() => {
     resetBoards();
     setUserBoatsReady(false);
+    setOppBoatsReady(false);
     setCurrentShip(5);
     setOppHit(0);
     setTotalGuesses(0);
-    if (isHostCon) {
-      setIsTurn(true);
-    } else {
-      setIsTurn(false);
-    }
+    setIsTurn(isHostCon);
   }, [
     resetBoards,
     userBoatsReady,
