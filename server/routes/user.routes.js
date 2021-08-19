@@ -37,8 +37,7 @@ router.post("/login", (req, res) => {
     success: false,
     data: null,
     error: "INVALID DATA PROVIDED",
-  }
-
+  },
 passport.authenticate("local-login", (err, user, info) => {
     if (err) {
       return res.send({ success: false, error: err, data: null });
@@ -46,10 +45,8 @@ passport.authenticate("local-login", (err, user, info) => {
     return res
       .cookie("jwt", info.token, { secure: true, httpOnly: true })
       .send({ success: true, error: null, data: user });
-  })(req, res);
+  })(req, res));
 });
-
-
 
 function validate(username, password) {
   return (
