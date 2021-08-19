@@ -19,6 +19,7 @@ function Chat({ messages, sendChat }) {
                 key={i}
                 style={{ color: msg.color }}
                 ref={messageRef}
+                className="chatMargin"
               >{`${msg.username}: ${msg.msg}`}</Card.Text>
             );
           })}

@@ -137,6 +137,10 @@ margin-left: 10px;
 border-radius: 50px;
 
 }
+.chatMargin{
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
 
 .ship{
 display: flex;
