@@ -96,7 +96,7 @@ export function GameProvider(props) {
       }
     }
   }, [isHostCon]);
-
+  // TODO add sendBoatsReady function
   const placeBoat = useCallback(
     (coordinate, int, orientation) => {
       let boatCheck = false;

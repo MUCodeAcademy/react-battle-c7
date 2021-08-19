@@ -1,6 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../shared/context/UserContext";
+import { GameContext } from "../shared/context/GameContext";
 import {
   Card,
   Alert,
@@ -13,6 +14,7 @@ import {
 
 const WaitingRoom = () => {
   const { setIsHostCon } = useContext(UserContext);
+  const { newGame } = useContext(GameContext);
   const [roomNum, setRoomNum] = useState("");
   const history = useHistory();
   const [error, setError] = useState(null);
