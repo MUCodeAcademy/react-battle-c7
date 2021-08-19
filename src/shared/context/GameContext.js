@@ -43,10 +43,11 @@ export function GameProvider(props) {
   }, [isHostCon]);
 
   useEffect(() => {
-    if (currentShip < 2) {
-      setUserBoatsReady(true);
+    if (userBoatsReady && oppBoatsReady) {
+      startGame();
+      console.log("game started!");
     }
-  }, [currentShip]);
+  }, [userBoatsReady, oppBoatsReady]);
 
   useEffect(() => {
     if (userData.length > 0 && gameActive) {
@@ -96,7 +97,6 @@ export function GameProvider(props) {
       }
     }
   }, [isHostCon]);
-  // TODO add sendBoatsReady function
   const placeBoat = useCallback(
     (coordinate, int, orientation) => {
       let boatCheck = false;
@@ -143,7 +143,7 @@ export function GameProvider(props) {
   }, [userBoatsReady]);
   const startGame = useCallback(() => {
     setGameActive(true);
-    console.log(gameActive);
+    console.log("gameActive:", gameActive);
   }, [gameActive]);
 
   const checkHit = useCallback(
@@ -151,10 +151,15 @@ export function GameProvider(props) {
       if (!user) {
         console.log(coordinate);
         console.log(userData);
-        userData[coordinate].hit = true;
-        setUserData((curr) => [...curr]);
-        if (userData[coordinate].ship === true)
-          await setOppHit((curr) => curr + 1);
+        if (!userData[coordinate].hit) {
+          userData[coordinate].hit = true;
+          setUserData((curr) => [...curr]);
+          if (userData[coordinate].ship === true)
+            await setOppHit((curr) => curr + 1);
+          return true;
+        } else {
+          return false;
+        }
       } else {
         opponentData[coordinate].hit = true;
         setOpponentData((curr) => [...curr]);
@@ -184,13 +189,13 @@ export function GameProvider(props) {
   );
 
   const select = useCallback(
-    (coordinate, user, type, orientation) => {
+    (coordinate, user, orientation) => {
       if (!gameActive && !userBoatsReady && user) {
         placeBoat(coordinate, currentShip, orientation);
         console.log(coordinate, orientation);
       }
       if (gameActive && !user && isTurn) {
-        checkHit(coordinate, user);
+        return checkHit(coordinate, user);
       }
     },
     [gameActive, userBoatsReady, placeBoat, checkHit]
@@ -258,6 +263,7 @@ export function GameProvider(props) {
       value={{
         userData,
         opponentData,
+        setOpponentData,
         placeBoat,
         select,
         boatsReady,

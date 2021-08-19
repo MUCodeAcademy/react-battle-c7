@@ -71,15 +71,14 @@ const useSocket = (roomNum, isHost) => {
       }
       if (wasUser === false) {
         setIsTurn(true);
+        checkHit(newGuess, true);
       }
-      checkHit(newGuess, wasUser);
       console.log(`Received sendGuess from backend successfuly`);
       // console.log(newGuess);
     });
 
     socketRef.current.on(BOATS_READY, ({ boardData, wasHost }) => {
       console.log(`Received boatsReady from backend successfuly`);
-      console.log(wasHost);
       // wasUser checks to see if the event was sent from the user/socket's player
       // If the event was sent from the host and the user is the host, then it knows it was sent from the user
       // Same if the user isn't the host and the event wasn't sent from the host
@@ -89,13 +88,15 @@ const useSocket = (roomNum, isHost) => {
       if (wasUser) {
         return;
       } else {
+        console.log("boatsReady event sent by opponent");
         boardData.map((obj) => {
           obj.user = false;
         });
         setOpponentData(boardData);
         setOppBoatsReady(true);
       }
-      if (userBoatsReady && oppBoatsReady) {
+      if (userBoatsReady) {
+        console.log("firing start game");
         startGame();
       }
     });
@@ -122,10 +123,10 @@ const useSocket = (roomNum, isHost) => {
     // when function is called, pass in userData as boardData
     setUserBoatsReady(true);
     console.log("boardData:", boardData);
-    socketRef.current.emit(BOATS_READY, { boardData, wasHost: isHostSoc });
-    if (userBoatsReady && oppBoatsReady) {
+    if (oppBoatsReady) {
       startGame();
     }
+    socketRef.current.emit(BOATS_READY, { boardData, wasHost: isHostSoc });
   }, []);
 
   const joinRoom = useCallback((username) => {
