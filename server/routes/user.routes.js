@@ -1,11 +1,8 @@
 const express = require("express");
-const passport = require("passport");
 const router = express.Router();
-const auth = require("../middleware/auth.middlware");
-const {
-  signup,
-  
-} = require("../models/user.models");
+const passport = require("passport");
+const auth = require("../middleware/auth.middleware");
+const { signup, login } = require("../models/user.models");
 
 router.get("/validate", auth, (req, res) => {
   return res.send({
@@ -28,20 +25,21 @@ router.post("/signup", (req, res) => {
   return res.send({
     success: false,
     data: null,
-    error: "Invalid data provided",
+    error: "invalid data provided",
   });
 });
-
 router.post("/login", (req, res) => {
   const { username, password } = req.body;
-  if (!validate(username, password)) {
-    return res.send({
-      success: false,
-      data: null,
-      error: "Invalid data provided",
-    });
+  if (validate(username, password)) {
+    return login(res, username, password);
   }
-  passport.authenticate("local-login", (err, user, info) => {
+  return res.send({
+    success: false,
+    data: null,
+    error: "INVALID DATA PROVIDED",
+  }
+
+passport.authenticate("local-login", (err, user, info) => {
     if (err) {
       return res.send({ success: false, error: err, data: null });
     }
@@ -50,6 +48,8 @@ router.post("/login", (req, res) => {
       .send({ success: true, error: null, data: user });
   })(req, res);
 });
+
+
 
 function validate(username, password) {
   return (
@@ -61,5 +61,4 @@ function validate(username, password) {
     password.length <= 20
   );
 }
-
 module.exports = router;
