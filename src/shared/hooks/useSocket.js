@@ -21,6 +21,7 @@ const useSocket = (roomNum) => {
     setOppBoatsReady,
     oppShips,
     setOppShips,
+
     setIsTurn,
     setOpponentData,
   } = useContext(GameContext);
@@ -33,7 +34,7 @@ const useSocket = (roomNum) => {
     });
 
     socketRef.current.on(CHAT_MESSAGE, (chatMsg) => {
-      setMessages((curr) => [chatMsg, ...curr]);
+      setMessages((curr) => [...curr, chatMsg]);
     });
 
     socketRef.current.on("userColor", ({ color }) => {
@@ -106,11 +107,12 @@ const useSocket = (roomNum) => {
   }, [roomNum]);
   // function passed to chat/gamePage that sends a message
   const sendChat = useCallback(
-    (msg) => {
+    (msg, time) => {
       socketRef.current.emit(CHAT_MESSAGE, {
         msg,
         username,
         color,
+        time,
       });
     },
     [color]
@@ -134,11 +136,22 @@ const useSocket = (roomNum) => {
     socketRef.current.emit("joinRoom", { username });
   }, []);
 
+  const disconnect = useCallback((username) => {
+    socketRef.current.emit("disconnect", { username });
+  }, []);
+
   const sunkShip = useCallback((boat) => {
     socketRef.current.emit("sunkShip", { boat });
   });
 
-  return { messages, sendChat, sendGuess, sendBoatsReady, joinRoom };
+  return {
+    messages,
+    sendChat,
+    sendGuess,
+    sendBoatsReady,
+    joinRoom,
+    disconnect,
+  };
 };
 
 export default useSocket;

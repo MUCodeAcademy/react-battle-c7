@@ -168,6 +168,11 @@
 .sunk {
   border: solid red 2px;
   border-radius: 50px;
+
+}
+.chatMargin {
+  margin-top: 1px;
+  margin-bottom: 1px;
 }
 
 .ship {
@@ -196,8 +201,13 @@
 .ht-ms {
   display: flex;
   flex-direction: column;
+
 }
 
 .rbtn {
   display: flex;
+}
+
+.current {
+  color: white !important;
 }
