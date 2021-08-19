@@ -12,7 +12,6 @@ const SERVER_URL = "http://localhost:8080";
 const useSocket = (roomNum) => {
   const { username, isHostCon } = useContext(UserContext);
   const {
-    startGame,
     checkHit,
     setUserData,
     userBoatsReady,
@@ -98,9 +97,6 @@ const useSocket = (roomNum) => {
         setOpponentData(newOpp);
         setOppBoatsReady(true);
       }
-      if (userBoatsReady && oppBoatsReady) {
-        startGame();
-      }
     });
 
     return () => socketRef.current.disconnect();
@@ -126,9 +122,6 @@ const useSocket = (roomNum) => {
     console.log(isHostCon);
     // when function is called, pass in userData as boardData
     setUserBoatsReady(true);
-    if (oppBoatsReady) {
-      startGame();
-    }
     socketRef.current.emit(BOATS_READY, { boardData, wasHost: isHostCon });
   }, []);
 

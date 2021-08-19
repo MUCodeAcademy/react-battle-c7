@@ -66,7 +66,7 @@ export default function GamePage() {
         centered
       >
         <Modal.Header>
-          {winner && winner === "user" ? (
+          {winner && winner === "User" ? (
             <Modal.Title>Congratulations! You Won!</Modal.Title>
           ) : (
             <Modal.Title>Oh No, You lost! Better luck next time!</Modal.Title>
@@ -86,7 +86,7 @@ export default function GamePage() {
               newGame();
             }}
           >
-            New Game Button NYI
+            New Game
           </Button>
         </Modal.Footer>
       </Modal>
