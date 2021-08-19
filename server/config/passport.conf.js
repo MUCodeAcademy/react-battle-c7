@@ -1,7 +1,7 @@
 const LocalStrategy = require("passport-local");
 const { Strategy } = require("passport-jwt");
 const jwt = require("jsonwebtoken");
-const { login, getByUserID } = require("../models/users.model");
+const { login, getByUserID } = require("../models/user.models");
 
 function configPassport(passport) {
 	//! Local strategy
