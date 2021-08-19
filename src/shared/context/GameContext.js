@@ -153,6 +153,11 @@ export function GameProvider(props) {
       } else {
         if (!opponentData[coordinate].hit) {
           setTotalGuesses((curr) => curr + 1);
+          console.log(opponentData[coordinate]);
+          if (opponentData[coordinate].ship) {
+            console.log("Here");
+          }
+          // setUserHit((curr) => curr + 1);
           wasValid = true;
         }
       }

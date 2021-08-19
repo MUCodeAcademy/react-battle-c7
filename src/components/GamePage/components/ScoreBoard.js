@@ -3,15 +3,8 @@ import { Button } from "react-bootstrap";
 import { GameContext } from "../../../shared/context/GameContext";
 import { useParams } from "react-router-dom";
 function ScoreBoard({ setBoatOrient, boatOrient }) {
-  const {
-    userHit,
-    oppHit,
-    totalGuesses,
-    setUserBoatsReady,
-    gameActive,
-    currentShip,
-    oppShips,
-  } = useContext(GameContext);
+  const { userHit, oppHit, totalGuesses, gameActive, currentShip, oppShips } =
+    useContext(GameContext);
   const [isActive2, setActive2] = useState(false);
   const [isActive3, setActive3] = useState(false);
   const [isActive4, setActive4] = useState(false);

@@ -14,7 +14,6 @@ const useSocket = (roomNum) => {
   const {
     startGame,
     checkHit,
-    setOpponentData,
     setUserData,
     userBoatsReady,
     setUserBoatsReady,
@@ -23,12 +22,10 @@ const useSocket = (roomNum) => {
     oppShips,
     setOppShips,
     setIsTurn,
-    setUserHit,
-    opponentData,
+    setOpponentData,
   } = useContext(GameContext);
   const [color, setColor] = useState(null);
   const [messages, setMessages] = useState([]);
-  const [currGuess, setCurrGuess] = useState(null);
   const socketRef = useRef();
   useEffect(() => {
     socketRef.current = socketIOClient(SERVER_URL, {
@@ -78,9 +75,6 @@ const useSocket = (roomNum) => {
             curr[newGuess].hit = true;
             return curr;
           });
-          if (opponentData[newGuess].ship) {
-            setUserHit((curr) => curr + 1);
-          }
         }
         setIsTurn((curr) => !curr);
       }
