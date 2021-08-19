@@ -14,7 +14,7 @@ const useSocket = (roomNum, isHost) => {
   const {
     startGame,
     checkHit,
-    setOpponentData,
+    setOppData,
     userBoatsReady,
     setUserBoatsReady,
     oppBoatsReady,
@@ -69,7 +69,6 @@ const useSocket = (roomNum, isHost) => {
     });
 
     socketRef.current.on(BOATS_READY, (boardData) => {
-      console.log(boardData);
       setOpponentData(boardData);
       setOppBoatsReady(true);
       if (userBoatsReady && oppBoatsReady) {
@@ -100,6 +99,7 @@ const useSocket = (roomNum, isHost) => {
   // function that determines boats are ready
   const sendBoatsReady = useCallback((boardData) => {
     // when function is called, pass in userData as boardData
+    setUserBoatsReady(true);
     socketRef.current.emit(BOATS_READY, { ...boardData });
     if (userBoatsReady && oppBoatsReady) {
       startGame();

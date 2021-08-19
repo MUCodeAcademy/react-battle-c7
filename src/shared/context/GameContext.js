@@ -131,30 +131,6 @@ export function GameProvider(props) {
     [userData]
   );
 
-  function trackBoat(coordinate, type) {
-    switch (type) {
-      case 2:
-        shipTwo.coord.push(coordinate);
-        setShipTwo(...shipTwo);
-        break;
-      case 3:
-        shipThree.coord.push(coordinate);
-        setShipThree(...shipThree);
-        break;
-      case 4:
-        shipFour.coord.push(coordinate);
-        setShipFour(...shipFour);
-        break;
-      case 5:
-        shipFive.coord.push(coordinate);
-        setShipFive(...shipFive);
-        break;
-      default:
-        console.log("Switch broke.");
-        break;
-    }
-  }
-
   const boatsReady = useCallback(() => {
     setUserBoatsReady(true);
     console.log(userBoatsReady);
@@ -203,9 +179,10 @@ export function GameProvider(props) {
   );
 
   const select = useCallback(
-    (coordinate, user, orientation) => {
+    (coordinate, user, type, orientation) => {
       if (!gameActive && !userBoatsReady && user) {
-        placeBoat(coordinate, currentShip, orientation);
+        placeBoat(coordinate, type, orientation);
+        console.log(coordinate, type, orientation);
       }
       if (gameActive && !user && turn) {
         checkHit(coordinate, user);
@@ -219,11 +196,11 @@ export function GameProvider(props) {
   }, [gameActive, checkWin, winner]);
 
   const checkWinner = useMemo(() => {
-    if (userHit === 1) {
+    if (userHit === 14) {
       setWinner("User");
       endGame();
       console.log("Win");
-    } else if (oppHit === 1) {
+    } else if (oppHit === 14) {
       setWinner("Opponent");
       endGame();
       console.log("Winner");
@@ -233,19 +210,24 @@ export function GameProvider(props) {
   const resetBoards = useCallback(() => {
     setUserData((curr) => {
       let next = new Array(100);
-      next.fill({ user: true, hit: false, ship: false });
+      for(let i = 0; i < 100; i++)
+      {
+        next[i] = { user: true, hit: false, ship: false };
+      }
       return next;
     });
     setOpponentData((curr) => {
       let next = new Array(100);
-      next.fill({ user: false, hit: false, ship: false });
+      for(let i = 0; i < 100; i++)
+      {
+        next[i] = { user: false, hit: false, ship: false };
+      }
       return next;
     });
   }, [userData, opponentData]);
 
   const newGame = useCallback(() => {
     resetBoards();
-    setCurrentShip(5);
     setGameActive(false);
     setUserBoatsReady(false);
     setOppHit(0);
@@ -273,7 +255,6 @@ export function GameProvider(props) {
       value={{
         userData,
         opponentData,
-        setOpponentData,
         placeBoat,
         select,
         boatsReady,

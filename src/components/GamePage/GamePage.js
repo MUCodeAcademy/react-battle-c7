@@ -9,7 +9,7 @@ import { UserContext } from "../../shared/context/UserContext";
 import { GameContext } from "../../shared/context/GameContext";
 
 export default function GamePage() {
-  const { placeBoat, userData, opponentData, winner, newGame, userBoatsReady, shipTwo, shipThree, shipFour, shipFive} =
+  const { placeBoat, userData, opponentData, winner, newGame } =
     useContext(GameContext);
   // modal state and cb functions
   const [showModal, setShowModal] = useState(winner);
@@ -17,7 +17,7 @@ export default function GamePage() {
   const handleShow = () => setShowModal(true);
   const { username, isHostCon } = useContext(UserContext);
   const { room } = useParams();
-  const { joinRoom, sendChat, messages, sendGuess, sendBoatsReady } = useSocket(
+  const { joinRoom, sendChat, messages, sendGuess } = useSocket(
     room,
     isHostCon
   );
@@ -28,13 +28,6 @@ export default function GamePage() {
   useEffect(() => {
     joinRoom(username);
   }, []);
-
-  // useEffect(()=> {
-  //   if(userBoatsReady === true)
-  //   {
-  //     sendBoatsReady();
-  //   }
-  // }, [userBoatsReady])
 
   useEffect(() => {
     setShowModal(winner);
@@ -68,7 +61,7 @@ export default function GamePage() {
             variant="primary"
             onClick={() => {
               console.log("new game function nyi");
-              // newGame();
+              newGame();
             }}
           >
             New Game Button NYI
@@ -85,7 +78,6 @@ export default function GamePage() {
                     setOrientation={setBoatOrient}
                     setBoatToPlace={setBoatToPlace}
                     setBoatOrient={setBoatOrient}
-                    boatOrient={boatOrient}
                   />
                 </Card.Body>
               </Card>
