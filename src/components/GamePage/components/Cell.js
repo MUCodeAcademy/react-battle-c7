@@ -2,19 +2,15 @@ import React, { useContext } from "react";
 import { GameContext } from "../../../shared/context/GameContext";
 
 function Cell({ i, coordinate, boatOrient, sendGuess }) {
-  const { select, isTurn, gameActive } = useContext(GameContext);
+  const { placeBoat, isTurn, gameActive, userBoatsReady, currentShip } =
+    useContext(GameContext);
   return (
     <div
       onClick={() => {
-        console.log("gameActive:", gameActive);
-        if (coordinate.user === true) {
-          select(i, coordinate.user, boatOrient);
-        } else {
-          if (isTurn && gameActive) {
-            if (select(i, coordinate.user)) {
-              sendGuess(i);
-            }
-          }
+        if (coordinate.user && !userBoatsReady) {
+          placeBoat(i, currentShip, boatOrient);
+        } else if (!coordinate.user && gameActive && isTurn) {
+          sendGuess(i);
         }
       }}
       className={`cell flex ${

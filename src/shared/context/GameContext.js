@@ -45,7 +45,6 @@ export function GameProvider(props) {
   useEffect(() => {
     if (userBoatsReady && oppBoatsReady) {
       startGame();
-      console.log("game started!");
     }
   }, [userBoatsReady, oppBoatsReady]);
 
@@ -123,88 +122,67 @@ export function GameProvider(props) {
         }
         if (!boatCheck) {
           for (let i = 0; i < int; i++) {
-            newArr[coordinate + i * 10] = {
-              ...newArr[coordinate + i * 10],
-              ship: true,
-            };
-            opponentData[coordinate + i * 10].ship = true;
+            newArr[coordinate + i * 10].ship = true;
           }
         }
         setCurrentShip((curr) => curr - 1);
       }
-      setUserData(() => newArr);
+      setUserData(newArr);
     },
     [userData]
   );
 
   const boatsReady = useCallback(() => {
     setUserBoatsReady(true);
-    console.log(userBoatsReady);
   }, [userBoatsReady]);
+
   const startGame = useCallback(() => {
     setGameActive(true);
-    console.log("gameActive:", gameActive);
   }, [gameActive]);
 
   const checkHit = useCallback(
-    async (coordinate, user) => {
+    (coordinate, user) => {
+      let wasValid = false;
       if (user) {
-        console.log(coordinate);
-        console.log(userData);
         if (!userData[coordinate].hit) {
-          userData[coordinate].hit = true;
-          setUserData((curr) => [...curr]);
-          if (userData[coordinate].ship === true)
-            await setOppHit((curr) => curr + 1);
-          return true;
-        } else {
-          return false;
+          if (userData[coordinate].ship === true) {
+            setOppHit((curr) => curr + 1);
+          }
+          wasValid = true;
         }
       } else {
         if (!opponentData[coordinate].hit) {
-          opponentData[coordinate].hit = true;
-          setOpponentData((curr) => [...curr]);
           if (opponentData[coordinate].ship === true) {
-            await setUserHit((curr) => curr + 1);
+            setUserHit((curr) => curr + 1);
           }
           setTotalGuesses((curr) => curr + 1);
-          return true;
-        } else {
-          return false;
+          wasValid = true;
         }
       }
-      console.log(userHit, oppHit, totalGuesses);
       checkWin(user);
+      return wasValid;
     },
-    [userData, opponentData, totalGuesses, isTurn, oppHit, userHit]
+    [
+      userData,
+      opponentData,
+      totalGuesses,
+      oppHit,
+      userHit,
+      setOpponentData,
+      setUserData,
+    ]
   );
-
   const checkWin = useCallback(
     (user) => {
       if (user && oppHit === 14) {
         setWinner("Opponent");
         endGame();
-        console.log("Win");
       } else if (!user && userHit === 14) {
         setWinner("User");
         endGame();
-        console.log("Win");
       }
     },
     [winner, oppHit, userHit, checkHit]
-  );
-
-  const select = useCallback(
-    (coordinate, user, orientation) => {
-      if (!gameActive && !userBoatsReady && user) {
-        placeBoat(coordinate, currentShip, orientation);
-        console.log(coordinate, orientation);
-      }
-      if (gameActive && !user && isTurn) {
-        return checkHit(coordinate, user);
-      }
-    },
-    [gameActive, userBoatsReady, placeBoat, checkHit]
   );
 
   const endGame = useCallback(() => {
@@ -215,11 +193,9 @@ export function GameProvider(props) {
     if (userHit === 14) {
       setWinner("User");
       endGame();
-      console.log("Win");
     } else if (oppHit === 14) {
       setWinner("Opponent");
       endGame();
-      console.log("Winner");
     }
   }, [userHit, oppHit]);
 
@@ -271,7 +247,6 @@ export function GameProvider(props) {
         opponentData,
         setOpponentData,
         placeBoat,
-        select,
         boatsReady,
         startGame,
         newGame,
@@ -288,6 +263,7 @@ export function GameProvider(props) {
         setUserBoatsReady,
         oppBoatsReady,
         setOppBoatsReady,
+        setUserData,
         shipTwo,
         shipThree,
         shipFour,

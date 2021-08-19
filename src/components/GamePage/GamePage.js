@@ -51,10 +51,6 @@ export default function GamePage() {
   }, [winner]);
 
   useEffect(() => {
-    console.log("gameActive:", gameActive);
-  }, [gameActive]);
-
-  useEffect(() => {
     if (currentShip < 2) {
       sendBoatsReady(userData);
     }
@@ -87,7 +83,6 @@ export default function GamePage() {
           <Button
             variant="primary"
             onClick={() => {
-              console.log("new game function nyi");
               newGame();
             }}
           >
