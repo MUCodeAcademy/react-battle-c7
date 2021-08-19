@@ -179,10 +179,10 @@ export function GameProvider(props) {
   );
 
   const select = useCallback(
-    (coordinate, user, type, orientation) => {
+    (coordinate, user, orientation) => {
       if (!gameActive && !userBoatsReady && user) {
-        placeBoat(coordinate, type, orientation);
-        console.log(coordinate, type, orientation);
+        placeBoat(coordinate, currentShip, orientation);
+        console.log(coordinate, orientation);
       }
       if (gameActive && !user && turn) {
         checkHit(coordinate, user);
@@ -230,6 +230,7 @@ export function GameProvider(props) {
     resetBoards();
     setGameActive(false);
     setUserBoatsReady(false);
+    setCurrentShip(5);
     setOppHit(0);
     setUserHit(0);
     setTotalGuesses(0);

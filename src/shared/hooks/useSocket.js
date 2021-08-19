@@ -14,7 +14,7 @@ const useSocket = (roomNum, isHost) => {
   const {
     startGame,
     checkHit,
-    setOppData,
+    setOpponentData,
     userBoatsReady,
     setUserBoatsReady,
     oppBoatsReady,
