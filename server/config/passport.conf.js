@@ -36,7 +36,7 @@ function configPassport(passport) {
 	//! JWT strategy
 
 	const jwtOptions = {
-		secretOrKey: process.env.SECRET_KEY,
+		secretOrKey: process.env.SECRETKEY,
 		jwtFromRequest: cookieJWTExtractor,
 	};
 
