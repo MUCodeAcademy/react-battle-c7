@@ -42,10 +42,22 @@ export function UserProvider(props) {
 
   const logout = useCallback(() => {
     setUsername("");
-  },[])
+  }, []);
 
   return (
-    <UserContext.Provider value={{ login, signup, username, logout, message, setMessage, isHostCon, setIsHostCon }}>
+    <UserContext.Provider
+      value={{
+        login,
+        signup,
+        username,
+        logout,
+        message,
+        setMessage,
+        isHostCon,
+        setIsHostCon,
+        setUsername,
+      }}
+    >
       {props.children}
     </UserContext.Provider>
   );

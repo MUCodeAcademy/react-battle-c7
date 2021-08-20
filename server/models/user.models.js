@@ -35,8 +35,7 @@ async function login(username, password) {
     ]);
 
     const user = users.rows[0] || { password: "1234" };
-    console.log("password:", password);
-    console.log("user.password:", user.password);
+
     const match = await bcrypt.compare(password, user.password);
     if (match) {
       json = { ...json, success: true, data: { username, uuid: user.uuid } };
@@ -50,5 +49,23 @@ async function login(username, password) {
     return json;
   }
 }
+async function getByUserID(uuid) {
+  let json = { error: null, data: null };
+  try {
+    const users = await query(
+      "SELECT id, username, uuid FROM users WHERE uuid = $1",
+      [uuid]
+    );
+    if (users.length === 0) {
+      json.error = "No user found";
+    } else {
+      json = { ...json, data: users[0] };
+    }
+  } catch (err) {
+    json.error = "Something went wrong?";
+  } finally {
+    return json;
+  }
+}
 
-module.exports = { signup, login };
+module.exports = { signup, login, getByUserID };

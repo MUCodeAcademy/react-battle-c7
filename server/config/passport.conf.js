@@ -9,15 +9,13 @@ function configPassport(passport) {
     "local-login",
     new LocalStrategy(async (username, password, done) => {
       //! Check the login things like before
-      console.log(password);
       const { data, error } = await login(username, password);
       //! If everything looks good send back a signed jwt with the user's uuid
       if (error) {
         return done(error);
       }
       //! Otherwise send an appropriate message
-      console.log("uuid:", data.uuid);
-      console.log("username:", data.username);
+
       const token = jwt.sign({ uuid: data.uuid }, process.env.SECRET_KEY, {
         expiresIn: "7 days",
       });
@@ -31,7 +29,6 @@ function configPassport(passport) {
     let token = null;
     if (req && req.cookies) {
       token = req.cookies["jwt"];
-      console.log(token);
     }
     return token;
   };
