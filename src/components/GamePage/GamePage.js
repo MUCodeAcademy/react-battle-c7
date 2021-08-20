@@ -1,13 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  Col,
-  Row,
-  Card,
-  Modal,
-  Button,
-  Container,
-  Alert,
-} from "react-bootstrap";
+import { Col, Row, Card, Modal, Button, Alert } from "react-bootstrap";
 import Chat from "./components/Chat";
 import Board from "./components/Board";
 import ScoreBoard from "./components/ScoreBoard";
@@ -30,8 +22,7 @@ export default function GamePage() {
   // modal state and cb functions
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
-  const { username, isHostCon, setIsHostCon } = useContext(UserContext);
+  const { username, isHostCon } = useContext(UserContext);
   const { room } = useParams();
   const { joinRoom, sendChat, messages, sendGuess, sendBoatsReady, sunkShip } =
     useSocket(room, isHostCon);

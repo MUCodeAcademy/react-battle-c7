@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useContext } from "react";
+import { NavLink } from "react-router-dom";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { UserContext } from "../shared/context/UserContext";
 
