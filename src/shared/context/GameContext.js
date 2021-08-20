@@ -87,7 +87,6 @@ export function GameProvider(props) {
         if (boatCheck === false) {
           for (let i = 0; i < int; i++) {
             newArr[coordinate + i] = { ...newArr[coordinate + i], ship: int };
-            opponentData[coordinate + i].ship = int;
             trackBoat(coordinate + i, int);
           }
           setCurrentShip((curr) => curr - 1);
