@@ -54,7 +54,6 @@ async function getByUserID(uuid) {
       "SELECT id, username, uuid FROM users WHERE uuid = $1",
       [uuid]
     );
-    console.log("users:", users);
     if (users.rows.length === 0) {
       json.error = "No user found";
     } else {

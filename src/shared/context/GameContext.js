@@ -51,15 +51,14 @@ export function GameProvider(props) {
     }
   }, [userBoatsReady, oppBoatsReady]);
 
-  useEffect(()=>{
-    setOppShips({...oppShips})
-  }, [isTurn])
+  useEffect(() => {
+    setOppShips({ ...oppShips });
+  }, [isTurn]);
 
-  function trackBoat(coord, int){
+  function trackBoat(coord, int) {
     switch (int) {
       case 2:
         shipTwo.coord.push(coord);
-        console.log(shipTwo, shipThree, shipFour, shipFive)
         break;
       case 3:
         shipThree.coord.push(coord);
@@ -89,7 +88,7 @@ export function GameProvider(props) {
           for (let i = 0; i < int; i++) {
             newArr[coordinate + i] = { ...newArr[coordinate + i], ship: int };
             opponentData[coordinate + i].ship = int;
-              trackBoat(coordinate + i, int);
+            trackBoat(coordinate + i, int);
           }
           setCurrentShip((curr) => curr - 1);
         }
@@ -129,10 +128,6 @@ export function GameProvider(props) {
       } else {
         if (!opponentData[coordinate].hit) {
           setTotalGuesses((curr) => curr + 1);
-          console.log(opponentData[coordinate]);
-          if (opponentData[coordinate].ship) {
-            console.log("Here");
-          }
           wasValid = true;
         }
       }

@@ -44,7 +44,6 @@ function configPassport(passport) {
     "jwt",
     new Strategy(jwtOptions, async (payload, done) => {
       //? Grab a user by user.uuid
-      console.log(payload);
       if (!payload || !payload.uuid) {
         return done(true, false, "Invalid Credentials");
       }

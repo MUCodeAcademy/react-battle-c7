@@ -24,7 +24,6 @@ function App() {
   useEffect(async () => {
     //! call validate route
     const res = await validate("/api/users/validate");
-    console.log("res:", res);
     if (res.data.success) {
       setUsername(res.data.data.username);
     }

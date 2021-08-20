@@ -6,12 +6,9 @@ function Chat({ messages, sendChat }) {
   const messageRef = useRef(null);
 
   useEffect(() => {
-    console.log(messageRef.current);
     try {
       messageRef.current.scrollTop = messageRef.current.scrollHeight;
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   }, [messages]);
 
   return (

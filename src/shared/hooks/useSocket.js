@@ -54,8 +54,7 @@ const useSocket = (roomNum) => {
       // newGuess is i (coord)
       // checkHit should be called with i (coord) and user (boolean)
       const wasUserBoard = isHostCon !== wasHost;
-      console.log(isHostCon);
-      console.log("wasUserBoard:", wasUserBoard);
+
       const valid = checkHit(newGuess, wasUserBoard);
       if (valid) {
         if (wasUserBoard) {
@@ -113,7 +112,6 @@ const useSocket = (roomNum) => {
   }, []);
   // function that determines boats are ready
   const sendBoatsReady = useCallback((boardData) => {
-    console.log(isHostCon);
     // when function is called, pass in userData as boardData
     setUserBoatsReady(true);
     socketRef.current.emit(BOATS_READY, { boardData, wasHost: isHostCon });
@@ -138,7 +136,7 @@ const useSocket = (roomNum) => {
     sendBoatsReady,
     joinRoom,
     disconnect,
-    sunkShip
+    sunkShip,
   };
 };
 
