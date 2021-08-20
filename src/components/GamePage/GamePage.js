@@ -24,6 +24,15 @@ export default function GamePage() {
     winner,
     newGame,
     isTurn,
+    checkHit,
+    shipTwo,
+    shipThree,
+    shipFour,
+    shipFive,
+    setShipTwo,
+    setShipThree,
+    setShipFour,
+    setShipFive,
     gameActive,
     currentShip,
     userBoatsReady,
@@ -34,7 +43,7 @@ export default function GamePage() {
   const handleShow = () => setShowModal(true);
   const { username, isHostCon } = useContext(UserContext);
   const { room } = useParams();
-  const { joinRoom, sendChat, messages, sendGuess, sendBoatsReady } = useSocket(
+  const { joinRoom, sendChat, messages, sendGuess, sendBoatsReady, sunkShip } = useSocket(
     room,
     isHostCon
   );
@@ -55,6 +64,64 @@ export default function GamePage() {
       sendBoatsReady(userData);
     }
   }, [currentShip]);
+
+  // useEffect(() => {
+  //   if (userData.length > 0 && gameActive) {
+  //     if (shipTwo.sunk === false) {
+  //       console.log("Checking Ship Two")
+  //       let count = 0;
+  //       for (let i = 0; i < 2; i++) {
+  //         if (userData[shipTwo.coord[i]].hit) {
+  //           count++;
+  //         }
+  //       }
+  //       if (count === 2) {
+  //         console.log("Ship Two Sunk")
+  //         setShipTwo({ ...shipTwo, sunk: true });
+  //         sunkShip(2);
+  //       }
+  //     }
+  //     if (shipThree.sunk === false) {
+  //       let count = 0;
+  //       for (let i = 0; i < 3; i++) {
+  //         if (userData[shipThree.coord[i]].hit) {
+  //           count++;
+  //         }
+  //       }
+  //       if (count === 3) {
+  //         console.log("Ship 3 Sunk")
+  //         setShipThree({ ...shipThree, sunk: true });
+  //         sunkShip(3);
+  //       }
+  //     }
+  //     if (shipFour.sunk === false) {
+  //       let count = 0;
+  //       for (let i = 0; i < 4; i++) {
+  //         if (userData[shipFour.coord[i]].hit) {
+  //           count++;
+  //         }
+  //       }
+  //       if (count === 4) {
+  //         console.log("Ship Four Sunk")
+  //         setShipFour({ ...shipFour, sunk: true });
+  //         sunkShip(4);
+  //       }
+  //     }
+  //     if (shipFive.sunk === false) {
+  //       let count = 0;
+  //       for (let i = 0; i < 5; i++) {
+  //         if (userData[shipFive.coord[i]].hit) {
+  //           count++;
+  //         }
+  //       }
+  //       if (count === 5) {
+  //         console.log("Ship Five Sunk")
+  //         setShipFive({ ...shipFive, sunk: true });
+  //         sunkShip(5);
+  //       }
+  //     }
+  //   }
+  // }, [checkHit]);
 
   return (
     <>

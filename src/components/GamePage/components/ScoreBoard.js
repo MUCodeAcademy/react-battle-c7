@@ -1,14 +1,19 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { GameContext } from "../../../shared/context/GameContext";
 import { useParams } from "react-router-dom";
 function ScoreBoard({ setBoatOrient, boatOrient }) {
-  const { userHit, oppHit, totalGuesses, gameActive, currentShip, oppShips } =
+  const { userHit, oppHit, totalGuesses, gameActive, currentShip, oppShips, opponentData } =
     useContext(GameContext);
   const [isActive2, setActive2] = useState(false);
   const [isActive3, setActive3] = useState(false);
   const [isActive4, setActive4] = useState(false);
   const [isActive5, setActive5] = useState(false);
+  const [shipTwoStatus, setShipTwoStatus] = useState(false);
+  const [shipThreeStatus, setShipThreeStatus] = useState(false);
+  const [shipFourStatus, setShipFourStatus] = useState(false);
+  const [shipFiveStatus, setShipFiveStatus] = useState(false);
+
   let misses = totalGuesses - userHit;
   const { room } = useParams();
   const boatToggle = () => {
@@ -17,6 +22,40 @@ function ScoreBoard({ setBoatOrient, boatOrient }) {
     setActive3(!isActive3);
     setActive2(!isActive2);
   };
+
+  useEffect(()=>{
+    let count2 = 0;
+    let count3 = 0;
+    let count4 = 0;
+    let count5 = 0;
+
+    opponentData.map((cell)=>{
+      if(cell.ship === 2 && cell.hit)
+      {
+        count2++;
+        
+      }
+      if(cell.ship === 3 && cell.hit)
+      {
+        count3++;
+      }
+      if(cell.ship === 4 && cell.hit)
+      {
+        count4++;
+      }
+      if(cell.ship === 5 && cell.hit)
+      {
+        count5++;
+      }
+    })
+
+    count2 === 2 ? setShipTwoStatus(true) : setShipTwoStatus(false) ;
+    count3 === 3 ? setShipThreeStatus(true) : setShipThreeStatus(false);
+    count4 === 4 ? setShipFourStatus(true) :setShipFourStatus(false);
+    count5 === 5 ? setShipFiveStatus(true) :setShipFiveStatus(false);
+
+  },[opponentData, oppShips])
+
   return (
     <>
       {!gameActive && (
@@ -80,7 +119,7 @@ function ScoreBoard({ setBoatOrient, boatOrient }) {
             <img
               className="size5"
               src={`${
-                oppShips.shipFiveSunk
+                shipFiveStatus
                   ? "/assets/7battleG.png"
                   : "/assets/7battle.png"
               }`}
@@ -92,7 +131,7 @@ function ScoreBoard({ setBoatOrient, boatOrient }) {
             <img
               className="size4"
               src={`${
-                oppShips.shipFourSunk
+                shipFourStatus
                   ? "/assets/7battleG.png"
                   : "/assets/7battle.png"
               }`}
@@ -104,7 +143,7 @@ function ScoreBoard({ setBoatOrient, boatOrient }) {
             <img
               className="size3"
               src={`${
-                oppShips.shipThreeSunk
+                shipThreeStatus
                   ? "/assets/7battleG.png"
                   : "/assets/7battle.png"
               }`}
@@ -116,7 +155,7 @@ function ScoreBoard({ setBoatOrient, boatOrient }) {
             <img
               className="size2"
               src={`${
-                oppShips.shipTwoSunk
+                shipTwoStatus
                   ? "/assets/7battleG.png"
                   : "/assets/7battle.png"
               }`}

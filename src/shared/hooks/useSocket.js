@@ -21,13 +21,23 @@ const useSocket = (roomNum) => {
     setOppBoatsReady,
     oppShips,
     setOppShips,
-
+    shipTwo,
+    shipThree,
+    shipFour,
+    shipFive,
+    setShipTwo,
+    setShipThree,
+    setShipFour,
+    setShipFive,
+    userData,
     setIsTurn,
+    gameActive,
     setOpponentData,
   } = useContext(GameContext);
   const [color, setColor] = useState(null);
   const [messages, setMessages] = useState([]);
   const socketRef = useRef();
+
   useEffect(() => {
     socketRef.current = socketIOClient(SERVER_URL, {
       query: { roomNum },
@@ -41,24 +51,24 @@ const useSocket = (roomNum) => {
       setColor(color);
     });
 
-    socketRef.current.on("sunkShip", ({ boat }) => {
-      switch (boat) {
-        case 2:
-          setOppShips({ ...oppShips, shipSunk: true });
-          break;
-        case 3:
-          setOppShips({ ...oppShips, shipThreeSunk: true });
-          break;
-        case 4:
-          setOppShips({ ...oppShips, shipFourSunk: true });
-          break;
-        case 5:
-          setOppShips({ ...oppShips, shipFiveSunk: true });
-          break;
-        default:
-          break;
-      }
-    });
+    // socketRef.current.on("sunkShip", ({ boat}) => {
+    //   switch (boat) {
+    //     case 2:
+    //       oppShips.shipTwoSunk = true;
+    //       break;
+    //     case 3:
+    //       oppShips.shipThreeSunk = true;
+    //       break;
+    //     case 4:
+    //       oppShips.shipFourSunk = true;
+    //       break;
+    //     case 5:
+    //       oppShips.shipFiveSunk = true;
+    //       break;
+    //     default:
+    //       break;
+    //   }
+    // });
 
     socketRef.current.on(SEND_GUESS, ({ newGuess, wasHost }) => {
       // newGuess is i (coord)
@@ -77,6 +87,7 @@ const useSocket = (roomNum) => {
             return curr;
           });
         }
+        // checkSinks();
         setIsTurn((curr) => !curr);
       }
     });
@@ -140,9 +151,9 @@ const useSocket = (roomNum) => {
     socketRef.current.emit("disconnect", { username });
   }, []);
 
-  const sunkShip = useCallback((boat) => {
-    socketRef.current.emit("sunkShip", { boat });
-  });
+  // const sunkShip = useCallback((boat) => {
+  //   socketRef.current.emit("sunkShip", { boat });
+  // });
 
   return {
     messages,
