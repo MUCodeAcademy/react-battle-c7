@@ -4,7 +4,7 @@ import useAxios from "../hooks/useAxios";
 export const UserContext = createContext(null);
 
 export function UserProvider(props) {
-  const [username, setUsername] = useState("asdfk");
+  const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
   const [isHostCon, setIsHostCon] = useState(false);
 
