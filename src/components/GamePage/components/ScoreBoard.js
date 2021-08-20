@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { GameContext } from "../../../shared/context/GameContext";
-import {UserContext, userContext } from "../../../shared/context/UserContext";
+import { UserContext, userContext } from "../../../shared/context/UserContext";
 import { useParams } from "react-router-dom";
 function ScoreBoard({ setBoatOrient, boatOrient, sunkShip }) {
   const {
@@ -13,7 +13,7 @@ function ScoreBoard({ setBoatOrient, boatOrient, sunkShip }) {
     oppShips,
     opponentData,
   } = useContext(GameContext);
-  const {username} = useContext(UserContext);
+  const { username } = useContext(UserContext);
   const [isActive2, setActive2] = useState(false);
   const [isActive3, setActive3] = useState(false);
   const [isActive4, setActive4] = useState(false);
@@ -93,12 +93,22 @@ function ScoreBoard({ setBoatOrient, boatOrient, sunkShip }) {
 
   return (
     <>
-      {!gameActive && (
-        <div>
-          <h5 className="title"> Place Boats</h5>
-          <h6>
-            (Click on the button to change orientation of ships)
-            <button
+      <div>
+        <h6>{`You're Battling in Room: ${room}`}</h6>
+      </div>
+      {/* conditional render for active play */}
+
+      <div className="shell2">
+        <div className="ht-ms">
+          <div className="title">Score Board</div>
+          <div>Hits: {userHit}</div>
+          <div>Misses: {misses}</div>
+          <div>Opponent Hits: {oppHit}</div>
+        </div>
+        {!gameActive && (
+          <>
+            <Button
+              className="rbtn"
               onClick={() => {
                 if (boatOrient === "v") {
                   setBoatOrient("h");
@@ -110,45 +120,41 @@ function ScoreBoard({ setBoatOrient, boatOrient, sunkShip }) {
               }}
             >
               Swap Orientation
-            </button>
-          </h6>
-          <div className="shell">
-            <div className="flexship">
-              <div
-                className={`${isActive5 ? "boat5" : "boat5v"} ${
-                  currentShip < 5 ? "bg-white" : ""
-                }`}
-              ></div>
-              <div
-                className={`${isActive4 ? "boat4" : "boat4v"} ${
-                  currentShip < 4 ? "bg-white" : ""
-                }`}
-              ></div>
-              <div
-                className={`${isActive3 ? "boat3" : "boat3v"} ${
-                  currentShip < 3 ? "bg-white" : ""
-                }`}
-              ></div>
-              <div
-                className={`${isActive2 ? "boat2" : "boat2v"} ${
-                  currentShip < 2 ? "bg-white" : ""
-                }`}
-              ></div>
+            </Button>
+            <div className="shell">
+              <div className="flexship">
+                {currentShip === 5 && (
+                  <div
+                    className={`${isActive5 ? "boat5" : "boat5v"} ${
+                      currentShip < 5 ? "bg-white" : ""
+                    }`}
+                  ></div>
+                )}
+                {currentShip === 4 && (
+                  <div
+                    className={`${isActive4 ? "boat4" : "boat4v"} ${
+                      currentShip < 4 ? "bg-white" : ""
+                    }`}
+                  ></div>
+                )}
+                {currentShip === 3 && (
+                  <div
+                    className={`${isActive3 ? "boat3" : "boat3v"} ${
+                      currentShip < 3 ? "bg-white" : ""
+                    }`}
+                  ></div>
+                )}
+                {currentShip === 2 && (
+                  <div
+                    className={`${isActive2 ? "boat2" : "boat2v"} ${
+                      currentShip < 2 ? "bg-white" : ""
+                    }`}
+                  ></div>
+                )}
+              </div>
             </div>
-          </div>
-        </div>
-      )}
-      <div>
-        <h6>{`You're Battling in Room: ${room}`}</h6>
-      </div>
-      {/* conditional render for active play */}
-      <h5 className="title">Score Board</h5>
-      <div className="shell2">
-        <div className="ht-ms">
-          <div>Hits: {userHit}</div>
-          <div>Misses: {misses}</div>
-          <div>Opponent Hits: {oppHit}</div>
-        </div>
+          </>
+        )}
         <div className="shipbox">
           <div>
             <img
