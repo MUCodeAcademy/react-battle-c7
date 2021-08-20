@@ -11,12 +11,10 @@ import { UserContext } from "./UserContext";
 export const GameContext = createContext(null);
 
 export function GameProvider(props) {
-  const [gameActive, setGameActive] = useState(false);
   const [userBoatsReady, setUserBoatsReady] = useState(false);
   const [oppBoatsReady, setOppBoatsReady] = useState(false);
   const [userData, setUserData] = useState([]);
   const [opponentData, setOpponentData] = useState([]);
-  const [winner, setWinner] = useState("");
   const [isTurn, setIsTurn] = useState(false);
   const [oppHit, setOppHit] = useState(0);
   const [totalGuesses, setTotalGuesses] = useState(0);
@@ -50,7 +48,6 @@ export function GameProvider(props) {
 
   useEffect(() => {
     if (userBoatsReady && oppBoatsReady) {
-      startGame();
     }
   }, [userBoatsReady, oppBoatsReady]);
 
@@ -119,10 +116,6 @@ export function GameProvider(props) {
     setUserBoatsReady(true);
   }, [userBoatsReady]);
 
-  const startGame = useCallback(() => {
-    setGameActive(true);
-  }, [gameActive]);
-
   const checkHit = useCallback(
     (coordinate, user) => {
       let wasValid = false;
@@ -143,7 +136,6 @@ export function GameProvider(props) {
           wasValid = true;
         }
       }
-      checkWin(user);
       return wasValid;
     },
     [
@@ -157,22 +149,27 @@ export function GameProvider(props) {
     ]
   );
 
-  const checkWin = useCallback(
-    (user) => {
-      if (user && oppHit === 14) {
-        setWinner("Opponent");
-        endGame();
-      } else if (!user && userHit === 14) {
-        setWinner("User");
-        endGame();
-      }
-    },
-    [winner, oppHit, userHit, checkHit]
-  );
+  const winner = useMemo(() => {
+    if (oppHit === 14) {
+      return "Opponent";
+    } else if (userHit === 14) {
+      return "User";
+    } else {
+      return null;
+    }
+  }, [userHit, oppHit]);
 
-  const endGame = useCallback(() => {
-    setGameActive(false);
-  }, [gameActive, checkWin, winner]);
+  const gameActive = useMemo(() => {
+    if (userBoatsReady && oppBoatsReady) {
+      if (winner) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }, [userBoatsReady, oppBoatsReady, winner]);
 
   const resetBoards = useCallback(() => {
     setUserData((curr) => {
@@ -193,17 +190,12 @@ export function GameProvider(props) {
 
   const newGame = useCallback(() => {
     resetBoards();
-    setGameActive(false);
     setUserBoatsReady(false);
+    setOppBoatsReady(false);
     setCurrentShip(5);
     setOppHit(0);
     setTotalGuesses(0);
-    setWinner("");
-    if (isHostCon) {
-      setIsTurn(true);
-    } else {
-      setIsTurn(false);
-    }
+    setIsTurn(isHostCon);
   }, [
     resetBoards,
     userBoatsReady,
@@ -222,7 +214,6 @@ export function GameProvider(props) {
         setOpponentData,
         placeBoat,
         boatsReady,
-        startGame,
         newGame,
         winner,
         isTurn,
