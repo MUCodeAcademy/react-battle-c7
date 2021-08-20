@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { Card, Form, Button, Container, Row } from "react-bootstrap";
+import { Card, Form, Button, Container, Row, Col } from "react-bootstrap";
 
 function Chat({ messages, sendChat }) {
   const [message, setMessage] = useState("");
@@ -25,21 +25,24 @@ function Chat({ messages, sendChat }) {
             );
           })}
       </Card>
-      <Row className="flex flexSpaceBetween">
-        <Form.Group className="flex75 flexGrow" id="">
-          <Form.Control
-            onKeyPress={(e) => {
-              if (e.key === "Enter" && message.length > 0) {
-                sendChat(message);
-                setMessage("");
-              }
-            }}
-            onChange={(e) => {
-              setMessage(e.target.value);
-            }}
-            value={message}
-          />
-        </Form.Group>
+      <Row className="flex flexSpaceBetween" spacing={0}>
+        <Col sm={9}>
+          <Form.Group id="">
+            <Form.Control
+              onKeyPress={(e) => {
+                if (e.key === "Enter" && message.length > 0) {
+                  sendChat(message);
+                  setMessage("");
+                }
+              }}
+              onChange={(e) => {
+                setMessage(e.target.value);
+              }}
+              value={message}
+            />
+          </Form.Group>
+        </Col>
+
         <Button
           onClick={() => {
             if (message.length > 0) {
@@ -49,7 +52,7 @@ function Chat({ messages, sendChat }) {
           }}
           className="flex25 p-0"
         >
-          Submit
+          Send
         </Button>
       </Row>
     </Container>
