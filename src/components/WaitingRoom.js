@@ -98,6 +98,7 @@ const WaitingRoom = () => {
                           <Button
                             onClick={(e) => {
                               e.preventDefault();
+                              await setIsHostCon(false);
                               joinRoom(roomNum);
                             }}
                           >
