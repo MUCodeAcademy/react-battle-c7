@@ -17,6 +17,28 @@
   margin: auto;
 }
 
+.boat-place {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.boat2,
+.boat3,
+.boat4,
+.boat5 {
+  box-sizing: content-box !important;
+}
+
+.boat5 .ship-cell {
+  flex-basis: 24.5px;
+}
+
+.ship-cell {
+  height: 25px;
+  flex-basis: 25px;
+  border: black solid 1px;
+}
+
 .bg-black {
   background-color: black;
 }

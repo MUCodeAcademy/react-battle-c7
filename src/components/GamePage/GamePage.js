@@ -130,7 +130,7 @@ export default function GamePage() {
         </Row>
         {gameActive === false && userBoatsReady === false && (
           <Row>
-            <Col>
+            <Col style={{ backgroundColor: "gray" }}>
               <Card>
                 <Card.Body>
                   <Alert
@@ -148,7 +148,7 @@ export default function GamePage() {
         )}
         {gameActive === false && userBoatsReady === true && (
           <Row>
-            <Col>
+            <Col style={{ backgroundColor: "gray" }}>
               <Card>
                 <Card.Body>
                   <Alert
@@ -166,7 +166,7 @@ export default function GamePage() {
         )}
         {gameActive === true && isTurn === true && (
           <Row>
-            <Col>
+            <Col style={{ backgroundColor: "gray" }}>
               <Card>
                 <Card.Body>
                   <Alert
@@ -183,7 +183,7 @@ export default function GamePage() {
         )}
         {gameActive === true && isTurn === false && (
           <Row>
-            <Col>
+            <Col style={{ backgroundColor: "gray" }}>
               <Card>
                 <Card.Body>
                   <Alert
