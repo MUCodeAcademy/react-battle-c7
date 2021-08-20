@@ -14,6 +14,7 @@ const io = require("socket.io")(server, {
   },
 });
 
+
 io.on("connection", (socket) => {
   const { roomNum } = socket.handshake.query;
   console.log("Room Connected");
@@ -28,7 +29,7 @@ io.on("connection", (socket) => {
       username: "Game Master",
       time: time,
       msg: `${username} has joined the room`,
-      color: randColor,
+      color: "yellowgreen",
     });
   });
 
@@ -43,17 +44,23 @@ io.on("connection", (socket) => {
     io.to(roomNum).emit("sendGuess", { newGuess, wasHost });
   });
   // When sunk ship is recieved, send to opponent
-  socket.on("sunkShip", ({ boat }) => {
-    console.log("Recieved sunkShip from Front End successfully", boat);
-    io.to(roomNum).emit("sunkShip", { boat });
+  socket.on("sunkShip", ({ username, boat }) => {
+    const ships = ["destroyer", "submarine", "battleship", "aircraft carrier"]
+    const time = new Date().toString().split(" ")[4];
+    io.in(roomNum).emit("chatMessage", {
+      username: "Game Master",
+      time: time,
+      msg: `${username} has sunk the ${ships[boat - 2]}!`,
+      color: "crimson",
+    });
   });
   // When both players confirm, set boats ready?
-  socket.on("boatsReady", (ready) => {
+  socket.on("boatsReady", ({ boardData, wasHost }) => {
     //
     // have button emit boatsReady event
-    console.log("Received boatsReady from Front End", ready);
+    console.log("Received boatsReady from Front End");
 
-    io.in(roomNum).emit("boatsReady", { ...ready });
+    io.in(roomNum).emit("boatsReady", { boardData, wasHost });
   });
   // When game is ended, send to room
   // socket.on("gameEnd", (something) => {

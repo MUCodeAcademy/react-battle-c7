@@ -20,7 +20,6 @@ async function signup(res, username, password) {
       json = { ...json, success: true };
     }
   } catch (err) {
-    console.log(err);
     json = { ...json, error: "something went wrong" };
   } finally {
     return res.send(json);
@@ -43,7 +42,6 @@ async function login(username, password) {
       json = { ...json, error: "Invalid username and/or password" };
     }
   } catch (err) {
-    console.log(err);
     json = { ...json, error: "something went wrong" };
   } finally {
     return json;
