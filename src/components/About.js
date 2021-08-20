@@ -16,7 +16,7 @@ export default function About() {
 
       <Container>
 <div className="aboutBody">        
-           <p>Welcome to Lucky 7 Water Wars, created by the 7th cohort of Midland Code Academy. </p>
+           <h4>Welcome to Lucky 7 Water Wars, created by the 7th cohort of Midland Code Academy. </h4><div className="space2"></div>
 <p>Sign up with a username and password between 5 and 20 characters on the sign up page if you don't already have an account. When the “Sign Up” button is selected you will be automatically logged in to the game. </p>
 <p> If you have already created a username & password, Login.</p>
 <p> Select Host Room to retrieve a play code, or enter the eight-digit code from the host and join room to play. The play code will need to be shared outside of this app. </p>
