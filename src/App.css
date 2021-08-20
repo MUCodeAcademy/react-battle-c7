@@ -225,3 +225,8 @@
 .current {
   color: white !important;
 }
+
+.text-input {
+  margin-right: 5px;
+  flex: 1 1 auto;
+}

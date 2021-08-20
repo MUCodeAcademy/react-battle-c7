@@ -206,7 +206,7 @@ export default function GamePage() {
             </div>
           </Col>
           <Col lg={4}>
-            <div>
+            <div className="mb-4">
               <h2 className="heading">Chat:</h2>
               <div>
                 <Chat sendChat={sendChat} messages={messages} />

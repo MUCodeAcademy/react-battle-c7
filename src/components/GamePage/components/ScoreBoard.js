@@ -105,12 +105,12 @@ function ScoreBoard({ setBoatOrient, boatOrient, sunkShip }) {
 
   return (
     <>
-      <div>
+      <div class="heading">
         <h6>{`You're Battling in Room: ${room}`}</h6>
       </div>
       {/* conditional render for active play */}
 
-      <div className="d-flex align-items-center justify-content-between">
+      <div className="d-flex align-items-center justify-content-evenly mb-2">
         <div className="ht-ms">
           <div className="title">Score Board</div>
           <div>Hits: {userHit}</div>

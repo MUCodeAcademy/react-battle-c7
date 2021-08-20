@@ -12,8 +12,8 @@ function Chat({ messages, sendChat }) {
   }, [messages]);
 
   return (
-    <Container fluid>
-      <Card className="chat bg-black" ref={messageRef}>
+    <Container>
+      <div className="chat bg-black" ref={messageRef}>
         {messages &&
           messages.map((msg, i) => {
             return (
@@ -24,24 +24,22 @@ function Chat({ messages, sendChat }) {
               >{`${msg.username} ${msg.time}: ${msg.msg}`}</Card.Text>
             );
           })}
-      </Card>
-      <Row className="flex flexSpaceBetween" spacing={0}>
-        <Col sm={9}>
-          <Form.Group id="">
-            <Form.Control
-              onKeyPress={(e) => {
-                if (e.key === "Enter" && message.length > 0) {
-                  sendChat(message);
-                  setMessage("");
-                }
-              }}
-              onChange={(e) => {
-                setMessage(e.target.value);
-              }}
-              value={message}
-            />
-          </Form.Group>
-        </Col>
+      </div>
+      <div className="flex">
+        <Form.Group id="" className="text-input">
+          <Form.Control
+            onKeyPress={(e) => {
+              if (e.key === "Enter" && message.length > 0) {
+                sendChat(message);
+                setMessage("");
+              }
+            }}
+            onChange={(e) => {
+              setMessage(e.target.value);
+            }}
+            value={message}
+          />
+        </Form.Group>
 
         <Button
           onClick={() => {
@@ -50,11 +48,11 @@ function Chat({ messages, sendChat }) {
               setMessage("");
             }
           }}
-          className="flex25 p-0"
+          variant="primary"
         >
           Send
         </Button>
-      </Row>
+      </div>
     </Container>
   );
 }
