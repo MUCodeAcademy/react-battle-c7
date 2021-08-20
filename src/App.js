@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import {
   BrowserRouter as Router,
-  NavLink,
   Redirect,
   Route,
   Switch,
@@ -24,7 +23,7 @@ function App() {
   const { setUsername } = useContext(UserContext);
   const { callAPI: validate } = useAxios("GET");
 
-  useEffect(async () => {
+  useEffect(() => {
     //! call validate route
     async function validateCall() {
       const res = await validate("/api/users/validate");

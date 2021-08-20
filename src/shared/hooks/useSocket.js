@@ -6,7 +6,6 @@ import { GameContext } from "../context/GameContext";
 const CHAT_MESSAGE = "chatMessage";
 const SEND_GUESS = "sendGuess";
 const BOATS_READY = "boatsReady";
-const GAME_END = "gameEnd";
 const SERVER_URL = "http://localhost:8080";
 
 const useSocket = (roomNum) => {
@@ -14,23 +13,9 @@ const useSocket = (roomNum) => {
   const {
     checkHit,
     setUserData,
-    userBoatsReady,
     setUserBoatsReady,
-    oppBoatsReady,
     setOppBoatsReady,
-    oppShips,
-    setOppShips,
-    shipTwo,
-    shipThree,
-    shipFour,
-    shipFive,
-    setShipTwo,
-    setShipThree,
-    setShipFour,
-    setShipFive,
-    userData,
     setIsTurn,
-    gameActive,
     setOpponentData,
   } = useContext(GameContext);
   const [color, setColor] = useState(null);
