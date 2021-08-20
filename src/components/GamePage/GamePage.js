@@ -45,7 +45,7 @@ export default function GamePage() {
   }, [currentShip]);
 
   return (
-    <>
+    <Container fluid>
       <Modal
         show={showModal}
         onHide={handleClose}
@@ -102,8 +102,8 @@ export default function GamePage() {
       </Modal>
       <div className="bigShell">
         {/* <Card fluid="lg" style={{ backgroundColor: "blue", color: "darkblue" }}> */}
-        <Row lg={1}>
-          <Col style={{ backgroundColor: "gray" }}>
+        <Row>
+          <Col>
             <Card>
               <Card.Body>
                 <ScoreBoard
@@ -120,131 +120,93 @@ export default function GamePage() {
         {gameActive === false && userBoatsReady === false && (
           <Row>
             <Col>
-              <Card>
-                <Card.Body>
-                  <Alert
-                    className="text-center"
-                    variant="primary"
-                    style={{ margin: "0px" }}
-                  >
-                    Welcome to a completely original game concept... Please
-                    place your boats on the user board.
-                  </Alert>
-                </Card.Body>
-              </Card>
+              <Alert
+                className="text-center"
+                variant="primary"
+                style={{ margin: "0px" }}
+              >
+                Welcome to a completely original game concept... Please place
+                your boats on the user board.
+              </Alert>
             </Col>
           </Row>
         )}
         {gameActive === false && userBoatsReady === true && (
           <Row>
             <Col>
-              <Card>
-                <Card.Body>
-                  <Alert
-                    className="text-center"
-                    variant="warning"
-                    style={{ margin: "0px" }}
-                  >
-                    You're ready to battle! But, we're waiting on Opponent to
-                    start the game.
-                  </Alert>
-                </Card.Body>
-              </Card>
+              <Alert
+                className="text-center"
+                variant="warning"
+                style={{ margin: "0px" }}
+              >
+                You're ready to battle! But, we're waiting on Opponent to start
+                the game.
+              </Alert>
             </Col>
           </Row>
         )}
         {gameActive === true && isTurn === true && (
           <Row>
             <Col>
-              <Card>
-                <Card.Body>
-                  <Alert
-                    className="text-center"
-                    variant="primary"
-                    style={{ margin: "0px" }}
-                  >
-                    Hey, it's your turn! Make a move please.
-                  </Alert>
-                </Card.Body>
-              </Card>
+              <Alert
+                className="text-center"
+                variant="primary"
+                style={{ margin: "0px" }}
+              >
+                Hey, it's your turn! Make a move please.
+              </Alert>
             </Col>
           </Row>
         )}
         {gameActive === true && isTurn === false && (
           <Row>
             <Col>
-              <Card>
-                <Card.Body>
-                  <Alert
-                    className="text-center"
-                    variant="warning"
-                    style={{ margin: "0px" }}
-                  >
-                    Waiting for Opponent's move.
-                  </Alert>
-                </Card.Body>
-              </Card>
+              <Alert
+                className="text-center"
+                variant="warning"
+                style={{ margin: "0px" }}
+              >
+                Waiting for Opponent's move.
+              </Alert>
             </Col>
           </Row>
         )}
         <Row>
-          <Col style={{ backgroundColor: "gray" }}>
-            <Card>
-              <Card.Body>
-                <Card.Header as="h5">User Board:</Card.Header>
-
-                <Card.Body>
-                  <div>
-                    <Board
-                      board={userData}
-                      boatToPlace={boatToPlace}
-                      boatOrient={boatOrient}
-                      sendGuess={sendGuess}
-                    />
-                  </div>
-                </Card.Body>
-              </Card.Body>
-
-              <Card.Body></Card.Body>
-            </Card>
+          <Col>
+            <h2 className="heading">User Board:</h2>
+            <div>
+              <Board
+                board={userData}
+                boatToPlace={boatToPlace}
+                boatOrient={boatOrient}
+                sendGuess={sendGuess}
+              />
+            </div>
           </Col>
 
-          <Col style={{ backgroundColor: "gray" }}>
-            <Card>
-              <Card.Body>
-                <Card.Header as="h5">Opponent Board:</Card.Header>
-
-                <Card.Body>
-                  <div>
-                    <Board
-                      board={opponentData}
-                      boatToPlace={boatToPlace}
-                      sendGuess={sendGuess}
-                    />
-                  </div>
-                </Card.Body>
-              </Card.Body>
-
-              <Card.Body></Card.Body>
-            </Card>
+          <Col>
+            <h2 className="heading">Opponent Board:</h2>
+            <div>
+              <Board
+                board={opponentData}
+                boatToPlace={boatToPlace}
+                sendGuess={sendGuess}
+              />
+            </div>
           </Col>
-        </Row>
-
-        <Row lg={1}>
-          <Col style={{ backgroundColor: "gray" }}>
-            <Card>
-              <Card.Body>
-                <Card.Title>CHAT:</Card.Title>
-                <Card.Text></Card.Text>
-              </Card.Body>
+          <Col lg={4}>
+            <div className="mb-4">
+              <h2 className="heading">Chat:</h2>
               <div>
                 <Chat sendChat={sendChat} messages={messages} />
               </div>
-            </Card>
+            </div>
           </Col>
         </Row>
+
+        <Row></Row>
         {/* </Card> */}
       </div>
-    </>
+    </Container>
   );
 }
