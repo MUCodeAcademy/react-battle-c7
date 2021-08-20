@@ -74,16 +74,17 @@ export default function GamePage() {
           )}
         </Modal.Header>
         <Modal.Body>
-          The game is over now. Play again or return to waiting room. Or don't -
+          The game is over now. Please return to the waiting room. Or don't -
           we're not the boss of you.
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={() => history.push("/waiting")}>
             Go to Waiting Room
           </Button>
-          <Button
+          {/* <Button
             variant="secondary"
             onClick={() => {
+              newGame();
               function genRoomNum() {
                 let randNum = "";
                 var chars =
@@ -104,10 +105,12 @@ export default function GamePage() {
               //use history to redirect them
 
               history.push(`/gamepage/${room}`);
+              newGame();
+              setIsHostCon(true);
             }}
           >
             New Game
-          </Button>
+          </Button> */}
         </Modal.Footer>
       </Modal>
       <div className="bigShell">
