@@ -10,6 +10,7 @@ export function UserProvider(props) {
 
   const { callAPI: loginCall } = useAxios("POST");
   const { callAPI: signupCall } = useAxios("POST");
+  const { callAPI: logoutCall } = useAxios("GET");
 
   const login = useCallback((username, password) => {
     async function fetchData() {
@@ -37,8 +38,9 @@ export function UserProvider(props) {
     return fetchData();
   }, []);
 
-  const logout = useCallback(() => {
+  const logout = useCallback(async () => {
     setUsername("");
+    await logoutCall("api/users/logout");
   }, []);
 
   return (
