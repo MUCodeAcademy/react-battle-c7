@@ -52,6 +52,7 @@ export function UserProvider(props) {
         setMessage,
         isHostCon,
         setIsHostCon,
+        setUsername,
       }}
     >
       {props.children}

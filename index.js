@@ -2,6 +2,9 @@ require("dotenv").config();
 const COLORS = require("./server/shared/colors");
 const express = require("express");
 const app = express();
+const cookieParser = require("cookie-parser");
+const passport = require("passport");
+const passportConf = require("./server/config/passport.conf");
 const PORT = process.env.PORT || 8080;
 const userRoutes = require("./server/routes/user.routes");
 const server = require("http").createServer(app);
@@ -10,6 +13,7 @@ const io = require("socket.io")(server, {
     origin: "*",
   },
 });
+
 
 io.on("connection", (socket) => {
   const { roomNum } = socket.handshake.query;
@@ -25,7 +29,7 @@ io.on("connection", (socket) => {
       username: "Game Master",
       time: time,
       msg: `${username} has joined the room`,
-      color: randColor,
+      color: "yellowgreen",
     });
   });
 
@@ -40,9 +44,15 @@ io.on("connection", (socket) => {
     io.to(roomNum).emit("sendGuess", { newGuess, wasHost });
   });
   // When sunk ship is recieved, send to opponent
-  socket.on("sunkShip", ({ boat }) => {
-    console.log("Recieved sunkShip from Front End successfully", boat);
-    io.to(roomNum).emit("sunkShip", { boat });
+  socket.on("sunkShip", ({ username, boat }) => {
+    const ships = ["destroyer", "submarine", "battleship", "aircraft carrier"]
+    const time = new Date().toString().split(" ")[4];
+    io.in(roomNum).emit("chatMessage", {
+      username: "Game Master",
+      time: time,
+      msg: `${username} has sunk the ${ships[boat - 2]}!`,
+      color: "crimson",
+    });
   });
   // When both players confirm, set boats ready?
   socket.on("boatsReady", ({ boardData, wasHost }) => {
@@ -70,6 +80,9 @@ io.on("connection", (socket) => {
 });
 
 app.use(express.json());
+passportConf(passport);
+app.use(cookieParser());
+app.use(passport.initialize());
 app.use("/api/users", userRoutes);
 
 app.use(express.static(__dirname + "/build"));

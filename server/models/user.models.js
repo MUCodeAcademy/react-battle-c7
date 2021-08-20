@@ -26,7 +26,7 @@ async function signup(res, username, password) {
   }
 }
 
-async function login(res, username, password) {
+async function login(username, password) {
   let json = { data: null, success: false, error: null };
   try {
     const users = await pool.query("SELECT * FROM users WHERE username = $1", [
@@ -34,6 +34,7 @@ async function login(res, username, password) {
     ]);
 
     const user = users.rows[0] || { password: "1234" };
+
     const match = await bcrypt.compare(password, user.password);
     if (match) {
       json = { ...json, success: true, data: { username, uuid: user.uuid } };
@@ -43,8 +44,28 @@ async function login(res, username, password) {
   } catch (err) {
     json = { ...json, error: "something went wrong" };
   } finally {
-    return res.send(json);
+    return json;
+  }
+}
+async function getByUserID(uuid) {
+  let json = { error: null, data: null };
+  try {
+    const users = await pool.query(
+      "SELECT id, username, uuid FROM users WHERE uuid = $1",
+      [uuid]
+    );
+    console.log("users:", users);
+    if (users.rows.length === 0) {
+      json.error = "No user found";
+    } else {
+      let user = users.rows[0];
+      json = { ...json, data: user };
+    }
+  } catch (err) {
+    json.error = "Something went wrong?";
+  } finally {
+    return json;
   }
 }
 
-module.exports = { signup, login };
+module.exports = { signup, login, getByUserID };
