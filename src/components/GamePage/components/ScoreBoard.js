@@ -1,14 +1,28 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { GameContext } from "../../../shared/context/GameContext";
+import {UserContext, userContext } from "../../../shared/context/UserContext";
 import { useParams } from "react-router-dom";
-function ScoreBoard({ setBoatOrient, boatOrient }) {
-  const { userHit, oppHit, totalGuesses, gameActive, currentShip, oppShips } =
-    useContext(GameContext);
+function ScoreBoard({ setBoatOrient, boatOrient, sunkShip }) {
+  const {
+    userHit,
+    oppHit,
+    totalGuesses,
+    gameActive,
+    currentShip,
+    oppShips,
+    opponentData,
+  } = useContext(GameContext);
+  const {username} = useContext(UserContext);
   const [isActive2, setActive2] = useState(false);
   const [isActive3, setActive3] = useState(false);
   const [isActive4, setActive4] = useState(false);
   const [isActive5, setActive5] = useState(false);
+  const [shipTwoStatus, setShipTwoStatus] = useState(false);
+  const [shipThreeStatus, setShipThreeStatus] = useState(false);
+  const [shipFourStatus, setShipFourStatus] = useState(false);
+  const [shipFiveStatus, setShipFiveStatus] = useState(false);
+
   let misses = totalGuesses - userHit;
   const { room } = useParams();
   const boatToggle = () => {
@@ -17,6 +31,66 @@ function ScoreBoard({ setBoatOrient, boatOrient }) {
     setActive3(!isActive3);
     setActive2(!isActive2);
   };
+
+  useEffect(() => {
+    let count2 = 0;
+    let count3 = 0;
+    let count4 = 0;
+    let count5 = 0;
+
+    opponentData.map((cell) => {
+      if (!shipTwoStatus && cell.ship === 2 && cell.hit) {
+        count2++;
+      }
+      if (!shipThreeStatus && cell.ship === 3 && cell.hit) {
+        count3++;
+      }
+      if (!shipFourStatus && cell.ship === 4 && cell.hit) {
+        count4++;
+      }
+      if (!shipFiveStatus && cell.ship === 5 && cell.hit) {
+        count5++;
+      }
+    });
+
+    !shipTwoStatus && count2 === 2
+      ? setShipTwoStatus(true)
+      : setShipTwoStatus(false);
+    !shipThreeStatus && count3 === 3
+      ? setShipThreeStatus(true)
+      : setShipThreeStatus(false);
+    !shipFourStatus && count4 === 4
+      ? setShipFourStatus(true)
+      : setShipFourStatus(false);
+    !shipFiveStatus && count5 === 5
+      ? setShipFiveStatus(true)
+      : setShipFiveStatus(false);
+  }, [opponentData, oppShips]);
+
+  useEffect(() => {
+    if (shipTwoStatus) {
+      sunkShip(2);
+    }
+  }, [shipTwoStatus]);
+
+  useEffect(() => {
+    if (shipThreeStatus) {
+      sunkShip(3);
+    }
+  }, [shipThreeStatus]);
+
+  useEffect(() => {
+    if (shipFourStatus) {
+      sunkShip(4);
+    }
+  }, [shipFourStatus]);
+
+  useEffect(() => {
+    if (shipFiveStatus) {
+      sunkShip(5);
+    }
+  }, [shipFiveStatus]);
+
   return (
     <>
       {!gameActive && (
@@ -80,9 +154,7 @@ function ScoreBoard({ setBoatOrient, boatOrient }) {
             <img
               className="size5"
               src={`${
-                oppShips.shipFiveSunk
-                  ? "/assets/7battleG.png"
-                  : "/assets/7battle.png"
+                shipFiveStatus ? "/assets/7battleG.png" : "/assets/7battle.png"
               }`}
               alt="ship 5"
             />
@@ -92,9 +164,7 @@ function ScoreBoard({ setBoatOrient, boatOrient }) {
             <img
               className="size4"
               src={`${
-                oppShips.shipFourSunk
-                  ? "/assets/7battleG.png"
-                  : "/assets/7battle.png"
+                shipFourStatus ? "/assets/7battleG.png" : "/assets/7battle.png"
               }`}
               alt="ship 4"
             />
@@ -104,9 +174,7 @@ function ScoreBoard({ setBoatOrient, boatOrient }) {
             <img
               className="size3"
               src={`${
-                oppShips.shipThreeSunk
-                  ? "/assets/7battleG.png"
-                  : "/assets/7battle.png"
+                shipThreeStatus ? "/assets/7battleG.png" : "/assets/7battle.png"
               }`}
               alt="ship 3"
             />
@@ -116,9 +184,7 @@ function ScoreBoard({ setBoatOrient, boatOrient }) {
             <img
               className="size2"
               src={`${
-                oppShips.shipTwoSunk
-                  ? "/assets/7battleG.png"
-                  : "/assets/7battle.png"
+                shipTwoStatus ? "/assets/7battleG.png" : "/assets/7battle.png"
               }`}
               alt="ship 2"
             />

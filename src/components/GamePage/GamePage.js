@@ -34,7 +34,7 @@ export default function GamePage() {
   const handleShow = () => setShowModal(true);
   const { username, isHostCon } = useContext(UserContext);
   const { room } = useParams();
-  const { joinRoom, sendChat, messages, sendGuess, sendBoatsReady } = useSocket(
+  const { joinRoom, sendChat, messages, sendGuess, sendBoatsReady, sunkShip } = useSocket(
     room,
     isHostCon
   );
@@ -101,6 +101,7 @@ export default function GamePage() {
                   setBoatToPlace={setBoatToPlace}
                   setBoatOrient={setBoatOrient}
                   boatOrient={boatOrient}
+                  sunkShip={sunkShip}
                 />
               </Card.Body>
             </Card>

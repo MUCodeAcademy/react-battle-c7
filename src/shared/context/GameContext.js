@@ -54,84 +54,61 @@ export function GameProvider(props) {
     }
   }, [userBoatsReady, oppBoatsReady]);
 
-  useEffect(() => {
-    if (userData.length > 0 && gameActive) {
-      if (shipTwo.sunk === false) {
-        let count = 0;
-        for (let i = 0; i < 2; i++) {
-          if (userData[shipTwo.coord[i]].hit) {
-            count++;
-          }
-        }
-        if (count === 2) {
-          setShipTwo({ ...shipTwo, sunk: true });
-        }
-      }
-      if (shipThree.sunk === false) {
-        let count = 0;
-        for (let i = 0; i < 2; i++) {
-          if (userData[shipThree.coord[i]].hit) {
-            count++;
-          }
-        }
-        if (count === 3) {
-          setShipThree({ ...shipThree, sunk: true });
-        }
-      }
-      if (shipFour.sunk === false) {
-        let count = 0;
-        for (let i = 0; i < 2; i++) {
-          if (userData[shipFour.coord[i]].hit) {
-            count++;
-          }
-        }
-        if (count === 4) {
-          setShipFour({ ...shipFour, sunk: true });
-        }
-      }
-      if (shipFive.sunk === false) {
-        let count = 0;
-        for (let i = 0; i < 2; i++) {
-          if (userData[shipFive.coord[i]].hit) {
-            count++;
-          }
-        }
-        if (count === 5) {
-          setShipFive({ ...shipFive, sunk: true });
-        }
-      }
+  useEffect(()=>{
+    setOppShips({...oppShips})
+  }, [isTurn])
+
+  function trackBoat(coord, int){
+    switch (int) {
+      case 2:
+        shipTwo.coord.push(coord);
+        console.log(shipTwo, shipThree, shipFour, shipFive)
+        break;
+      case 3:
+        shipThree.coord.push(coord);
+        break;
+      case 4:
+        shipFour.coord.push(coord);
+        break;
+      case 5:
+        shipFive.coord.push(coord);
+        break;
+      default:
+        break;
     }
-  }, [isHostCon]);
+  }
+
   const placeBoat = useCallback(
     (coordinate, int, orientation) => {
       let boatCheck = false;
       let newArr = [...userData];
       if (orientation === "h" && 10 - (coordinate % 10) >= int) {
         for (let i = 0; i < int; i++) {
-          if (userData[coordinate + i].ship === true) {
+          if (userData[coordinate + i].ship) {
             boatCheck = true;
           }
         }
         if (boatCheck === false) {
           for (let i = 0; i < int; i++) {
-            newArr[coordinate + i] = { ...newArr[coordinate + i], ship: true };
-            opponentData[coordinate + i].ship = true;
-            //   trackBoat(coordinate + i, int);
+            newArr[coordinate + i] = { ...newArr[coordinate + i], ship: int };
+            opponentData[coordinate + i].ship = int;
+              trackBoat(coordinate + i, int);
           }
           setCurrentShip((curr) => curr - 1);
         }
       } else if (orientation === "v" && coordinate + (int - 1) * 10 < 100) {
         for (let i = 0; i < int; i++) {
-          if (newArr[coordinate + i * 10].ship === true) {
+          if (newArr[coordinate + i * 10].ship) {
             boatCheck = true;
           }
         }
         if (!boatCheck) {
           for (let i = 0; i < int; i++) {
-            newArr[coordinate + i * 10].ship = true;
+            newArr[coordinate + i * 10].ship = int;
+            trackBoat(coordinate + i * 10, int);
           }
+          setCurrentShip((curr) => curr - 1);
         }
-        setCurrentShip((curr) => curr - 1);
       }
       setUserData(newArr);
     },
@@ -151,7 +128,7 @@ export function GameProvider(props) {
       let wasValid = false;
       if (user) {
         if (!userData[coordinate].hit) {
-          if (userData[coordinate].ship === true) {
+          if (userData[coordinate].ship) {
             setOppHit((curr) => curr + 1);
           }
           wasValid = true;
@@ -179,6 +156,7 @@ export function GameProvider(props) {
       setUserData,
     ]
   );
+
   const checkWin = useCallback(
     (user) => {
       if (user && oppHit === 14) {
@@ -200,14 +178,14 @@ export function GameProvider(props) {
     setUserData((curr) => {
       let next = new Array(100);
       for (let i = 0; i < 100; i++) {
-        next[i] = { user: true, hit: false, ship: false };
+        next[i] = { user: true, hit: false, ship: 0 };
       }
       return next;
     });
     setOpponentData((curr) => {
       let next = new Array(100);
       for (let i = 0; i < 100; i++) {
-        next[i] = { user: false, hit: false, ship: false };
+        next[i] = { user: false, hit: false, ship: 0 };
       }
       return next;
     });
@@ -264,6 +242,10 @@ export function GameProvider(props) {
         shipThree,
         shipFour,
         shipFive,
+        setShipTwo,
+        setShipThree,
+        setShipFour,
+        setShipFive,
         currentShip,
         oppShips,
         setOppShips,
