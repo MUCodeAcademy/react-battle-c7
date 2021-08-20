@@ -1,7 +1,6 @@
-import React, { useState, useContext, useEffect, useMemo } from "react";
-import { Button } from "react-bootstrap";
+
+import React, { useState, useContext, useEffect } from "react";
 import { GameContext } from "../../../shared/context/GameContext";
-import { UserContext, userContext } from "../../../shared/context/UserContext";
 import { useParams } from "react-router-dom";
 
 function BoatCell({ numCells }) {
@@ -32,14 +31,18 @@ function ScoreBoard({ setBoatOrient, boatOrient, sunkShip }) {
     gameActive,
     currentShip,
     oppShips,
+    setOppShips,
     opponentData,
   } = useContext(GameContext);
-  const { username } = useContext(UserContext);
+
   const [isActive, setActive] = useState(false);
-  const [shipTwoStatus, setShipTwoStatus] = useState(false);
-  const [shipThreeStatus, setShipThreeStatus] = useState(false);
-  const [shipFourStatus, setShipFourStatus] = useState(false);
-  const [shipFiveStatus, setShipFiveStatus] = useState(false);
+
+  const [shipTwoStatus, setShipTwoStatus] = useState(oppShips.shipTwoSunk);
+  const [shipThreeStatus, setShipThreeStatus] = useState(
+    oppShips.shipThreeSunk
+  );
+  const [shipFourStatus, setShipFourStatus] = useState(oppShips.shipFourSunk);
+  const [shipFiveStatus, setShipFiveStatus] = useState(oppShips.shipFiveSunk);
 
   let misses = totalGuesses - userHit;
   const { room } = useParams();
@@ -65,18 +68,26 @@ function ScoreBoard({ setBoatOrient, boatOrient, sunkShip }) {
       }
     });
 
-    !shipTwoStatus && count2 === 2
-      ? setShipTwoStatus(true)
-      : setShipTwoStatus(false);
-    !shipThreeStatus && count3 === 3
-      ? setShipThreeStatus(true)
-      : setShipThreeStatus(false);
-    !shipFourStatus && count4 === 4
-      ? setShipFourStatus(true)
-      : setShipFourStatus(false);
-    !shipFiveStatus && count5 === 5
-      ? setShipFiveStatus(true)
-      : setShipFiveStatus(false);
+    if (!shipTwoStatus && count2 === 2) {
+      setShipTwoStatus(true);
+      oppShips.shipTwoSunk = true;
+      setOppShips({ ...oppShips });
+    }
+    if (!shipThreeStatus && count3 === 3) {
+      setShipThreeStatus(true);
+      oppShips.shipThreeSunk = true;
+      setOppShips({ ...oppShips });
+    }
+    if (!shipFourStatus && count4 === 4) {
+      setShipFourStatus(true);
+      oppShips.shipFourSunk = true;
+      setOppShips({ ...oppShips });
+    }
+    if (!shipFiveStatus && count5 === 5) {
+      setShipFiveStatus(true);
+      oppShips.shipFiveSunk = true;
+      setOppShips({ ...oppShips });
+    }
   }, [opponentData, oppShips]);
 
   useEffect(() => {

@@ -34,7 +34,7 @@ function LoginPage() {
             >
               <h2 className="mt-2 text-center">
                 Lucky 7<br />
-                Battleship
+                Water Wars
                 <br />
                 <br />
                 LOG IN
@@ -79,7 +79,7 @@ function LoginPage() {
                     value={password}
                   />
                 </Form.Group>
-
+<div className ="space"></div>
                 {error && <div style={{ color: "red" }}>{error}</div>}
                 {/* {message && <div>{message}</div>} */}
                 <div className="w-100 text-center mt-3">
@@ -109,6 +109,7 @@ function LoginPage() {
                     Login
                   </Button>
                 </div>
+
               </Form>
             </Card.Body>
           </Card>

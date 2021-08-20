@@ -2,6 +2,27 @@
 .heading {
   text-align: center;
 }
+.space {
+height: 4.4em;
+width: 200px;
+}
+.space2 {
+height: 1em;
+width:100%;
+}
+.aboutHead {
+height: 30px;
+width: 100%;
+background: rgb(34,193,195);
+background: linear-gradient(0deg, rgb(8, 8, 7) 2%, rgb(180, 146, 73) 0%, rgb(15, 75, 185) 100%);
+margin-bottom: 20px;
+}
+.aboutBody {
+font-weight: 600;
+}
+.about7 {
+margin-top: 10px;
+}
 .chat {
   overflow-y: scroll;
   height: 250px;
@@ -12,7 +33,6 @@
   width: 30px;
   border: black solid 1px;
 }
-
 .board {
   width: 300px;
   margin: auto;

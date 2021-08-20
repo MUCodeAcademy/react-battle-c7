@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useContext } from "react";
+import { NavLink } from "react-router-dom";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { UserContext } from "../shared/context/UserContext";
 
@@ -19,7 +19,7 @@ export default function Navibar() {
               height="30"
               className="d-inline-block align-top"
             />
-            Lucky 7 Battleship
+            Lucky 7 Water Wars
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">

@@ -1,13 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  Col,
-  Row,
-  Card,
-  Modal,
-  Button,
-  Container,
-  Alert,
-} from "react-bootstrap";
+import { Col, Row, Card, Modal, Button, Alert } from "react-bootstrap";
 import Chat from "./components/Chat";
 import Board from "./components/Board";
 import ScoreBoard from "./components/ScoreBoard";
@@ -18,21 +10,19 @@ import { GameContext } from "../../shared/context/GameContext";
 
 export default function GamePage() {
   const {
-    placeBoat,
     userData,
     opponentData,
     winner,
-    newGame,
+    // newGame,
     isTurn,
     gameActive,
     currentShip,
     userBoatsReady,
   } = useContext(GameContext);
   // modal state and cb functions
-  const [showModal, setShowModal] = useState(winner);
+  const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
-  const { username, isHostCon, setIsHostCon } = useContext(UserContext);
+  const { username, isHostCon } = useContext(UserContext);
   const { room } = useParams();
   const { joinRoom, sendChat, messages, sendGuess, sendBoatsReady, sunkShip } =
     useSocket(room, isHostCon);
@@ -45,7 +35,7 @@ export default function GamePage() {
   }, []);
 
   useEffect(() => {
-    setShowModal(winner);
+    setShowModal(winner !== null);
   }, [winner]);
 
   useEffect(() => {
@@ -62,7 +52,6 @@ export default function GamePage() {
         backdrop="static"
         keyboard={false}
         centered
-        closeButton
       >
         <Modal.Header>
           {winner && winner === "User" ? (

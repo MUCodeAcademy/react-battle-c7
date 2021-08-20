@@ -19,7 +19,7 @@ function SignupPage() {
     <>
       <Container
         className="d-flex align-items-center justify-content-center"
-        // style={{ minHeight: "100vh" }}
+        style={{ minHeight: "100vh" }}
       >
         <div
           className=" justify-content-center"
@@ -36,10 +36,10 @@ function SignupPage() {
             >
               <h2 className="mt-2 text-center">
                 Lucky 7<br />
-                Battleship
+                Water Wars
                 <br />
                 <br />
-                Sign Up
+                SIGN UP
               </h2>
               <Form>
                 <Form.Group id="username">
