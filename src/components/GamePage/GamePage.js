@@ -113,7 +113,7 @@ export default function GamePage() {
       </Modal>
       <div className="bigShell">
         {/* <Card fluid="lg" style={{ backgroundColor: "blue", color: "darkblue" }}> */}
-        <Row lg={1}>
+        <Row>
           <Col style={{ backgroundColor: "gray" }}>
             <Card>
               <Card.Body>
@@ -241,7 +241,7 @@ export default function GamePage() {
           </Col>
         </Row>
 
-        <Row lg={1}>
+        <Row>
           <Col style={{ backgroundColor: "gray" }}>
             <Card>
               <Card.Body>
