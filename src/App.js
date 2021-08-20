@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   BrowserRouter as Router,
   NavLink,
@@ -15,10 +15,21 @@ import WaitingRoom from "./components/WaitingRoom";
 import GamePage from "./components/GamePage/GamePage";
 import Navibar from "./components/Navibar";
 import About from "./components/About";
+import useAxios from "./shared/hooks/useAxios";
 
 function App() {
-  const { logout } = useContext(UserContext);
+  const { logout, setUsername } = useContext(UserContext);
+  const { callAPI: validate } = useAxios("GET");
 
+  useEffect(async () => {
+    //! call validate route
+    const res = await validate("/api/users/validate");
+    console.log("res:", res);
+    if (res.data.success) {
+      setUsername(res.data.data.username);
+    }
+    // log with data.username
+  }, []);
   return (
     <Router>
       <>
@@ -45,8 +56,6 @@ function App() {
             <ProtectedRoute path="/gamepage/:room" reqUser={true}>
               <GamePage />
             </ProtectedRoute>
-
-
 
             <Route path="*">
               <Redirect to="/login" />
