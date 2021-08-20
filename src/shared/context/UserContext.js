@@ -29,8 +29,14 @@ export function UserProvider(props) {
     async function fetchData() {
       const res = await signupCall("/api/users/signup", { username, password });
       if (res.data.success === true) {
-        setUsername(username);
-        setMessage("success");
+        let newRes = await loginCall("/api/users/login", {
+          username,
+          password,
+        });
+        if (res.data.success === true) {
+          setUsername(username);
+          setMessage("Success");
+        }
       } else if (res.data.error) {
         setMessage(res.data.error);
       }
