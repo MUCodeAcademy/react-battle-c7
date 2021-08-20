@@ -6,7 +6,7 @@ import { GameContext } from "../context/GameContext";
 const CHAT_MESSAGE = "chatMessage";
 const SEND_GUESS = "sendGuess";
 const BOATS_READY = "boatsReady";
-const SERVER_URL = "http://localhost:8080";
+const SERVER_URL = "https://react-battle-c7.herokuapp.com/";
 
 const useSocket = (roomNum) => {
   const { username, isHostCon } = useContext(UserContext);
