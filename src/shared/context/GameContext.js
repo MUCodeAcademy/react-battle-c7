@@ -190,6 +190,12 @@ export function GameProvider(props) {
     setOppHit(0);
     setTotalGuesses(0);
     setIsTurn(isHostCon);
+    setOppShips({
+      shipTwoSunk: false,
+      shipThreeSunk: false,
+      shipFourSunk: false,
+      shipFiveSunk: false,
+    })
   }, [
     resetBoards,
     userBoatsReady,
