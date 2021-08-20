@@ -6,8 +6,13 @@ function Chat({ messages, sendChat }) {
   const messageRef = useRef(null);
 
   useEffect(() => {
-    messageRef.current.scrollIntoView({ behavior: "smooth" });
-  });
+    console.log(messageRef.current);
+    try {
+      messageRef.current.scrollTop = messageRef.current.scrollHeight;
+    } catch (err) {
+      console.log(err);
+    }
+  }, [messages]);
 
   return (
     <Container fluid>
@@ -18,7 +23,6 @@ function Chat({ messages, sendChat }) {
               <Card.Text
                 key={i}
                 style={{ color: msg.color }}
-                ref={messageRef}
                 className="chatMargin"
               >{`${msg.username} ${msg.time}: ${msg.msg}`}</Card.Text>
             );
