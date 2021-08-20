@@ -168,6 +168,7 @@ export default function GamePage() {
                   setBoatToPlace={setBoatToPlace}
                   setBoatOrient={setBoatOrient}
                   boatOrient={boatOrient}
+                  sunkShip={sunkShip}
                 />
               </Card.Body>
             </Card>

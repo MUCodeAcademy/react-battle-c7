@@ -151,9 +151,9 @@ const useSocket = (roomNum) => {
     socketRef.current.emit("disconnect", { username });
   }, []);
 
-  // const sunkShip = useCallback((boat) => {
-  //   socketRef.current.emit("sunkShip", { boat });
-  // });
+  const sunkShip = useCallback((boat) => {
+    socketRef.current.emit("sunkShip", { username, boat });
+  });
 
   return {
     messages,
@@ -162,6 +162,7 @@ const useSocket = (roomNum) => {
     sendBoatsReady,
     joinRoom,
     disconnect,
+    sunkShip
   };
 };
 
