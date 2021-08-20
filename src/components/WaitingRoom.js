@@ -68,8 +68,9 @@ const WaitingRoom = () => {
                     style={{ height: "200px", backgroundColor: "lightgray" }}
                   >
                     <Form
-                      onSubmit={(e) => {
+                      onSubmit={async (e) => {
                         e.preventDefault();
+                        await setIsHostCon(false);
                         joinRoom(roomNum);
                       }}
                     >
@@ -96,7 +97,7 @@ const WaitingRoom = () => {
                           style={{ margin: "10px" }}
                         >
                           <Button
-                            onClick={(e) => {
+                            onClick={async (e) => {
                               e.preventDefault();
                               await setIsHostCon(false);
                               joinRoom(roomNum);
