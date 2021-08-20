@@ -110,7 +110,7 @@ function ScoreBoard({ setBoatOrient, boatOrient, sunkShip }) {
       </div>
       {/* conditional render for active play */}
 
-      <div className="shell2">
+      <div className="d-flex align-items-center justify-content-between">
         <div className="ht-ms">
           <div className="title">Score Board</div>
           <div>Hits: {userHit}</div>
@@ -119,21 +119,6 @@ function ScoreBoard({ setBoatOrient, boatOrient, sunkShip }) {
         </div>
         {currentShip >= 2 && (
           <>
-            <div className="d-flex align-items-center">
-              <Button
-                className="rbtn"
-                onClick={() => {
-                  if (boatOrient === "v") {
-                    setBoatOrient("h");
-                  } else {
-                    setBoatOrient("v");
-                  }
-                  setActive((curr) => !curr);
-                }}
-              >
-                Swap Boat Orientation
-              </Button>
-            </div>
             <div className="shell">
               <div className="flexship align-items-center justify-content-center">
                 <div
@@ -145,50 +130,73 @@ function ScoreBoard({ setBoatOrient, boatOrient, sunkShip }) {
                 </div>
               </div>
             </div>
+            <div className="d-flex align-items-center justify-content-between">
+              <Button
+                className="rbtn"
+                onClick={() => {
+                  if (boatOrient === "v") {
+                    setBoatOrient("h");
+                  } else {
+                    setBoatOrient("v");
+                  }
+                  setActive((curr) => !curr);
+                }}
+              >
+                Rotate Boat
+              </Button>
+            </div>
           </>
         )}
-        <div className="shipbox">
-          <div>
-            <img
-              className="size5"
-              src={`${
-                shipFiveStatus ? "/assets/7battleG.png" : "/assets/7battle.png"
-              }`}
-              alt="ship 5"
-            />
-            <div className="ship">5</div>
+        {gameActive && (
+          <div className="shipbox">
+            <div>
+              <img
+                className="size5"
+                src={`${
+                  shipFiveStatus
+                    ? "/assets/7battleG.png"
+                    : "/assets/7battle.png"
+                }`}
+                alt="ship 5"
+              />
+              <div className="ship">5</div>
+            </div>
+            <div>
+              <img
+                className="size4"
+                src={`${
+                  shipFourStatus
+                    ? "/assets/7battleG.png"
+                    : "/assets/7battle.png"
+                }`}
+                alt="ship 4"
+              />
+              <div className="ship">4</div>
+            </div>
+            <div>
+              <img
+                className="size3"
+                src={`${
+                  shipThreeStatus
+                    ? "/assets/7battleG.png"
+                    : "/assets/7battle.png"
+                }`}
+                alt="ship 3"
+              />
+              <div className="ship">3</div>
+            </div>
+            <div>
+              <img
+                className="size2"
+                src={`${
+                  shipTwoStatus ? "/assets/7battleG.png" : "/assets/7battle.png"
+                }`}
+                alt="ship 2"
+              />
+              <div className="ship">2</div>
+            </div>
           </div>
-          <div>
-            <img
-              className="size4"
-              src={`${
-                shipFourStatus ? "/assets/7battleG.png" : "/assets/7battle.png"
-              }`}
-              alt="ship 4"
-            />
-            <div className="ship">4</div>
-          </div>
-          <div>
-            <img
-              className="size3"
-              src={`${
-                shipThreeStatus ? "/assets/7battleG.png" : "/assets/7battle.png"
-              }`}
-              alt="ship 3"
-            />
-            <div className="ship">3</div>
-          </div>
-          <div>
-            <img
-              className="size2"
-              src={`${
-                shipTwoStatus ? "/assets/7battleG.png" : "/assets/7battle.png"
-              }`}
-              alt="ship 2"
-            />
-            <div className="ship">2</div>
-          </div>
-        </div>
+        )}
       </div>
     </>
   );

@@ -1,19 +1,20 @@
-.App {
+.App,
+.heading {
   text-align: center;
 }
 .chat {
   overflow-y: scroll;
-  height: 150px;
+  height: 250px;
   border: black solid 2px;
 }
 .cell {
-  height: 25px;
-  width: 25px;
+  height: 30px;
+  width: 30px;
   border: black solid 1px;
 }
 
 .board {
-  width: 260px;
+  width: 300px;
   margin: auto;
 }
 
@@ -30,7 +31,7 @@
 }
 
 .boat5 .ship-cell {
-  flex-basis: 24.5px;
+  flex-basis: 24.6px;
 }
 
 .ship-cell {
@@ -208,13 +209,6 @@
   margin-right: 0;
 }
 
-.shell2 {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  margin-right: 150px;
-}
-
 .bigshell {
   max-width: 100vw;
 }
@@ -224,9 +218,9 @@
   flex-direction: column;
 }
 
-.rbtn {
+/* .rbtn {
   max-height: 50px;
-}
+} */
 
 .current {
   color: white !important;
