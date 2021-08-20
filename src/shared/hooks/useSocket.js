@@ -111,6 +111,7 @@ const useSocket = (roomNum) => {
   }, []);
 
   const sunkShip = useCallback((boat) => {
+    if (!socketRef.current) return;
     socketRef.current.emit("sunkShip", { username, boat });
   });
 
