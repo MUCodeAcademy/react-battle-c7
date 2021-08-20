@@ -34,10 +34,8 @@ export default function GamePage() {
   const handleShow = () => setShowModal(true);
   const { username, isHostCon, setIsHostCon } = useContext(UserContext);
   const { room } = useParams();
-  const { joinRoom, sendChat, messages, sendGuess, sendBoatsReady, sunkShip } = useSocket(
-    room,
-    isHostCon
-  );
+  const { joinRoom, sendChat, messages, sendGuess, sendBoatsReady, sunkShip } =
+    useSocket(room, isHostCon);
   const [boatToPlace, setBoatToPlace] = useState(null);
   const [boatOrient, setBoatOrient] = useState("v");
   const history = useHistory();
@@ -57,7 +55,7 @@ export default function GamePage() {
   }, [currentShip]);
 
   return (
-    <>
+    <Container fluid>
       <Modal
         show={showModal}
         onHide={handleClose}
@@ -258,6 +256,6 @@ export default function GamePage() {
         </Row>
         {/* </Card> */}
       </div>
-    </>
+    </Container>
   );
 }
