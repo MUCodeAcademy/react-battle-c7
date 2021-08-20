@@ -105,24 +105,26 @@ function ScoreBoard({ setBoatOrient, boatOrient, sunkShip }) {
           <div>Misses: {misses}</div>
           <div>Opponent Hits: {oppHit}</div>
         </div>
-        {!gameActive && (
+        {currentShip >= 2 && (
           <>
-            <Button
-              className="rbtn"
-              onClick={() => {
-                if (boatOrient === "v") {
-                  setBoatOrient("h");
-                  boatToggle();
-                } else {
-                  setBoatOrient("v");
-                  boatToggle();
-                }
-              }}
-            >
-              Swap Orientation
-            </Button>
+            <div className="d-flex align-items-center">
+              <Button
+                className="rbtn"
+                onClick={() => {
+                  if (boatOrient === "v") {
+                    setBoatOrient("h");
+                    boatToggle();
+                  } else {
+                    setBoatOrient("v");
+                    boatToggle();
+                  }
+                }}
+              >
+                Swap Orientation
+              </Button>
+            </div>
             <div className="shell">
-              <div className="flexship">
+              <div className="flexship align-items-center justify-content-center">
                 {currentShip === 5 && (
                   <div
                     className={`${isActive5 ? "boat5" : "boat5v"} ${
