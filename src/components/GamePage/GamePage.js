@@ -18,18 +18,17 @@ import { GameContext } from "../../shared/context/GameContext";
 
 export default function GamePage() {
   const {
-    placeBoat,
     userData,
     opponentData,
     winner,
-    newGame,
+    // newGame,
     isTurn,
     gameActive,
     currentShip,
     userBoatsReady,
   } = useContext(GameContext);
   // modal state and cb functions
-  const [showModal, setShowModal] = useState(winner);
+  const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
   const { username, isHostCon, setIsHostCon } = useContext(UserContext);
@@ -45,7 +44,7 @@ export default function GamePage() {
   }, []);
 
   useEffect(() => {
-    setShowModal(winner);
+    setShowModal(winner !== null);
   }, [winner]);
 
   useEffect(() => {
