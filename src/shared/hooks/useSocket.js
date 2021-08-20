@@ -51,25 +51,6 @@ const useSocket = (roomNum) => {
       setColor(color);
     });
 
-    // socketRef.current.on("sunkShip", ({ boat}) => {
-    //   switch (boat) {
-    //     case 2:
-    //       oppShips.shipTwoSunk = true;
-    //       break;
-    //     case 3:
-    //       oppShips.shipThreeSunk = true;
-    //       break;
-    //     case 4:
-    //       oppShips.shipFourSunk = true;
-    //       break;
-    //     case 5:
-    //       oppShips.shipFiveSunk = true;
-    //       break;
-    //     default:
-    //       break;
-    //   }
-    // });
-
     socketRef.current.on(SEND_GUESS, ({ newGuess, wasHost }) => {
       // newGuess is i (coord)
       // checkHit should be called with i (coord) and user (boolean)

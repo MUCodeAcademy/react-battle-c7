@@ -157,39 +157,6 @@ export function GameProvider(props) {
     ]
   );
 
-  // useEffect(()=>{
-  //   let count2 = 0;
-  //   let count3 = 0;
-  //   let count4 = 0;
-  //   let count5 = 0;
-
-  //   opponentData.map((cell)=>{
-  //     if(cell.ship === 2 && cell.hit)
-  //     {
-  //       count2++;
-        
-  //     }
-  //     if(cell.ship === 3 && cell.hit)
-  //     {
-  //       count3++;
-  //     }
-  //     if(cell.ship === 4 && cell.hit)
-  //     {
-  //       count4++;
-  //     }
-  //     if(cell.ship === 5 && cell.hit)
-  //     {
-  //       count5++;
-  //     }
-  //   })
-
-  //   count2 === 2 ? oppShips.shipTwoSunk = true : oppShips.shipTwoSunk = false;
-  //   count3 === 3 ? oppShips.shipThreeSunk = true : oppShips.shipThreeSunk = false;
-  //   count4 === 4 ? oppShips.shipFourSunk = true : oppShips.shipFourSunk = false;
-  //   count5 === 5 ? oppShips.shipFiveSunk = true : oppShips.shipFiveSunk = false;
-
-  // },[opponentData, oppShips, checkHit])
-
   const checkWin = useCallback(
     (user) => {
       if (user && oppHit === 14) {
