@@ -26,7 +26,7 @@ function App() {
     const res = await validate("/api/users/validate");
     console.log("res:", res);
     if (res.data.success) {
-      setUsername(res.data.username);
+      setUsername(res.data.data.username);
     }
     // log with data.username
   }, []);

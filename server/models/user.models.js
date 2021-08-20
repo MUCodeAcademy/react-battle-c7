@@ -52,14 +52,16 @@ async function login(username, password) {
 async function getByUserID(uuid) {
   let json = { error: null, data: null };
   try {
-    const users = await query(
+    const users = await pool.query(
       "SELECT id, username, uuid FROM users WHERE uuid = $1",
       [uuid]
     );
-    if (users.length === 0) {
+    console.log("users:", users);
+    if (users.rows.length === 0) {
       json.error = "No user found";
     } else {
-      json = { ...json, data: users[0] };
+      let user = users.rows[0];
+      json = { ...json, data: user };
     }
   } catch (err) {
     json.error = "Something went wrong?";
