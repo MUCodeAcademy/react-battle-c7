@@ -18,26 +18,23 @@ import { GameContext } from "../../shared/context/GameContext";
 
 export default function GamePage() {
   const {
-    placeBoat,
     userData,
     opponentData,
     winner,
-    newGame,
+    // newGame,
     isTurn,
     gameActive,
     currentShip,
     userBoatsReady,
   } = useContext(GameContext);
   // modal state and cb functions
-  const [showModal, setShowModal] = useState(winner);
+  const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
   const { username, isHostCon, setIsHostCon } = useContext(UserContext);
   const { room } = useParams();
-  const { joinRoom, sendChat, messages, sendGuess, sendBoatsReady, sunkShip } = useSocket(
-    room,
-    isHostCon
-  );
+  const { joinRoom, sendChat, messages, sendGuess, sendBoatsReady, sunkShip } =
+    useSocket(room, isHostCon);
   const [boatToPlace, setBoatToPlace] = useState(null);
   const [boatOrient, setBoatOrient] = useState("v");
   const history = useHistory();
@@ -47,7 +44,7 @@ export default function GamePage() {
   }, []);
 
   useEffect(() => {
-    setShowModal(winner);
+    setShowModal(winner !== null);
   }, [winner]);
 
   useEffect(() => {
@@ -64,7 +61,6 @@ export default function GamePage() {
         backdrop="static"
         keyboard={false}
         centered
-        closeButton
       >
         <Modal.Header>
           {winner && winner === "User" ? (
