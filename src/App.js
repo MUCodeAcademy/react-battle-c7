@@ -16,51 +16,68 @@ import GamePage from "./components/GamePage/GamePage";
 import Navibar from "./components/Navibar";
 import About from "./components/About";
 import useAxios from "./shared/hooks/useAxios";
+import { useState } from "react";
+import { Spinner, Container } from "react-bootstrap";
 
 function App() {
+  const [loading, setLoading] = useState(true);
   const { setUsername } = useContext(UserContext);
   const { callAPI: validate } = useAxios("GET");
 
   useEffect(async () => {
     //! call validate route
-    const res = await validate("/api/users/validate");
-    if (res.data.success) {
-      setUsername(res.data.data.username);
+    async function validateCall() {
+      const res = await validate("/api/users/validate");
+      if (res.data.success) {
+        setUsername(res.data.data.username);
+      }
+      setLoading(false);
     }
+    validateCall();
     // log with data.username
   }, []);
   return (
     <Router>
       <>
         <Navibar />
+        {loading && (
+          <Container
+            fluid
+            className="d-flex justify-content-center align-items-center"
+            style={{ height: "90vh" }}
+          >
+            <Spinner animation="border" variant="primary" />
+          </Container>
+        )}
+        {!loading && (
+          <main>
+            <Switch>
+              <ProtectedRoute path="/login" reqUser={false}>
+                <LoginPage />
+              </ProtectedRoute>
 
-        <main>
-          <Switch>
-            <ProtectedRoute path="/login" reqUser={false}>
-              <LoginPage />
-            </ProtectedRoute>
+              <ProtectedRoute path="/signup" reqUser={false}>
+                <SignupPage />
+              </ProtectedRoute>
 
-            <ProtectedRoute path="/signup" reqUser={false}>
-              <SignupPage />
-            </ProtectedRoute>
+              <ProtectedRoute path="/waiting" reqUser={true}>
+                <WaitingRoom />
+              </ProtectedRoute>
 
-            <ProtectedRoute path="/waiting" reqUser={true}>
-              <WaitingRoom />
-            </ProtectedRoute>
+              <Route path="/about">
+                <About />
+              </Route>
 
-            <Route path="/about">
-              <About />
-            </Route>
+              <ProtectedRoute path="/gamepage/:room" reqUser={true}>
+                <GamePage />
+              </ProtectedRoute>
 
-            <ProtectedRoute path="/gamepage/:room" reqUser={true}>
-              <GamePage />
-            </ProtectedRoute>
-
-            <Route path="*">
-              <Redirect to="/login" />
-            </Route>
-          </Switch>
-        </main>
+              <Route path="*">
+                <Redirect to="/login" />
+              </Route>
+            </Switch>
+          </main>
+        )}
       </>
     </Router>
   );
