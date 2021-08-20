@@ -1,5 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Col, Row, Card, Modal, Button, Alert } from "react-bootstrap";
+import {
+  Col,
+  Row,
+  Card,
+  Modal,
+  Button,
+  Alert,
+  Container,
+} from "react-bootstrap";
 import Chat from "./components/Chat";
 import Board from "./components/Board";
 import ScoreBoard from "./components/ScoreBoard";

@@ -1,7 +1,7 @@
-
 import React, { useState, useContext, useEffect } from "react";
 import { GameContext } from "../../../shared/context/GameContext";
 import { useParams } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 function BoatCell({ numCells }) {
   const [cells, setCells] = useState([]);
@@ -123,7 +123,7 @@ function ScoreBoard({ setBoatOrient, boatOrient, sunkShip }) {
 
       <div className="d-flex align-items-center justify-content-evenly mb-2">
         <div className="ht-ms">
-          <div className="title">Score Board</div>
+          <div className="title">Scoreboard</div>
           <div>Hits: {userHit}</div>
           <div>Misses: {misses}</div>
           <div>Opponent Hits: {oppHit}</div>
