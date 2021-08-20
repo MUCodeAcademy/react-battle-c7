@@ -18,7 +18,7 @@ import About from "./components/About";
 import useAxios from "./shared/hooks/useAxios";
 
 function App() {
-  const { logout, setUsername } = useContext(UserContext);
+  const { setUsername } = useContext(UserContext);
   const { callAPI: validate } = useAxios("GET");
 
   useEffect(async () => {
