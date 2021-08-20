@@ -34,10 +34,8 @@ export default function GamePage() {
   const handleShow = () => setShowModal(true);
   const { username, isHostCon, setIsHostCon } = useContext(UserContext);
   const { room } = useParams();
-  const { joinRoom, sendChat, messages, sendGuess, sendBoatsReady, sunkShip } = useSocket(
-    room,
-    isHostCon
-  );
+  const { joinRoom, sendChat, messages, sendGuess, sendBoatsReady, sunkShip } =
+    useSocket(room, isHostCon);
   const [boatToPlace, setBoatToPlace] = useState(null);
   const [boatOrient, setBoatOrient] = useState("v");
   const history = useHistory();
@@ -64,7 +62,6 @@ export default function GamePage() {
         backdrop="static"
         keyboard={false}
         centered
-        closeButton
       >
         <Modal.Header>
           {winner && winner === "User" ? (
